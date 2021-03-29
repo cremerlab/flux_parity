@@ -97,9 +97,9 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
         "lines.markeredgewidth": 0.5,
 
         # Grid formatting
-        "grid.linestyle": ':',
-        "grid.linewidth": 0.25,
-        "grid.color": "#c1c1c1",
+        "grid.linestyle": '-',
+        "grid.linewidth": 0.5,
+        "grid.color": "#FFFFFF",
 
         # Title formatting
         "axes.titlesize": 6,
