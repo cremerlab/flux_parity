@@ -92,10 +92,11 @@ def single_nutrient_dynamics(params, time, gamma_max, nu_max, precursor_mass_ref
     out.append(dnutrients_dt)
     return out
 
-def growth_rate(nu_max, gamma_max, phi_R, phi_P, Kd):
+
+def growth_rate(nu_max, gamma_max, phi_R, phi_P, Kd, f_a=0.9):
     term_a = Kd - 1
-    term_b = nu_max * phi_P + gamma_max * phi_R
-    term_c = nu_max * phi_P * gamma_max * phi_R
+    term_b = nu_max * phi_P + gamma_max * phi_R * f_a
+    term_c = nu_max * phi_P * gamma_max * phi_R * f_a
     return (-term_b + np.sqrt(term_b**2 + 4 * term_a * term_c)) / (2 * term_a)
 
 def tRNA_balance(nu_max, phi_P, growth_rate):
@@ -104,9 +105,9 @@ def tRNA_balance(nu_max, phi_P, growth_rate):
 def translation_rate(gamma_max, c_AA, Kd):
     return gamma_max * c_AA  / (c_AA + Kd)
 
-def optimal_phi_R(gamma_max, nu_max, Kd, phi_O):
+def optimal_phi_R(gamma_max, nu_max, Kd, phi_O, f_a=0.9):
     term_a = phi_O - 1
-    term_b = -nu_max * (-2 * Kd * gamma_max + gamma_max + nu_max)
-    term_c = np.sqrt(Kd * gamma_max * nu_max) * (-gamma_max + nu_max)
-    denom = -4 * Kd * gamma_max * nu_max + gamma_max**2 + 2 * gamma_max * nu_max + nu_max**2
+    term_b = -nu_max * (-2 * Kd * gamma_max * f_a  + gamma_max * f_a + nu_max)
+    term_c = np.sqrt(Kd * gamma_max * f_a * nu_max) * (-gamma_max * f_a + nu_max)
+    denom = -4 * Kd * gamma_max * f_a * nu_max + (f_a * gamma_max)**2 + 2 * gamma_max * f_a * nu_max + nu_max**2
     return (term_a * (term_b + term_c)) / denom
