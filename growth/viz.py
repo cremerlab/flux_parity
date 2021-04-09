@@ -171,7 +171,7 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
     else:
         return out
 
-def altair_style(return_colors=True, return_palette=True, **kwargs):
+def altair_style(return_colors=True, return_palette=True, pub=False, **kwargs):
     """
     Assigns the plotting style for matplotlib generated figures. 
     
@@ -181,12 +181,31 @@ def altair_style(return_colors=True, return_palette=True, **kwargs):
         If True, a dictionary of the colors is returned. Default is True.
     return_palette: bool
         If True, a sequential color palette is returned. Default is True.
+    pub: bool    
+        If True, sizes and scales will be adjusted for print formatting
     """
     colors, palette = get_colors(**kwargs)
     if len(palette) == 3:
         primary_palette = palette[2]
     else:
         primary_palette = palette
+    if pub:
+        fontsize_primary = 8
+        fontsize_secondary = 6
+        width_primary = 360
+        height_primary = 240
+        ps = 15
+        lw = 0.5
+        ew = 0.25
+    else:
+        fontsize_primary = 14
+        fontsize_secondary = 10 
+        width_primary = 600
+        height_primary = 400
+        ps=80
+        lw=2
+        ew=0.75
+
     def _theme():
         return {
             'config': {
@@ -196,43 +215,43 @@ def altair_style(return_colors=True, return_palette=True, **kwargs):
                     },
                 'view': {
                     'strokeWidth': 0,
-                    'height': 300,
-                    'width': 400,
+                    'height': height_primary,
+                    'width': width_primary,
                     'fill': '#f0f3f7', #ebeef2', #f8f8fa'
                     },
                 'point': {
-                    'size': 40,
+                    'size': ps,
                     'filled': True,
                     'opacity': 1,
-                    'strokeWidth': 0.75,
+                    'strokeWidth': ew,
                     'stroke': '#FFFFFF'
                     },    
                 'square': {
-                    'size': 40,
+                    'size': ps,
                     'filled': True,
                     'opacity': 1,
-                    'strokeWidth': 0.75,
+                    'strokeWidth': ew,
                     'stroke': '#FFFFFF'
                     },      
                 'circle': {
-                    'size': 40,
+                    'size': ps,
                     'filled': True,
-                    'opacity': 1,
-                    'strokeWidth': 0.75,
-                    'stroke': '#FFFFFF'
+                    'opacity': 0.75,
+                    'strokeWidth': ew,
+                    'stroke': '#f0f3f7'
                     },  
                 'line': {
-                    'size': 2,
+                    'size': lw,
                 },
                 'axis': {
                     'domainColor': '#ffffff', #5b5b5b',
                     'domainWidth': 0.5,
                     'labelColor': '#5b5b5b',
-                    'labelFontSize': 10,
+                    'labelFontSize': fontsize_secondary,
                     'labelFont': 'Nunito',
                     'titleFont': 'Nunito',
                     'titleFontWeight': 700,
-                    'titleFontSize':14,
+                    'titleFontSize':fontsize_primary,
                     'titleColor': '#4b4b4b',
                     # 'titleAnchorX': 'end',
                     'grid': True,
@@ -244,18 +263,18 @@ def altair_style(return_colors=True, return_palette=True, **kwargs):
                     'category': primary_palette
                 },
                 'legend': {
-                    'labelFontSize': 14,
+                    'labelFontSize': fontsize_secondary,
                     'labelFont': 'Nunito',
                     'titleFont': 'Nunito',
-                    'titleFontSize': 14,
+                    'titleFontSize': fontsize_primary,
                     'titleFontWeight': 700,
                     'titleFontColor': '#44b4b4b',
-                    'symbolSize': 75,
+                    'symbolSize': ps,
                 },
                 'title' : { 
                     'font': 'Nunito',
                     'fontWeight': 700,
-                    'fontSize': 14,
+                    'fontSize': fontsize_primary,
                     'fontColor': '#4b4b4b',
                     # 'anchor': 'start',
                 }

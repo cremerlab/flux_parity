@@ -7,7 +7,7 @@ import altair as alt
 import imp 
 imp.reload(growth.model)
 imp.reload(growth.viz)
-colors, palette = growth.viz.altair_style()
+colors, palette = growth.viz.altair_style(pub=True)
 
 # Define the translational parameters
 gamma_max = (17.1 * 3600) / 7459 # per hr
@@ -36,7 +36,7 @@ for i, nu in enumerate(nu_max):
     phi_R_opt = growth.model.optimal_phi_R(gamma_max, nu, Kd, phi_O)
     _phi_P = 1 - phi_O - phi_R_opt
     _opt_growth = growth.model.growth_rate(nu, gamma_max, phi_R_opt, _phi_P, Kd)
-    _opt_cAA = growth.model.tRNA_balance(nu, _phi_P, _opt_growth) 
+    _opt_cAA = growth.model.sstRNA_balance(nu, _phi_P, gamma_max, phi_R_opt, Kd, fa=f) 
     _opt_gamma = growth.model.translation_rate(gamma_max, _opt_cAA, Kd)
     _opt_dict = {'nu': nu, 'growth_rate':_opt_growth, 'cAA':_opt_cAA,
                  'gamma':_opt_gamma * 7459 / 3600, 'phi_R':phi_R_opt}

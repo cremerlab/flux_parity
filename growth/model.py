@@ -1,7 +1,16 @@
 import numpy as np 
 
-def single_nutrient_dynamics(params, time, gamma_max, nu_max, precursor_mass_ref, 
-                             Km, omega, phi_R, phi_P, num_muts=1, volume=1E-3):
+def single_nutrient_dynamics(params, 
+                             time, 
+                             nu_max, 
+                             omega,
+                             gamma_max=9.65, 
+                             Kd=0.0025, 
+                             Km=5E-6,
+                             phi_R=0.2, 
+                             phi_P=0.5, 
+                             num_muts=1, 
+                             volume=1E-3):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
     accumulation of biomass on a single nutrient source. 
@@ -59,7 +68,7 @@ def single_nutrient_dynamics(params, time, gamma_max, nu_max, precursor_mass_ref
     """
     # Define constants 
     AVO = 6.022E23
-    OD_CONV = 6E17
+
     #TODO: Put in data validation
         
     # Unpack the parameters
@@ -70,25 +79,24 @@ def single_nutrient_dynamics(params, time, gamma_max, nu_max, precursor_mass_ref
         M, Mr, Mp, precursors, nutrients = params
 
     # Compute the precursor mass fraction and nutrient concentration
-    precursor_mass_frac = precursors / M
-    nutrient_conc = nutrients / (AVO * volume)
+    precursor_mass_frac = precursors 
 
     # Compute the two capacities
-    gamma = gamma_max * precursor_mass_frac / (precursor_mass_frac + precursor_mass_ref)
-    nu = nu_max * nutrient_conc / (nutrient_conc + Km)
+    gamma = gamma_max * precursor_mass_frac / (precursor_mass_frac + Kd)
+    nu = nu_max * nutrients / (nutrients + Km)
 
     # ODEs for biomass accumulation
     dM_dt = gamma * Mr
     dMr_dt = phi_R * dM_dt
     dMp_dt = phi_P * dM_dt
     # ODE for precursors and nutrients
-    dprecursors_dt = nu * Mp - dM_dt
-    dnutrients_dt = -nu * Mp/ omega
+    dprecursors_dt = (nu * Mp - (1 + precursor_mass_frac) * dM_dt) / M
+    dnutrients_dt = -nu * Mp/omega 
 
-    _out = [dM_dt, dMr_dt, dMp_dt, dprecursors_dt]
+    out = [dM_dt, dMr_dt, dMp_dt, dprecursors_dt]
     if num_muts > 1:
         dnutrients_dt = np.sum(dnutrients_dt)
-        out = [value for deriv in _out for value in deriv]
+        out = [value for deriv in out for value in deriv]
     out.append(dnutrients_dt)
     return out
 
@@ -101,6 +109,10 @@ def growth_rate(nu_max, gamma_max, phi_R, phi_P, Kd, f_a=0.9):
 
 def tRNA_balance(nu_max, phi_P, growth_rate):
     return (nu_max * phi_P / growth_rate) - 1
+
+def sstRNA_balance(nu_max, phi_P, gamma_max, phi_R, Kd, f_a=1):
+    alpha = (f_a * phi_R  * gamma_max) / (nu_max * phi_P)
+    return ((1 - alpha) + np.sqrt((alpha - 1)**2 + 4 * Kd * alpha))  / (2 * alpha) 
 
 def translation_rate(gamma_max, c_AA, Kd):
     return gamma_max * c_AA  / (c_AA + Kd)
