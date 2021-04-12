@@ -1,15 +1,14 @@
 #%%
 import numpy as np 
 import pandas as pd 
-import altair as alt 
-from altair_saver import save
+import matplotlib.pyplot as plt
 import scipy.integrate
 import tqdm
 import growth.viz 
 import imp
 import growth.model
-alt.data_transformers.disable_max_rows()
-colors, palette = growth.viz.altair_style(pub=True)
+import seaborn as sns
+colors, palette = growth.viz.matplotlib_style()
 imp.reload(growth.model)
 
 # Define the parameters
@@ -22,7 +21,7 @@ Km_0 = 1E5 # microgram glucose per liter
 
 Km = (Km_0 * 1E-6) / (180.16)
 phi_O = 0.35
-phi_R = 0.4
+phi_R = 0.3
 phi_P = 1 - phi_R - phi_O
 M0 = 0.1 * OD_CONV
 M_P = phi_P * M0
@@ -30,6 +29,7 @@ M_R = phi_R * M0
 c_AA = 0.001
 c_N = .010
 omega = 0.377 # * OD_CONV
+
 
 def dynamics(params, t, gamma_max, nu_max, Kd, Km, omega, phi_R, phi_P):
     # Unpack parameters
@@ -69,36 +69,93 @@ for i, nu in enumerate(tqdm.tqdm(nu_range)):
     _df['c_n'] = _df['c_n'] / c_N
     _df['rel_biomass'] = _df['biomass'].values / M0
     _df['time'] = time_range * gamma_max
-    _df['nu'] = nu
+    _df['gamma'] =  (_df['c_aa'].values / (_df['c_aa'].values + Kd)) 
+    _df['nu'] =  (_df['c_n'].values / (_df['c_n'].values + Km))
+    _df['nu_max'] = nu
     dfs.append(_df)
 df = pd.concat(dfs)
 #%%
-w, h = 150, 100 
-lw = 1
-scheme='magma'
-biomass = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
-            x=alt.X('time:Q', title='time / γ_max'),
-            y=alt.Y('rel_biomass:Q', title='relative biomass [M(t) / M0]',
-                    scale=alt.Scale(type='log')),
-            color=alt.Color('nu:Q', title='ν_max [T^-1]',
-                            scale=alt.Scale(scheme=scheme, reverse=True))
-)
 
-caa = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
-          x=alt.X('time:Q', title='time x γ_max'),
-          y=alt.Y('c_aa:Q', title='precursor concentration [m_AA / M]',
-                  scale=alt.Scale(domain=[0, 0.04])),
-          color=alt.Color('nu:Q', title='ν_max [T^-1]',
-                        scale=alt.Scale(scheme=scheme, reverse=True)))
+# Define the colors
+cmap = sns.color_palette(f"mako_r", n_colors=len(nu_range) + 5)
+cmap
 
-nuts = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
-        x=alt.X('time:Q', title='time x γ_max'),
-        y=alt.Y('c_n:Q', title='relative nutrient concentration',
-                axis=alt.Axis(format='%'), scale=alt.Scale(domain=[0, 1.05])),
-        color=alt.Color('nu:Q', title='ν_max [T^-1]',
-                   scale=alt.Scale(scheme=scheme, reverse=True))
-)
+fig, ax = plt.subplots(3, 2, figsize=(3.5, 5))
+ax[0, 0].axis('off')
+ax[0, 1].set_yscale('log')
+for a in ax.ravel():
+    a.set_xlabel(r'time $\times \gamma_{max}$')
 
-layer = biomass & (caa | nuts)
-save(biomass & (caa | nuts), '../../docs/figures/Fig2_integrated_dynamics_plots.pdf')
-# %%
+# Add other lables
+ax[0,1].set(title='biomass, $M$',
+            ylabel=r'$M_t /  M_0$')
+ax[1,0].set(title='translational capacity, $\gamma$',
+            ylabel=r'$\gamma_t /  \gamma_{max}$')
+ax[1,1].set(title=r'nutritional capacity, $\nu$',
+            ylabel=r'$\nu_t /  \nu_{max}$')
+ax[2,0].set(title='charged-tRNA concentration, $c_{AA}$',
+            ylabel=r'$m_{AA} / M$')
+ax[2,1].set(title='nutrient concentration, $c_N$',
+            ylabel=r'$c_{N,t} / c_{N,0}$')
+
+# Add panel lablels
+fig.text(0.01, 0.99, '[A]', fontsize=8, fontweight='bold')
+fig.text(0.5, 0.99, '[B]', fontsize=8, fontweight='bold')
+fig.text(0.01, 0.645, '[C]', fontsize=8, fontweight='bold')
+fig.text(0.5, 0.645, '[D]', fontsize=8, fontweight='bold')
+fig.text(0.01, 0.32, '[E]', fontsize=8, fontweight='bold')
+fig.text(0.5, 0.32, '[F]', fontsize=8, fontweight='bold')
+
+count = 0
+for g, d in df.groupby('nu_max'):
+    ax[0, 1].plot(d['time'], d['rel_biomass'], '-', color=cmap[count])
+    ax[1, 0].plot(d['time'], d['gamma'], '-', color=cmap[count])
+    ax[1, 1].plot(d['time'], d['nu'], '-', color=cmap[count])
+    ax[2, 0].plot(d['time'], d['c_aa'], color=cmap[count])
+    ax[2, 1].plot(d['time'], d['c_n'], color=cmap[count])
+    count += 1
+plt.tight_layout()
+plt.savefig('../../docs/figures/Fig2_integrated_dynamics_plots.pdf')
+#%%
+# w, h = 75, 75
+# lw =0.5 
+# scheme='magma'
+# biomass = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
+#             x=alt.X('time:Q'),
+#             y=alt.Y('rel_biomass:Q',
+#                     scale=alt.Scale(type='log')),
+#             color=alt.Color('nu_max:Q', title='ν_max [T^-1]',
+#                             scale=alt.Scale(scheme=scheme, reverse=True))
+# )
+
+# caa = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
+#           x=alt.X('time:Q'),
+#           y=alt.Y('c_aa:Q', scale=alt.Scale(domain=[0, 0.1])),
+#           color=alt.Color('nu_max:Q', title='ν_max [T^-1]',
+#                         scale=alt.Scale(scheme=scheme, reverse=True)))
+
+# nuts = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
+#         x=alt.X('time:Q'),
+#         y=alt.Y('c_n:Q',
+#                 axis=alt.Axis(format='%'), scale=alt.Scale(domain=[0, 1.05])),
+#         color=alt.Color('nu_max:Q', 
+#                    scale=alt.Scale(scheme=scheme, reverse=True))
+# )
+
+# gamma = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
+#         x=alt.X('time:Q'),
+#         y=alt.Y('gamma:Q', scale=alt.Scale(domain=[0, 1])),
+#         color=alt.Color('nu_max:Q', 
+#                    scale=alt.Scale(scheme=scheme, reverse=True))
+# )
+
+# nu = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
+#         x=alt.X('time:Q'),
+#         y=alt.Y('nu:Q'),
+#         color=alt.Color('nu_max:Q', 
+#                    scale=alt.Scale(scheme=scheme, reverse=True))
+# )
+# layer = biomass & (caa | nuts) & (gamma | nu)
+# layer
+# # save(biomass & (caa | nuts) & (gamma | nu), '/Users/gchure/Desktop/integrations.pdf')
+# # %%

@@ -105,13 +105,13 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
         "axes.titlesize": 6,
         "axes.titleweight": 700,
         "axes.titlepad": 3,
-        "axes.titlelocation": "left",
+        "axes.titlelocation": "center",
 
         # Axes label formatting. 
         "axes.labelpad": 0,
         "axes.labelweight": 700,
-        "xaxis.labellocation": "right",
-        "yaxis.labellocation": "top",
+        "xaxis.labellocation": "center",
+        "yaxis.labellocation": "center",
         "axes.labelsize": 6,
         "axes.xmargin": 0.03,
         "axes.ymargin": 0.03,
