@@ -26,47 +26,24 @@ phi_P = 1 - phi_R - phi_O
 M0 = 0.1 * OD_CONV
 M_P = phi_P * M0
 M_R = phi_R * M0
-c_AA = 0.001
-c_N = .010
+m_AA = 0.01 * M0
+m_N = 0.010 * 6.022E23 * 1E-3 
 omega = 0.377 # * OD_CONV
 
 
-def dynamics(params, t, gamma_max, nu_max, Kd, Km, omega, phi_R, phi_P):
-    # Unpack parameters
-    M, M_r, M_p, c_AA, c_N = params
-
-    # Compute the number of precursors and the number of nutrients
-    m_AA = c_AA * M
-    m_N = c_N * 6.022E23 * 1E-3
-
-    # Compute the capacities
-    gamma = gamma_max * (c_AA / (c_AA + Kd))
-    nu = nu_max * (c_N / (c_N + Km))
-
-    # Biomass accumulation
-    dM_dt = gamma * M_r
-
-    # Resource allocation
-    dMr_dt = phi_R * dM_dt
-    dMp_dt = phi_P * dM_dt
-
-    # Precursor dynamics
-    dmAA_dt = nu * M_p - (1 + c_AA) * dM_dt
-    dmN_dt = -nu * M_p / omega
-    dcAA_dt = dmAA_dt / M
-    dcN_dt = dmN_dt / (AVO * 1E-3)
-
-    return [dM_dt, dMr_dt, dMp_dt, dcAA_dt, dcN_dt]
-
 dfs = []
-nu_range = np.linspace(0, 10, 25)
+nu_range = np.linspace(0.005, 10, 25)
 time_range = np.linspace(0, 5, 300)
 for i, nu in enumerate(tqdm.tqdm(nu_range)):
-    params = [M0, M_R, M_P, c_AA, c_N] 
-    args = (gamma_max, nu, Kd, Km, omega, phi_R, phi_P)
-    out = scipy.integrate.odeint(dynamics, params, time_range, args=args)
-    _df = pd.DataFrame(out, columns=['biomass', 'ribos', 'metabs', 'c_aa', 'c_n'])
-    _df['c_n'] = _df['c_n'] / c_N
+    params = [M0, M_R, M_P, m_AA, m_N] 
+    args = (gamma_max, nu, omega, phi_R, phi_P, Kd, Km)
+
+    out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator, 
+                                params, time_range, args=args)
+    _df = pd.DataFrame(out, columns=['biomass', 'ribos', 'metabs', 'm_aa', 'm_n'])
+    _df['c_n'] = _df['m_n'].values / (6.022E23 * 1E-3)
+    _df['m_n'] = _df['m_n'] / m_N
+    _df['c_aa'] = _df['m_aa'].values / _df['biomass'].values
     _df['rel_biomass'] = _df['biomass'].values / M0
     _df['time'] = time_range * gamma_max
     _df['gamma'] =  (_df['c_aa'].values / (_df['c_aa'].values + Kd)) 
@@ -75,7 +52,6 @@ for i, nu in enumerate(tqdm.tqdm(nu_range)):
     dfs.append(_df)
 df = pd.concat(dfs)
 #%%
-
 # Define the colors
 cmap = sns.color_palette(f"mako_r", n_colors=len(nu_range) + 5)
 cmap
@@ -115,47 +91,6 @@ for g, d in df.groupby('nu_max'):
     ax[2, 1].plot(d['time'], d['c_n'], color=cmap[count])
     count += 1
 plt.tight_layout()
-plt.savefig('../../docs/figures/Fig2_integrated_dynamics_plots.pdf')
-#%%
-# w, h = 75, 75
-# lw =0.5 
-# scheme='magma'
-# biomass = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
-#             x=alt.X('time:Q'),
-#             y=alt.Y('rel_biomass:Q',
-#                     scale=alt.Scale(type='log')),
-#             color=alt.Color('nu_max:Q', title='ν_max [T^-1]',
-#                             scale=alt.Scale(scheme=scheme, reverse=True))
-# )
+# plt.savefig('../../docs/figures/Fig2_integrated_dynamics_plots.pdf')
 
-# caa = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
-#           x=alt.X('time:Q'),
-#           y=alt.Y('c_aa:Q', scale=alt.Scale(domain=[0, 0.1])),
-#           color=alt.Color('nu_max:Q', title='ν_max [T^-1]',
-#                         scale=alt.Scale(scheme=scheme, reverse=True)))
-
-# nuts = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
-#         x=alt.X('time:Q'),
-#         y=alt.Y('c_n:Q',
-#                 axis=alt.Axis(format='%'), scale=alt.Scale(domain=[0, 1.05])),
-#         color=alt.Color('nu_max:Q', 
-#                    scale=alt.Scale(scheme=scheme, reverse=True))
-# )
-
-# gamma = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
-#         x=alt.X('time:Q'),
-#         y=alt.Y('gamma:Q', scale=alt.Scale(domain=[0, 1])),
-#         color=alt.Color('nu_max:Q', 
-#                    scale=alt.Scale(scheme=scheme, reverse=True))
-# )
-
-# nu = alt.Chart(df, width=w, height=h).mark_line(size=lw).encode(
-#         x=alt.X('time:Q'),
-#         y=alt.Y('nu:Q'),
-#         color=alt.Color('nu_max:Q', 
-#                    scale=alt.Scale(scheme=scheme, reverse=True))
-# )
-# layer = biomass & (caa | nuts) & (gamma | nu)
-# layer
-# # save(biomass & (caa | nuts) & (gamma | nu), '/Users/gchure/Desktop/integrations.pdf')
-# # %%
+# %%
