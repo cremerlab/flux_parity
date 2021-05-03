@@ -5,11 +5,10 @@ import matplotlib.pyplot as plt
 import scipy.integrate
 import tqdm
 import growth.viz 
-import imp
 import growth.model
 import seaborn as sns
 colors, palette = growth.viz.matplotlib_style()
-imp.reload(growth.model)
+
 
 # Define the parameters
 AVO = 6.022E23
@@ -65,9 +64,9 @@ for a in ax.ravel():
 # Add other lables
 ax[0,1].set(title='biomass, $M$',
             ylabel=r'$M_t /  M_0$')
-ax[1,0].set(title='translational capacity, $\gamma$',
+ax[1,0].set(title='translational efficiency, $\gamma$',
             ylabel=r'$\gamma_t /  \gamma_{max}$')
-ax[1,1].set(title=r'nutritional capacity, $\nu$',
+ax[1,1].set(title=r'nutritional efficiency, $\nu$',
             ylabel=r'$\nu_t /  \nu_{max}$')
 ax[2,0].set(title='charged-tRNA concentration, $c_{AA}$',
             ylabel=r'$m_{AA} / M$')
@@ -91,6 +90,6 @@ for g, d in df.groupby('nu_max'):
     ax[2, 1].plot(d['time'], d['c_n'], color=cmap[count])
     count += 1
 plt.tight_layout()
-# plt.savefig('../../docs/figures/Fig2_integrated_dynamics_plots.pdf')
+plt.savefig('../../figures/Fig2_integrated_dynamics_plots.pdf')
 
 # %%

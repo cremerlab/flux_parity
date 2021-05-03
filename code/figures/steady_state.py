@@ -56,7 +56,7 @@ ax[2].set_ylabel('growth rate $\lambda$ [hr$^{-1}$]')
 ax[1].set_xscale('log')
 
 line_palette = sns.color_palette('mako_r', n_colors=len(nu_range) + 5)
-point_palette = sns.color_palette('magma_r', n_colors=len(nu_range) + 5)
+point_palette = sns.color_palette('magma', n_colors=len(nu_range) + 5)
 
 counter = 0
 for g, d in ss_df.groupby('nu'):
@@ -67,13 +67,16 @@ for g, d in ss_df.groupby('nu'):
 
 counter =0
 for g, d in opt_df.groupby('nu_max'):
-    ax[0].plot(d['opt_phi_R'], d['opt_growth_rate'], 'o', markeredgecolor='w', ms=4, markeredgewidth=0.25, color=palette[counter])
-    ax[1].plot(d['opt_cAA'], d['opt_growth_rate'], 'o',  ms=4, markeredgecolor='w', markeredgewidth=0.25, color=palette[counter])
-    ax[2].plot(d['opt_gamma'], d['opt_growth_rate'], 'o',  ms=4, markeredgecolor='w', markeredgewidth=0.25, color=palette[counter])
+    ax[0].plot(d['opt_phi_R'], d['opt_growth_rate'], 'o', markeredgecolor='w', 
+                 ms=4, markeredgewidth=0.25, color=point_palette[counter])
+    ax[1].plot(d['opt_cAA'], d['opt_growth_rate'], 'o',  ms=4, 
+                markeredgecolor='w', markeredgewidth=0.25, color=point_palette[counter])
+    ax[2].plot(d['opt_gamma'], d['opt_growth_rate'], 'o',  ms=4, 
+               markeredgecolor='w', markeredgewidth=0.25, color=point_palette[counter])
     counter += 1
 
 plt.tight_layout()
-plt.savefig('../../docs/figures/FigX_steady_state_plots.pdf')
+# plt.savefig('../../docs/figures/FigX_steady_state_plots.pdf')
 # %%
 
 data = pd.read_csv('../../../data/')
