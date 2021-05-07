@@ -183,9 +183,16 @@ def sstRNA_balance(nu_max, phi_P, gamma_max, phi_R, Kd, f_a=1):
 def translation_rate(gamma_max, c_AA, Kd):
     return gamma_max * c_AA  / (c_AA + Kd)
 
-def optimal_phi_R(gamma_max, nu_max, Kd, phi_O, f_a=0.9):
+def phi_R_optimal_allocation(gamma_max, nu_max, Kd, phi_O, f_a=1):
     term_a = phi_O - 1
     term_b = -nu_max * (-2 * Kd * gamma_max * f_a  + gamma_max * f_a + nu_max)
     term_c = np.sqrt(Kd * gamma_max * f_a * nu_max) * (-gamma_max * f_a + nu_max)
     denom = -4 * Kd * gamma_max * f_a * nu_max + (f_a * gamma_max)**2 + 2 * gamma_max * f_a * nu_max + nu_max**2
     return (term_a * (term_b + term_c)) / denom
+
+def phi_R_max_translation(gamma_max, nu_max, phi_O, f_a=1):
+    numer = nu_max * (phi_O - 1)
+    denom = f_a * gamma_max + nu_max
+    return -numer / denom
+
+
