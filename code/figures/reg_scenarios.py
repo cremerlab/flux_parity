@@ -85,4 +85,5 @@ ax[1].plot(elong_data['growth_rate_hr'], elong_data['elongation_rate_aa_s'], 'o'
 plt.savefig('../../figures/reg_scenarios_with_data.pdf')
 
 # %%
+fig, ax = plt.subplots(1, 2)
 
