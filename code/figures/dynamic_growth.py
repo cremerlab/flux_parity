@@ -9,13 +9,12 @@ import growth.model
 import seaborn as sns
 colors, palette = growth.viz.matplotlib_style()
 
-
 # Define the parameters
 AVO = 6.022E23
 VOL = 1E-3
 OD_CONV = 1 / (7.7E-18)
 gamma_max = 20 * 3600 / 7459 # Ribosomes per hr
-Kd = 0.0013 * 20 
+Kd = 0.02
 Km_0 = 1E5 # microgram glucose per liter
 
 Km = (Km_0 * 1E-6) / (180.16)
@@ -25,7 +24,7 @@ phi_P = 1 - phi_R - phi_O
 M0 = 0.1 * OD_CONV
 M_P = phi_P * M0
 M_R = phi_R * M0
-m_AA = 0.01 * M0
+m_AA = 0.001 * M0
 m_N = 0.010 * 6.022E23 * 1E-3 
 omega = 0.377 # * OD_CONV
 
@@ -52,8 +51,7 @@ for i, nu in enumerate(tqdm.tqdm(nu_range)):
 df = pd.concat(dfs)
 #%%
 # Define the colors
-cmap = sns.color_palette(f"mako_r", n_colors=len(nu_range) + 5)
-cmap
+cmap = sns.color_palette(f"mako", n_colors=len(nu_range) + 5)
 
 fig, ax = plt.subplots(3, 2, figsize=(3.5, 5))
 ax[0, 0].axis('off')
