@@ -102,7 +102,7 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
         "grid.color": "#FFFFFF",
 
         # Title formatting
-        "axes.titlesize": 6,
+        "axes.titlesize": 8,
         "axes.titleweight": 700,
         "axes.titlepad": 3,
         "axes.titlelocation": "center",
@@ -112,22 +112,22 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
         "axes.labelweight": 700,
         "xaxis.labellocation": "center",
         "yaxis.labellocation": "center",
-        "axes.labelsize": 6,
+        "axes.labelsize": 8,
         "axes.xmargin": 0.03,
         "axes.ymargin": 0.03,
 
         # Legend formatting
-        "legend.fontsize": 5,
+        "legend.fontsize": 6,
         "legend.labelspacing": 0.25,
-        "legend.title_fontsize": 5,
+        "legend.title_fontsize": 6,
         "legend.frameon": True,
         "legend.edgecolor": "#5b5b5b",
 
         # Tick formatting
         "xtick.color": "#5b5b5b",
         "ytick.color": "#5b5b5b",
-        "xtick.labelsize": 5,
-        "ytick.labelsize": 5,
+        "xtick.labelsize": 6,
+        "ytick.labelsize": 6,
         "xtick.major.size": 0,
         "ytick.major.size": 0,
         "xtick.major.width": 0.25,

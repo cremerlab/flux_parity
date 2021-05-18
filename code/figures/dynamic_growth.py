@@ -60,15 +60,15 @@ for a in ax.ravel():
     a.set_xlabel(r'time $\times \gamma_{max}$')
 
 # Add other lables
-ax[0,1].set(title='biomass, $M$',
+ax[0,1].set(title='total biomass',
             ylabel=r'$M_t /  M_0$')
-ax[1,0].set(title='translational efficiency, $\gamma$',
+ax[1,0].set(title='translational efficiency',
             ylabel=r'$\gamma_t /  \gamma_{max}$')
 ax[1,1].set(title=r'nutritional efficiency, $\nu$',
             ylabel=r'$\nu_t /  \nu_{max}$')
-ax[2,0].set(title='charged-tRNA concentration, $c_{AA}$',
+ax[2,0].set(title='charged-tRNA concentration',
             ylabel=r'$m_{AA} / M$')
-ax[2,1].set(title='nutrient concentration, $c_N$',
+ax[2,1].set(title='nutrient concentration',
             ylabel=r'$c_{N,t} / c_{N,0}$')
 
 # Add panel lablels
@@ -87,7 +87,8 @@ for g, d in df.groupby('nu_max'):
     ax[2, 0].plot(d['time'], d['c_aa'], color=cmap[count])
     ax[2, 1].plot(d['time'], d['c_n'], color=cmap[count])
     count += 1
-plt.tight_layout()
-plt.savefig('../../figures/Fig2_integrated_dynamics_plots.pdf')
+
+plt.subplots_adjust(wspace=0.2, hspace=0.2)
+# plt.savefig('../../figures/presentations/Fig2_integrated_dynamics_plots.pdf')
 
 # %%
