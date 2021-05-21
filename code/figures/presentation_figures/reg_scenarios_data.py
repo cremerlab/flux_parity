@@ -51,7 +51,7 @@ opt_allo_tRNA = growth.model.steady_state_tRNA_balance(nu_max, 1 - phi_O - opt_p
                                                         opt_allo_lam)
 opt_allo_gamma = growth.model.translation_rate(gamma_max, opt_allo_tRNA, Kd) 
 
-fig, ax = plt.subplots(1, 2, figsize=(4, 2))
+fig, ax = plt.subplots(1, 2, figsize=(6, 2))
 
 for a in ax:
     a.set_xlabel('growth rate [hr$^{-1}$]')
@@ -84,7 +84,7 @@ if SHOW_DATA:
 ax[1].plot(const_phiR_lam, const_phiR_gamma * (7459/3600), '-', lw=1, color=colors['primary_purple'])
 ax[1].plot(max_gamma_lam, gamma_max * np.ones(len(max_gamma_lam)) * (7459/3600), lw=1, color=colors['primary_green'], label='maximal elongation rate')
 ax[1].plot(opt_allo_lam, opt_allo_gamma * (7459/3600), '-', lw=1, color=colors['primary_blue'], label='maximal growth rate')
-ax[0].legend(bbox_to_anchor = (2.2,1.3), ncol=3, handlelength=1, handletextpad=0.5,
+ax[0].legend(bbox_to_anchor = (1.6,1.3), ncol=3, handlelength=1, handletextpad=0.5,
             fontsize=5)
 plt.subplots_adjust(wspace=0.3)
 
