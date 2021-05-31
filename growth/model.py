@@ -9,6 +9,7 @@ def batch_culture_self_replicator(params,
                            phi_P,
                            Kd=0.025, 
                            Km=5E-4,
+                           dil_approx=False,
                            num_muts=1,
                            vol=1E-3):
     """
@@ -25,10 +26,9 @@ def batch_culture_self_replicator(params,
             Ribosomal protein biomass of the system
         M_p : positive float, must be < M
             Metabbolic protein biomass of the system 
-        m_AA : positive float
-            Total mass of precursors in the culture. This is normalized to 
-            total protein biomass when calculating the translational 
-            capacity.
+        c_AA : positive float
+            Concentration of precursors in the culture. This is normalized to 
+            total protein biomass.
         m_N : positive float
             Total mass of nutrients in the system.
     time : float
@@ -50,6 +50,9 @@ def batch_culture_self_replicator(params,
     Km : positive float
         The Monod constant for growth on the specific nutrient source. 
         This is in units of molar.
+    dil_approx: bool
+        If True, then the approximation is made that the dilution of charged-tRNAs
+        with growing biomass is negligible.
     num_muts: int
         The number of mutants whose dynamics need to be tracked.
     vol: float, default 1 mL
@@ -63,7 +66,7 @@ def batch_culture_self_replicator(params,
         dM_dt : The dynamics of the total protein biomass.
         dMr_dt : The dynamics of the ribosomal protein biomass.
         dMp_dt : the dynamics of the metabolic protein biomass.
-        dmAA_dt : The dynamics of the charged-tRNA pool.
+        dcAA_dt : The dynamics of the charged-tRNA concentration.
         dmN_dt :  The dynamics of the nutrient mass in the growth medium
     """
 
@@ -73,12 +76,12 @@ def batch_culture_self_replicator(params,
     # Unpack the parameters
     if num_muts > 1:
         m_N = params[-1]
-        M, M_r, M_p, m_A = np.reshape(params[:-1], (4, num_muts))
+        M, M_r, M_p, c_AA = np.reshape(params[:-1], (4, num_muts))
     else: 
-        M, M_r, M_p, m_AA, m_N = params
+        M, M_r, M_p, c_AA, m_N = params
 
     # Compute the number of precursors and the number of nutrients
-    c_AA = m_AA / M
+    # c_AA = m_AA / M # From previous approach
     c_N = m_N / (AVO * vol) 
 
     # Compute the capacities
@@ -93,11 +96,14 @@ def batch_culture_self_replicator(params,
     dMp_dt = phi_P * dM_dt
 
     # Precursor dynamics
-    dmAA_dt = nu * M_p - (1 + c_AA) * dM_dt
+    if dil_approx:
+        dcAA_dt = (nu * M_p - dM_dt) / M
+    else:
+        dcAA_dt = (nu * M_p - (1 + c_AA) * dM_dt) / M
     dmN_dt = -nu * M_p / omega
 
     # Pack and return the output.
-    out = [dM_dt, dMr_dt, dMp_dt, dmAA_dt]
+    out = [dM_dt, dMr_dt, dMp_dt, dcAA_dt]
     if num_muts > 1:
         dmN_dt = np.sum(dmN_dt)
         out = [value for deriv in out for value in deriv]

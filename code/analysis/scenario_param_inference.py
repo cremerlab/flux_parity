@@ -7,9 +7,9 @@ import arviz as az
 
 # Load the datasets 
 frac_data = pd.read_csv('../../data/mass_fraction_compiled.csv')
-frac_data = frac_data[frac_data['growth_rate_hr'] >= 0.5]
+# frac_data = frac_data[frac_data['growth_rate_hr'] >= 0.5]
 elong_data = pd.read_csv('../../data/dai2016_elongation_rate.csv')
-elong_data = elong_data[elong_data['growth_rate_hr'] >= 0.5]
+# elong_data = elong_data[elong_data['growth_rate_hr'] >= 0.5]
 
 # Merge 
 elong_data['source'] = 'Dai et al., 2016'
@@ -36,10 +36,10 @@ data_dict = {'N_frac':len(frac_data),
              'elong_rate':elong_data['elongation_rate_aa_s'].values.astype(float),
              'gamma_max_mu': 9.65,
              'gamma_max_sigma': 1,
-             'phiO': 0.5}
+             'phiO': 0.35}
 
 
-samples = opt_model.sample(data=data_dict, adapt_delta=0.99)
+samples = opt_model.sample(data=data_dict, adapt_delta=0.9, iter_sampling=8000)
 samples = az.from_cmdstanpy(samples)
 bebi103.stan.check_all_diagnostics(samples)
 samples = samples.posterior.to_dataframe().reset_index()

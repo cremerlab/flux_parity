@@ -64,25 +64,36 @@ static const std::vector<string> locations_array__ = {" (found before start of p
                                                       " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 27, column 4 to column 21)",
                                                       " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 28, column 4 to column 34)",
                                                       " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 29, column 4 to column 30)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 34, column 11 to column 17)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 34, column 4 to column 42)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 35, column 11 to column 17)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 35, column 4 to column 93)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 30, column 4 to column 28)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 35, column 4 to column 32)",
                                                       " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 36, column 11 to column 17)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 36, column 4 to column 82)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 36, column 4 to column 87)",
                                                       " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 37, column 11 to column 17)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 37, column 4 to column 71)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 38, column 11 to column 18)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 37, column 4 to column 88)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 38, column 11 to column 17)",
                                                       " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 38, column 4 to column 111)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 39, column 11 to column 18)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 39, column 4 to column 62)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 42, column 4 to column 27)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 43, column 4 to column 54)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 45, column 4 to column 21)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 46, column 4 to column 37)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 47, column 4 to column 33)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 50, column 4 to column 49)",
-                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 51, column 4 to column 52)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 39, column 11 to column 17)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 39, column 4 to column 87)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 42, column 4 to column 29)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 43, column 11 to column 17)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 43, column 4 to column 85)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 44, column 11 to column 17)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 44, column 4 to column 86)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 45, column 11 to column 17)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 45, column 4 to column 113)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 48, column 11 to column 18)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 48, column 4 to column 111)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 49, column 11 to column 18)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 49, column 4 to column 62)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 52, column 4 to column 27)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 53, column 4 to column 54)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 56, column 4 to column 21)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 57, column 4 to column 37)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 58, column 4 to column 29)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 59, column 4 to column 33)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 62, column 4 to column 49)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 63, column 4 to column 44)",
+                                                      " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 64, column 4 to column 52)",
                                                       " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 3, column 4 to column 24)",
                                                       " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 4, column 4 to column 25)",
                                                       " (in '/Users/gchure/Dropbox/git/postdoc_projects/modeling_growth/code/stan/optimal_allocation_inference.stan', line 5, column 41 to column 48)",
@@ -143,51 +154,51 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
       pos__ = std::numeric_limits<int>::min();
       
       pos__ = 1;
-      current_statement__ = 25;
+      current_statement__ = 36;
       context__.validate_dims("data initialization","N_frac","int",
           context__.to_vec());
       N_frac = std::numeric_limits<int>::min();
       
-      current_statement__ = 25;
+      current_statement__ = 36;
       N_frac = context__.vals_i("N_frac")[(1 - 1)];
-      current_statement__ = 25;
-      current_statement__ = 25;
+      current_statement__ = 36;
+      current_statement__ = 36;
       check_greater_or_equal(function__, "N_frac", N_frac, 1);
-      current_statement__ = 26;
+      current_statement__ = 37;
       context__.validate_dims("data initialization","N_elong","int",
           context__.to_vec());
       N_elong = std::numeric_limits<int>::min();
       
-      current_statement__ = 26;
+      current_statement__ = 37;
       N_elong = context__.vals_i("N_elong")[(1 - 1)];
-      current_statement__ = 26;
-      current_statement__ = 26;
+      current_statement__ = 37;
+      current_statement__ = 37;
       check_greater_or_equal(function__, "N_elong", N_elong, 1);
-      current_statement__ = 27;
+      current_statement__ = 38;
       validate_non_negative_index("elong_idx", "N_elong", N_elong);
-      current_statement__ = 28;
+      current_statement__ = 39;
       context__.validate_dims("data initialization","elong_idx","int",
           context__.to_vec(N_elong));
       elong_idx = std::vector<int>(N_elong, std::numeric_limits<int>::min());
       
-      current_statement__ = 28;
+      current_statement__ = 39;
       assign(elong_idx, nil_index_list(), context__.vals_i("elong_idx"),
         "assigning variable elong_idx");
-      current_statement__ = 28;
+      current_statement__ = 39;
       for (int sym1__ = 1; sym1__ <= N_elong; ++sym1__) {
-        current_statement__ = 28;
-        current_statement__ = 28;
+        current_statement__ = 39;
+        current_statement__ = 39;
         check_greater_or_equal(function__, "elong_idx[sym1__]",
                                elong_idx[(sym1__ - 1)], 1);}
-      current_statement__ = 28;
+      current_statement__ = 39;
       for (int sym1__ = 1; sym1__ <= N_elong; ++sym1__) {
-        current_statement__ = 28;
-        current_statement__ = 28;
+        current_statement__ = 39;
+        current_statement__ = 39;
         check_less_or_equal(function__, "elong_idx[sym1__]",
                             elong_idx[(sym1__ - 1)], N_frac);}
-      current_statement__ = 29;
+      current_statement__ = 40;
       validate_non_negative_index("growth_rate", "N_frac", N_frac);
-      current_statement__ = 30;
+      current_statement__ = 41;
       context__.validate_dims("data initialization","growth_rate","double",
           context__.to_vec(N_frac));
       growth_rate = Eigen::Matrix<double, -1, 1>(N_frac);
@@ -195,29 +206,29 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
       
       {
         std::vector<local_scalar_t__> growth_rate_flat__;
-        current_statement__ = 30;
+        current_statement__ = 41;
         assign(growth_rate_flat__, nil_index_list(),
           context__.vals_r("growth_rate"),
           "assigning variable growth_rate_flat__");
-        current_statement__ = 30;
+        current_statement__ = 41;
         pos__ = 1;
-        current_statement__ = 30;
+        current_statement__ = 41;
         for (int sym1__ = 1; sym1__ <= N_frac; ++sym1__) {
-          current_statement__ = 30;
+          current_statement__ = 41;
           assign(growth_rate, cons_list(index_uni(sym1__), nil_index_list()),
             growth_rate_flat__[(pos__ - 1)], "assigning variable growth_rate");
-          current_statement__ = 30;
+          current_statement__ = 41;
           pos__ = (pos__ + 1);}
       }
-      current_statement__ = 30;
+      current_statement__ = 41;
       for (int sym1__ = 1; sym1__ <= N_frac; ++sym1__) {
-        current_statement__ = 30;
-        current_statement__ = 30;
+        current_statement__ = 41;
+        current_statement__ = 41;
         check_greater_or_equal(function__, "growth_rate[sym1__]",
                                growth_rate[(sym1__ - 1)], 0);}
-      current_statement__ = 31;
+      current_statement__ = 42;
       validate_non_negative_index("mass_frac", "N_frac", N_frac);
-      current_statement__ = 32;
+      current_statement__ = 43;
       context__.validate_dims("data initialization","mass_frac","double",
           context__.to_vec(N_frac));
       mass_frac = Eigen::Matrix<double, -1, 1>(N_frac);
@@ -225,35 +236,35 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
       
       {
         std::vector<local_scalar_t__> mass_frac_flat__;
-        current_statement__ = 32;
+        current_statement__ = 43;
         assign(mass_frac_flat__, nil_index_list(),
           context__.vals_r("mass_frac"),
           "assigning variable mass_frac_flat__");
-        current_statement__ = 32;
+        current_statement__ = 43;
         pos__ = 1;
-        current_statement__ = 32;
+        current_statement__ = 43;
         for (int sym1__ = 1; sym1__ <= N_frac; ++sym1__) {
-          current_statement__ = 32;
+          current_statement__ = 43;
           assign(mass_frac, cons_list(index_uni(sym1__), nil_index_list()),
             mass_frac_flat__[(pos__ - 1)], "assigning variable mass_frac");
-          current_statement__ = 32;
+          current_statement__ = 43;
           pos__ = (pos__ + 1);}
       }
-      current_statement__ = 32;
+      current_statement__ = 43;
       for (int sym1__ = 1; sym1__ <= N_frac; ++sym1__) {
-        current_statement__ = 32;
-        current_statement__ = 32;
+        current_statement__ = 43;
+        current_statement__ = 43;
         check_greater_or_equal(function__, "mass_frac[sym1__]",
                                mass_frac[(sym1__ - 1)], 0);}
-      current_statement__ = 32;
+      current_statement__ = 43;
       for (int sym1__ = 1; sym1__ <= N_frac; ++sym1__) {
-        current_statement__ = 32;
-        current_statement__ = 32;
+        current_statement__ = 43;
+        current_statement__ = 43;
         check_less_or_equal(function__, "mass_frac[sym1__]",
                             mass_frac[(sym1__ - 1)], 1);}
-      current_statement__ = 33;
+      current_statement__ = 44;
       validate_non_negative_index("elong_rate", "N_elong", N_elong);
-      current_statement__ = 34;
+      current_statement__ = 45;
       context__.validate_dims("data initialization","elong_rate","double",
           context__.to_vec(N_elong));
       elong_rate = Eigen::Matrix<double, -1, 1>(N_elong);
@@ -261,74 +272,74 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
       
       {
         std::vector<local_scalar_t__> elong_rate_flat__;
-        current_statement__ = 34;
+        current_statement__ = 45;
         assign(elong_rate_flat__, nil_index_list(),
           context__.vals_r("elong_rate"),
           "assigning variable elong_rate_flat__");
-        current_statement__ = 34;
+        current_statement__ = 45;
         pos__ = 1;
-        current_statement__ = 34;
+        current_statement__ = 45;
         for (int sym1__ = 1; sym1__ <= N_elong; ++sym1__) {
-          current_statement__ = 34;
+          current_statement__ = 45;
           assign(elong_rate, cons_list(index_uni(sym1__), nil_index_list()),
             elong_rate_flat__[(pos__ - 1)], "assigning variable elong_rate");
-          current_statement__ = 34;
+          current_statement__ = 45;
           pos__ = (pos__ + 1);}
       }
-      current_statement__ = 34;
+      current_statement__ = 45;
       for (int sym1__ = 1; sym1__ <= N_elong; ++sym1__) {
-        current_statement__ = 34;
-        current_statement__ = 34;
+        current_statement__ = 45;
+        current_statement__ = 45;
         check_greater_or_equal(function__, "elong_rate[sym1__]",
                                elong_rate[(sym1__ - 1)], 0);}
-      current_statement__ = 35;
+      current_statement__ = 46;
       context__.validate_dims("data initialization","gamma_max_mu","double",
           context__.to_vec());
       gamma_max_mu = std::numeric_limits<double>::quiet_NaN();
       
-      current_statement__ = 35;
+      current_statement__ = 46;
       gamma_max_mu = context__.vals_r("gamma_max_mu")[(1 - 1)];
-      current_statement__ = 35;
-      current_statement__ = 35;
+      current_statement__ = 46;
+      current_statement__ = 46;
       check_greater_or_equal(function__, "gamma_max_mu", gamma_max_mu, 0);
-      current_statement__ = 36;
+      current_statement__ = 47;
       context__.validate_dims("data initialization","gamma_max_sigma",
           "double",context__.to_vec());
       gamma_max_sigma = std::numeric_limits<double>::quiet_NaN();
       
-      current_statement__ = 36;
+      current_statement__ = 47;
       gamma_max_sigma = context__.vals_r("gamma_max_sigma")[(1 - 1)];
-      current_statement__ = 36;
-      current_statement__ = 36;
+      current_statement__ = 47;
+      current_statement__ = 47;
       check_greater_or_equal(function__, "gamma_max_sigma", gamma_max_sigma,
                              0);
-      current_statement__ = 37;
+      current_statement__ = 48;
       context__.validate_dims("data initialization","phiO","double",
           context__.to_vec());
       phiO = std::numeric_limits<double>::quiet_NaN();
       
-      current_statement__ = 37;
+      current_statement__ = 48;
       phiO = context__.vals_r("phiO")[(1 - 1)];
-      current_statement__ = 37;
-      current_statement__ = 37;
+      current_statement__ = 48;
+      current_statement__ = 48;
       check_greater_or_equal(function__, "phiO", phiO, 0);
-      current_statement__ = 38;
+      current_statement__ = 49;
       validate_non_negative_index("resc_elong_rate", "N_elong", N_elong);
-      current_statement__ = 39;
+      current_statement__ = 50;
       resc_elong_rate = Eigen::Matrix<double, -1, 1>(N_elong);
       stan::math::fill(resc_elong_rate, std::numeric_limits<double>::quiet_NaN());
       
-      current_statement__ = 39;
+      current_statement__ = 50;
       assign(resc_elong_rate, nil_index_list(),
         divide(multiply(elong_rate, 7459), 3600),
         "assigning variable resc_elong_rate");
-      current_statement__ = 39;
+      current_statement__ = 50;
       for (int sym1__ = 1; sym1__ <= N_elong; ++sym1__) {
-        current_statement__ = 39;
-        current_statement__ = 39;
+        current_statement__ = 50;
+        current_statement__ = 50;
         check_greater_or_equal(function__, "resc_elong_rate[sym1__]",
                                resc_elong_rate[(sym1__ - 1)], 0);}
-      current_statement__ = 40;
+      current_statement__ = 51;
       validate_non_negative_index("nu_max", "N_frac", N_frac);
     } catch (const std::exception& e) {
       stan::lang::rethrow_located(e, locations_array__[current_statement__]);
@@ -340,6 +351,7 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
     try {
       num_params_r__ += 1;
       num_params_r__ += N_frac;
+      num_params_r__ += 1;
       num_params_r__ += 1;
       num_params_r__ += 1;
       num_params_r__ += 1;
@@ -438,58 +450,116 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
         current_statement__ = 5;
         elong_sigma = stan::math::lb_constrain(elong_sigma, 0);
       }
-      {
+      local_scalar_t__ lam_sigma;
+      lam_sigma = DUMMY_VAR__;
+      
+      current_statement__ = 6;
+      lam_sigma = in__.scalar();
+      current_statement__ = 6;
+      if (jacobian__) {
         current_statement__ = 6;
-        validate_non_negative_index("a", "N_frac", N_frac);
-        Eigen::Matrix<local_scalar_t__, -1, 1> a;
-        a = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
-        stan::math::fill(a, DUMMY_VAR__);
+        lam_sigma = stan::math::lb_constrain(lam_sigma, 0, lp__);
+      } else {
+        current_statement__ = 6;
+        lam_sigma = stan::math::lb_constrain(lam_sigma, 0);
+      }
+      {
+        local_scalar_t__ frac_term_a;
+        frac_term_a = DUMMY_VAR__;
         
         current_statement__ = 7;
-        assign(a, nil_index_list(), multiply(gamma_max, nu_max),
-          "assigning variable a");
+        frac_term_a = (phiO - 1);
         current_statement__ = 8;
-        validate_non_negative_index("b", "N_frac", N_frac);
-        Eigen::Matrix<local_scalar_t__, -1, 1> b;
-        b = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
-        stan::math::fill(b, DUMMY_VAR__);
+        validate_non_negative_index("frac_term_b", "N_frac", N_frac);
+        Eigen::Matrix<local_scalar_t__, -1, 1> frac_term_b;
+        frac_term_b = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
+        stan::math::fill(frac_term_b, DUMMY_VAR__);
         
         current_statement__ = 9;
-        assign(b, nil_index_list(),
-          add(elt_multiply(growth_rate, add(gamma_max, nu_max)),
-            multiply(multiply(gamma_max, nu_max), (phiO - 1))),
-          "assigning variable b");
+        assign(frac_term_b, nil_index_list(),
+          elt_multiply(minus(nu_max),
+            add((((-2 * Kd) * gamma_max) + gamma_max), nu_max)),
+          "assigning variable frac_term_b");
         current_statement__ = 10;
-        validate_non_negative_index("c", "N_frac", N_frac);
-        Eigen::Matrix<local_scalar_t__, -1, 1> c;
-        c = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
-        stan::math::fill(c, DUMMY_VAR__);
+        validate_non_negative_index("frac_term_c", "N_frac", N_frac);
+        Eigen::Matrix<local_scalar_t__, -1, 1> frac_term_c;
+        frac_term_c = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
+        stan::math::fill(frac_term_c, DUMMY_VAR__);
         
         current_statement__ = 11;
-        assign(c, nil_index_list(),
-          elt_multiply(growth_rate,
-            subtract(multiply(nu_max, (phiO - 1)),
-              multiply(growth_rate, (Kd - 1)))), "assigning variable c");
+        assign(frac_term_c, nil_index_list(),
+          elt_multiply(stan::math::sqrt(multiply((Kd * gamma_max), nu_max)),
+            add(-gamma_max, nu_max)), "assigning variable frac_term_c");
         current_statement__ = 12;
+        validate_non_negative_index("frac_denom", "N_frac", N_frac);
+        Eigen::Matrix<local_scalar_t__, -1, 1> frac_denom;
+        frac_denom = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
+        stan::math::fill(frac_denom, DUMMY_VAR__);
+        
+        current_statement__ = 13;
+        assign(frac_denom, nil_index_list(),
+          add(
+            add(
+              add(multiply(((-4 * Kd) * gamma_max), nu_max),
+                pow(gamma_max, 2)), multiply((2 * gamma_max), nu_max)),
+            pow(nu_max, 2)), "assigning variable frac_denom");
+        current_statement__ = 14;
         validate_non_negative_index("frac_mu", "N_frac", N_frac);
         Eigen::Matrix<local_scalar_t__, -1, 1> frac_mu;
         frac_mu = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
         stan::math::fill(frac_mu, DUMMY_VAR__);
         
-        current_statement__ = 13;
+        current_statement__ = 15;
         assign(frac_mu, nil_index_list(),
+          elt_divide(multiply(frac_term_a, add(frac_term_b, frac_term_c)),
+            frac_denom), "assigning variable frac_mu");
+        local_scalar_t__ lam_term_a;
+        lam_term_a = DUMMY_VAR__;
+        
+        current_statement__ = 16;
+        lam_term_a = (Kd - 1);
+        current_statement__ = 17;
+        validate_non_negative_index("lam_term_b", "N_frac", N_frac);
+        Eigen::Matrix<local_scalar_t__, -1, 1> lam_term_b;
+        lam_term_b = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
+        stan::math::fill(lam_term_b, DUMMY_VAR__);
+        
+        current_statement__ = 18;
+        assign(lam_term_b, nil_index_list(),
+          add(elt_multiply(nu_max, subtract((1 - phiO), frac_mu)),
+            multiply(gamma_max, frac_mu)), "assigning variable lam_term_b");
+        current_statement__ = 19;
+        validate_non_negative_index("lam_term_c", "N_frac", N_frac);
+        Eigen::Matrix<local_scalar_t__, -1, 1> lam_term_c;
+        lam_term_c = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
+        stan::math::fill(lam_term_c, DUMMY_VAR__);
+        
+        current_statement__ = 20;
+        assign(lam_term_c, nil_index_list(),
+          elt_multiply(
+            multiply(elt_multiply(nu_max, subtract((1 - phiO), frac_mu)),
+              gamma_max), frac_mu), "assigning variable lam_term_c");
+        current_statement__ = 21;
+        validate_non_negative_index("lam_mu", "N_frac", N_frac);
+        Eigen::Matrix<local_scalar_t__, -1, 1> lam_mu;
+        lam_mu = Eigen::Matrix<local_scalar_t__, -1, 1>(N_frac);
+        stan::math::fill(lam_mu, DUMMY_VAR__);
+        
+        current_statement__ = 22;
+        assign(lam_mu, nil_index_list(),
           elt_divide(
-            subtract(minus(b),
+            add(minus(lam_term_b),
               stan::math::sqrt(
-                subtract(pow(b, 2), elt_multiply(multiply(4, a), c)))),
-            multiply(2, a)), "assigning variable frac_mu");
-        current_statement__ = 14;
+                add(pow(lam_term_b, 2),
+                  multiply((4 * lam_term_a), lam_term_c)))),
+            (2 * lam_term_a)), "assigning variable lam_mu");
+        current_statement__ = 23;
         validate_non_negative_index("c_AA", "N_elong", N_elong);
         Eigen::Matrix<local_scalar_t__, -1, 1> c_AA;
         c_AA = Eigen::Matrix<local_scalar_t__, -1, 1>(N_elong);
         stan::math::fill(c_AA, DUMMY_VAR__);
         
-        current_statement__ = 15;
+        current_statement__ = 24;
         assign(c_AA, nil_index_list(),
           add(-1,
             elt_divide(
@@ -504,31 +574,35 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
               rvalue(growth_rate,
                 cons_list(index_multi(elong_idx), nil_index_list()),
                 "growth_rate"))), "assigning variable c_AA");
-        current_statement__ = 16;
+        current_statement__ = 25;
         validate_non_negative_index("elong_mu", "N_elong", N_elong);
         Eigen::Matrix<local_scalar_t__, -1, 1> elong_mu;
         elong_mu = Eigen::Matrix<local_scalar_t__, -1, 1>(N_elong);
         stan::math::fill(elong_mu, DUMMY_VAR__);
         
-        current_statement__ = 17;
+        current_statement__ = 26;
         assign(elong_mu, nil_index_list(),
           elt_divide(multiply(gamma_max, c_AA), add(c_AA, Kd)),
           "assigning variable elong_mu");
-        current_statement__ = 18;
+        current_statement__ = 27;
         lp_accum__.add(normal_lpdf<propto__>(nu_max, 0, 10));
-        current_statement__ = 19;
+        current_statement__ = 28;
         lp_accum__.add(
           normal_lpdf<propto__>(gamma_max, gamma_max_mu, gamma_max_sigma));
-        current_statement__ = 20;
+        current_statement__ = 29;
         lp_accum__.add(gamma_lpdf<propto__>(Kd, 1, 5));
-        current_statement__ = 21;
+        current_statement__ = 30;
         lp_accum__.add(normal_lpdf<propto__>(mass_frac_sigma, 0, 0.1));
-        current_statement__ = 22;
+        current_statement__ = 31;
+        lp_accum__.add(normal_lpdf<propto__>(lam_sigma, 0, 1));
+        current_statement__ = 32;
         lp_accum__.add(normal_lpdf<propto__>(elong_sigma, 0, 0.5));
-        current_statement__ = 23;
+        current_statement__ = 33;
         lp_accum__.add(
           normal_lpdf<propto__>(mass_frac, frac_mu, mass_frac_sigma));
-        current_statement__ = 24;
+        current_statement__ = 34;
+        lp_accum__.add(normal_lpdf<propto__>(growth_rate, lam_mu, lam_sigma));
+        current_statement__ = 35;
         lp_accum__.add(
           normal_lpdf<propto__>(resc_elong_rate, elong_mu, elong_sigma));
       }
@@ -603,12 +677,20 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
       elong_sigma = in__.scalar();
       current_statement__ = 5;
       elong_sigma = stan::math::lb_constrain(elong_sigma, 0);
+      double lam_sigma;
+      lam_sigma = std::numeric_limits<double>::quiet_NaN();
+      
+      current_statement__ = 6;
+      lam_sigma = in__.scalar();
+      current_statement__ = 6;
+      lam_sigma = stan::math::lb_constrain(lam_sigma, 0);
       vars__.emplace_back(gamma_max);
       for (int sym1__ = 1; sym1__ <= N_frac; ++sym1__) {
         vars__.emplace_back(nu_max[(sym1__ - 1)]);}
       vars__.emplace_back(Kd);
       vars__.emplace_back(mass_frac_sigma);
       vars__.emplace_back(elong_sigma);
+      vars__.emplace_back(lam_sigma);
       if (logical_negation((primitive_value(emit_transformed_parameters__) ||
             primitive_value(emit_generated_quantities__)))) {
         return ;
@@ -705,12 +787,23 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
       
       current_statement__ = 5;
       elong_sigma_free__ = stan::math::lb_free(elong_sigma, 0);
+      double lam_sigma;
+      lam_sigma = std::numeric_limits<double>::quiet_NaN();
+      
+      current_statement__ = 6;
+      lam_sigma = context__.vals_r("lam_sigma")[(1 - 1)];
+      double lam_sigma_free__;
+      lam_sigma_free__ = std::numeric_limits<double>::quiet_NaN();
+      
+      current_statement__ = 6;
+      lam_sigma_free__ = stan::math::lb_free(lam_sigma, 0);
       vars__.emplace_back(gamma_max_free__);
       for (int sym1__ = 1; sym1__ <= N_frac; ++sym1__) {
         vars__.emplace_back(nu_max_free__[(sym1__ - 1)]);}
       vars__.emplace_back(Kd_free__);
       vars__.emplace_back(mass_frac_sigma_free__);
       vars__.emplace_back(elong_sigma_free__);
+      vars__.emplace_back(lam_sigma_free__);
     } catch (const std::exception& e) {
       stan::lang::rethrow_located(e, locations_array__[current_statement__]);
       // Next line prevents compiler griping about no return
@@ -726,6 +819,7 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
     names__.emplace_back("Kd");
     names__.emplace_back("mass_frac_sigma");
     names__.emplace_back("elong_sigma");
+    names__.emplace_back("lam_sigma");
     } // get_param_names() 
     
   inline void get_dims(std::vector<std::vector<size_t>>& dimss__) const {
@@ -733,6 +827,8 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
     dimss__.emplace_back(std::vector<size_t>{});
     
     dimss__.emplace_back(std::vector<size_t>{static_cast<size_t>(N_frac)});
+    
+    dimss__.emplace_back(std::vector<size_t>{});
     
     dimss__.emplace_back(std::vector<size_t>{});
     
@@ -756,6 +852,7 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
     param_names__.emplace_back(std::string() + "Kd");
     param_names__.emplace_back(std::string() + "mass_frac_sigma");
     param_names__.emplace_back(std::string() + "elong_sigma");
+    param_names__.emplace_back(std::string() + "lam_sigma");
     if (emit_transformed_parameters__) {
       
     }
@@ -780,6 +877,7 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
     param_names__.emplace_back(std::string() + "Kd");
     param_names__.emplace_back(std::string() + "mass_frac_sigma");
     param_names__.emplace_back(std::string() + "elong_sigma");
+    param_names__.emplace_back(std::string() + "lam_sigma");
     if (emit_transformed_parameters__) {
       
     }
@@ -792,13 +890,13 @@ class optimal_allocation_inference_model final : public model_base_crtp<optimal_
     
   inline std::string get_constrained_sizedtypes() const {
     stringstream s__;
-    s__ << "[{\"name\":\"gamma_max\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"nu_max\",\"type\":{\"name\":\"vector\",\"length\":" << N_frac << "},\"block\":\"parameters\"},{\"name\":\"Kd\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"mass_frac_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"elong_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"}]";
+    s__ << "[{\"name\":\"gamma_max\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"nu_max\",\"type\":{\"name\":\"vector\",\"length\":" << N_frac << "},\"block\":\"parameters\"},{\"name\":\"Kd\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"mass_frac_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"elong_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"lam_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"}]";
     return s__.str();
     } // get_constrained_sizedtypes() 
     
   inline std::string get_unconstrained_sizedtypes() const {
     stringstream s__;
-    s__ << "[{\"name\":\"gamma_max\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"nu_max\",\"type\":{\"name\":\"vector\",\"length\":" << N_frac << "},\"block\":\"parameters\"},{\"name\":\"Kd\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"mass_frac_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"elong_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"}]";
+    s__ << "[{\"name\":\"gamma_max\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"nu_max\",\"type\":{\"name\":\"vector\",\"length\":" << N_frac << "},\"block\":\"parameters\"},{\"name\":\"Kd\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"mass_frac_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"elong_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"},{\"name\":\"lam_sigma\",\"type\":{\"name\":\"real\"},\"block\":\"parameters\"}]";
     return s__.str();
     } // get_unconstrained_sizedtypes() 
     
