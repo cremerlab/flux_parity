@@ -7,11 +7,10 @@ def batch_culture_self_replicator(params,
                            omega,
                            phi_R, 
                            phi_P,
-                           Kd=0.025, 
-                           Km=5E-4,
+                           Kd_cAA=0.025, 
+                           Kd_cN=5E-4,
                            dil_approx=False,
-                           num_muts=1,
-                           vol=1E-3):
+                           num_muts=1):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
     the self-replicator model in batch culture conditions.
@@ -29,8 +28,8 @@ def batch_culture_self_replicator(params,
         c_AA : positive float
             Concentration of precursors in the culture. This is normalized to 
             total protein biomass.
-        m_N : positive float
-            Total mass of nutrients in the system.
+        c_N : positive float
+            Concentration of nutrients in the culture. This is in units of molar.
     time : float
         Evaluated time step of the system.
     gamma_max: positive float 
@@ -44,49 +43,39 @@ def batch_culture_self_replicator(params,
         The fraction of the proteome occupied by ribosomal protein mass
     phi_P : float, [0, 1] 
         The fraction of the proteome occupied by metabolic protein mass  
-    Kd : positive float 
-        The effective dissociation constant of charged tRNA to the elongating
+    Kd_cAA : positive float 
+        The effective dissociation constant of precursors to the elongating
         ribosome. This is in units of mass fraction.
-    Km : positive float
-        The Monod constant for growth on the specific nutrient source. 
-        This is in units of molar.
+    Kd_cN: positive float
+        The effective dissociation constant for growth on the specific nutrient 
+        source. This is in units of molar.
     dil_approx: bool
         If True, then the approximation is made that the dilution of charged-tRNAs
         with growing biomass is negligible.
     num_muts: int
         The number of mutants whose dynamics need to be tracked.
-    vol: float, default 1 mL
-        The volume of the system for calculation of the nutrient concentration.
 
     Returns
     -------
-    out: list, [dM_dt, dMr_dt, dMp_dt, dmAA_dt, dmN_dt]
+    out: list, [dM_dt, dMr_dt, dMp_dt, dcAA_dt, dcN_dt]
         A list of the evaluated ODEs at the specified time step.
 
         dM_dt : The dynamics of the total protein biomass.
         dMr_dt : The dynamics of the ribosomal protein biomass.
         dMp_dt : the dynamics of the metabolic protein biomass.
-        dcAA_dt : The dynamics of the charged-tRNA concentration.
-        dmN_dt :  The dynamics of the nutrient mass in the growth medium
+        dcAA_dt : The dynamics of the precursor concentration.
+        dcN_dt :  The dynamics of the nutrient concentration in the growth medium
     """
-
-    # Define constants
-    AVO = 6.022E23 # Avogadro's number
-
     # Unpack the parameters
     if num_muts > 1:
-        m_N = params[-1]
+        c_N = params[-1]
         M, M_r, M_p, c_AA = np.reshape(params[:-1], (4, num_muts))
     else: 
-        M, M_r, M_p, c_AA, m_N = params
-
-    # Compute the number of precursors and the number of nutrients
-    # c_AA = m_AA / M # From previous approach
-    c_N = m_N / (AVO * vol) 
+        M, M_r, M_p, c_AA, c_N = params
 
     # Compute the capacities
-    gamma = gamma_max * (c_AA / (c_AA + Kd))
-    nu = nu_max * (c_N / (c_N + Km))
+    gamma = gamma_max * (c_AA / (c_AA + Kd_cAA))
+    nu = nu_max * (c_N / (c_N + Kd_cN))
 
     # Biomass accumulation
     dM_dt = gamma * M_r
@@ -100,14 +89,14 @@ def batch_culture_self_replicator(params,
         dcAA_dt = (nu * M_p - dM_dt) / M
     else:
         dcAA_dt = (nu * M_p - (1 + c_AA) * dM_dt) / M
-    dmN_dt = -nu * M_p / omega
+    dcN_dt = -nu * M_p / omega
 
     # Pack and return the output.
     out = [dM_dt, dMr_dt, dMp_dt, dcAA_dt]
     if num_muts > 1:
-        dmN_dt = np.sum(dmN_dt)
+        dcN_dt = np.sum(dcN_dt)
         out = [value for deriv in out for value in deriv]
-    out.append(dmN_dt)
+    out.append(dcN_dt)
     return out
 
 def steady_state_growth_rate(gamma_max,

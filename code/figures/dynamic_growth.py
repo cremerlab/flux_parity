@@ -30,7 +30,7 @@ omega = 0.377 # * OD_CONV
 
 
 dfs = []
-nu_range = np.linspace(0.005, 10, 25)
+nu_range = np.linspace(0.1, 5, 25)
 time_range = np.linspace(0, 5, 300)
 for i, nu in enumerate(tqdm.tqdm(nu_range)):
     params = [M0, M_R, M_P, m_AA, m_N] 
