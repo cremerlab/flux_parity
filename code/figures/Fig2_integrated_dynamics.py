@@ -83,7 +83,7 @@ for g, d in df.groupby('nu_max'):
     ax[2].plot(d['time'], d['c_N']  / Kd_cN, '-', lw=0.5, color=palette[count])
     count += 1
 plt.tight_layout()
-plt.savefig('../../figures/Fig2_dynamics_plots.pdf', bbox_inches='tight')
+# plt.savefig('../../figures/Fig2_dynamics_plots.pdf', bbox_inches='tight')
 
 # %%
 

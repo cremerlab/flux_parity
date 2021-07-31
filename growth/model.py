@@ -1,16 +1,17 @@
-import numpy as np 
+import numpy as np
 
-def batch_culture_self_replicator(params, 
-                           time, 
-                           gamma_max, 
-                           nu_max, 
-                           omega,
-                           phi_R, 
-                           phi_P,
-                           Kd_cAA=0.025, 
-                           Kd_cN=5E-4,
-                           dil_approx=False,
-                           num_muts=1):
+
+def batch_culture_self_replicator(params,
+                                  time,
+                                  gamma_max,
+                                  nu_max,
+                                  omega,
+                                  phi_R,
+                                  phi_P,
+                                  Kd_cAA=0.025,
+                                  Kd_cN=5E-4,
+                                  dil_approx=False,
+                                  num_muts=1):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
     the self-replicator model in batch culture conditions.
@@ -70,7 +71,7 @@ def batch_culture_self_replicator(params,
     if num_muts > 1:
         c_N = params[-1]
         M, M_r, M_p, c_AA = np.reshape(params[:-1], (4, num_muts))
-    else: 
+    else:
         M, M_r, M_p, c_AA, c_N = params
 
     # Compute the capacities
@@ -99,11 +100,12 @@ def batch_culture_self_replicator(params,
     out.append(dcN_dt)
     return out
 
+
 def steady_state_growth_rate(gamma_max,
-                             nu_max, 
-                             phi_R, 
-                             phi_P, 
-                             Kd, 
+                             nu_max,
+                             phi_R,
+                             phi_P,
+                             Kd,
                              f_a=1):
     """
     Computes the steady-state growth rate of the self-replicator model. 
@@ -124,7 +126,7 @@ def steady_state_growth_rate(gamma_max,
     f_a : float [0, 1], optional
         The fraction of the ribosome pool which is actively translating. Default 
         is 1.0.
-    
+
     Returns
     -------
     lam : float 
@@ -139,12 +141,13 @@ def steady_state_growth_rate(gamma_max,
     term_a = Kd - 1
     term_b = nu_max * phi_P + gamma_max * phi_R * f_a
     term_c = nu_max * phi_P * gamma_max * phi_R * f_a
-    lam  = (-term_b + np.sqrt(term_b**2 + 4 * term_a * term_c)) / (2 * term_a)
+    lam = (-term_b + np.sqrt(term_b**2 + 4 * term_a * term_c)) / (2 * term_a)
     return lam
 
-def steady_state_tRNA_balance(nu_max, 
-                 phi_P, 
-                 growth_rate):
+
+def steady_state_tRNA_balance(nu_max,
+                              phi_P,
+                              growth_rate):
     """
     Computes the steady state value of the charged-tRNA abundance.
 
@@ -167,23 +170,29 @@ def steady_state_tRNA_balance(nu_max,
     -----
     This function assumes that in steady state, the nutrients are in such abundance 
     that the nutritional capacy is equal to its maximal value. 
-    
-    """ 
+
+    """
     return (nu_max * phi_P / growth_rate) - 1
 
+
 def sstRNA_balance(nu_max, phi_P, gamma_max, phi_R, Kd, f_a=1):
-    alpha = (f_a * phi_R  * gamma_max) / (nu_max * phi_P)
-    return ((1 - alpha) + np.sqrt((alpha - 1)**2 + 4 * Kd * alpha))  / (2 * alpha) 
+    alpha = (f_a * phi_R * gamma_max) / (nu_max * phi_P)
+    return ((1 - alpha) + np.sqrt((alpha - 1)**2 + 4 * Kd * alpha)) / (2 * alpha)
+
 
 def translation_rate(gamma_max, c_AA, Kd):
-    return gamma_max * c_AA  / (c_AA + Kd)
+    return gamma_max * c_AA / (c_AA + Kd)
+
 
 def phi_R_optimal_allocation(gamma_max, nu_max, Kd, phi_O, f_a=1):
     term_a = phi_O - 1
-    term_b = -nu_max * (-2 * Kd * gamma_max * f_a  + gamma_max * f_a + nu_max)
-    term_c = np.sqrt(Kd * gamma_max * f_a * nu_max) * (-gamma_max * f_a + nu_max)
-    denom = -4 * Kd * gamma_max * f_a * nu_max + (f_a * gamma_max)**2 + 2 * gamma_max * f_a * nu_max + nu_max**2
+    term_b = -nu_max * (-2 * Kd * gamma_max * f_a + gamma_max * f_a + nu_max)
+    term_c = np.sqrt(Kd * gamma_max * f_a * nu_max) * \
+        (-gamma_max * f_a + nu_max)
+    denom = -4 * Kd * gamma_max * f_a * nu_max + \
+        (f_a * gamma_max)**2 + 2 * gamma_max * f_a * nu_max + nu_max**2
     return (term_a * (term_b + term_c)) / denom
+
 
 def phi_R_max_translation(gamma_max, nu_max, phi_O, f_a=1):
     numer = nu_max * (phi_O - 1)
@@ -191,3 +200,6 @@ def phi_R_max_translation(gamma_max, nu_max, phi_O, f_a=1):
     return -numer / denom
 
 
+def phi_R_specific_translation(gamma_desired, gamma_max, nu_max, Kd, f_a=1):
+    c_aa_star = Kd * ((gamma_max/gamma_desired) - 1)**-1 
+    return nu_max * (c_aa_star + Kd) / (c_aa_star * nu_max * ((gamma_max/nu_max) + (Kd/c_aa_star) + 1))
