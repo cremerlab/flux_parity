@@ -1,15 +1,14 @@
 #%%
 import numpy as np 
 import pandas as pd 
-import altair as alt 
 import tqdm
 import growth.viz 
 import growth.model
-colors, palette = growth.viz.altair_style()
+import matplotlib.pyplot as plt
+colors, palette = growth.viz.matplotlib_style()
 
-#
 
-
+#%%
 # Define constants for the integration 
 OD_CONV = 1.5E17
 gamma_max = 9.65
@@ -34,7 +33,7 @@ Mp_init = (1 - phiR_init) * M0
 
 # Define the time ranges
 T_START = 0 
-T_END =  4 
+T_END =  1 
 N_STEPS = T_END * 60  * 60 # steps of 1 s
 dt = (T_END - T_START) / N_STEPS
 time_range = np.linspace(T_START, T_END, N_STEPS)
@@ -67,6 +66,7 @@ def integrate(params, args, Kd=Kd, dt=dt):
     
     return np.array([dM_dt, dMr_dt, dMp_dt, dcAA_dt]) * dt
 
+#%%
 dfs = []
 for i, strat in enumerate(tqdm.tqdm(['constant', 'optimal', 'elongation'])): 
 
@@ -151,6 +151,9 @@ for i, strat in enumerate(tqdm.tqdm(['constant', 'optimal', 'elongation'])):
     df['strategy'] = strat
     df['time'] = time_range
     dfs.append(df)
+
+#%%
+fig, ax = plt.subplots(3, 1, figsize=(6, 4))
 #%%
 alt.data_transformers.disable_max_rows()
 
