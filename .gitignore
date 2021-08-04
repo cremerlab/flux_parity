@@ -1,0 +1,12 @@
+*.swp
+*.egg*
+*.DS_*tore
+*.log
+*.bbl
+*checkpoints*
+*cache_*
+*.json*
+*.log
+*.bbl
+*.aux
+*.pyc

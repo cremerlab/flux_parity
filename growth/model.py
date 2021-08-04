@@ -200,6 +200,5 @@ def phi_R_max_translation(gamma_max, nu_max, phi_O, f_a=1):
     return -numer / denom
 
 
-def phi_R_specific_translation(gamma_desired, gamma_max, nu_max, Kd, f_a=1):
-    c_aa_star = Kd * ((gamma_max/gamma_desired) - 1)**-1 
-    return nu_max * (c_aa_star + Kd) / (c_aa_star * nu_max * ((gamma_max/nu_max) + (Kd/c_aa_star) + 1))
+def phi_R_specific_cAA(cAA, gamma_max, nu_max, Kd, f_a=1):
+    return nu_max * (cAA + Kd) / (cAA * nu_max * ((gamma_max/nu_max) + (Kd/cAA) + 1))
