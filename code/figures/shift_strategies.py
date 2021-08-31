@@ -8,7 +8,7 @@ import scipy.integrate
 import altair as alt
 import altair_saver
 colors, palette = growth.viz.altair_style()
-alt.data_transformers.enable('json')
+alt.data_transformers.disable_max_rows()
 
 #%%
 # Define constants for the integration 
@@ -18,9 +18,9 @@ gamma_max = 9.65
 Kd = (20 * 1E6 * 110) / (0.15E-12 * 6.022E23)
 
 # Define the shift (either up- or down-shift)
-nu_init = 10 
-nu_shift = 10 
-time_shift = 0 # Time point at which the shift occurs.
+nu_init = 4 
+nu_shift =  10 
+time_shift = 0.5 # Time point at which the shift occurs.
  
 # Set the initial conditions
 M0 = 0.04 * OD_CONV
@@ -42,14 +42,14 @@ phiR_final_elong =  nu_shift / (gamma * (cAA_init + 1) + nu_shift)
 
 # Define the time ranges
 T_START = 0 
-T_END =  2 
-# N_STEPS = 100 * T_END #T_END *  * 60 # steps of 1 s
-N_STEPS = 100 * T_END
+T_END =  5 
+# N_STEPS = T_END * 3600
+N_STEPS = 2000 
 dt = (T_END - T_START) / N_STEPS
 time_range = np.linspace(T_START, T_END, N_STEPS)
 
 # Set the range of ribosomal allocation parameters to consider.
-phiR_range = np.linspace(0, 1, 3000)
+phiR_range = np.linspace(0, 1, 500)
 
 def integrate(params, t, gamma_max, nu_max, phiR, Kd=Kd):
     """
@@ -156,7 +156,7 @@ layout = nu_plot & (M_plot  | cAA_plot | phiR_plot)
 layout
 #%% Scenario II: Dynamic changing of phiR
 dfs = []
-for i, strat in enumerate(tqdm.tqdm(['optimal'])): 
+for i, strat in enumerate(tqdm.tqdm(['constant', 'optimal', 'elongation'])): 
 
     # Set the output vector and the initial conditions
     out = np.zeros((3, len(time_range)))
@@ -201,13 +201,13 @@ for i, strat in enumerate(tqdm.tqdm(['optimal'])):
                 _outs = []
                 for k, _phi in enumerate(phiR_range):
                     args = (gamma_max, nu_shift, _phi)
-                    _out = scipy.integrate.odeint(integrate, params, [0, dt], args=args)
+                    _out = scipy.integrate.odeint(integrate, params, [0, dt, 0.05], args=args)
 
                     # Save the change in the biomass and in the cAA.
-                    _out = _out[-1]
-                    _outs.append(_out)
-                    biomass[k] = _out[0] + _out[1]
-                    cAA[k] = _out[-1]
+                    _out = _out
+                    _outs.append(_out[-2])
+                    biomass[k] = _out[-1][0] + _out[-1][1]
+                    cAA[k] = _out[-1][-1]
                 # Strategy 2: 'Optimal' allocation to maximize growth rate. 
                 # Choose the value of phiR which leads to the largest value of 
                 # dM_dt
@@ -272,7 +272,7 @@ phiR_plot = base.mark_line().encode(
 
 
 layout = nu_plot & (M_plot  | cAA_plot | phiR_plot)
-# altair_saver.save(layout, './nutrient_shift_dynamic_reallocation.pdf')
+# altair_saver.save(layout, f'./nutrient_upshift_dynamic_reallocation_{N_STEPS}timesteps.pdf')
 layout
 
 
