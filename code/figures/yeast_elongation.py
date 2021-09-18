@@ -25,7 +25,7 @@ ecoli_params = {'nu_max':nu_max,
                 'Kd':0.015}
 yeast_params = {'nu_max':nu_max,
                 'gamma_max': 10 * 3600 / 11984,
-                'Kd':0.12}
+                'Kd':0.15}
  
 ecoli_phiR = growth.model.phi_R_optimal_allocation(gamma_max=ecoli_params['gamma_max'],
                                                     nu_max=ecoli_params['nu_max'],
@@ -80,7 +80,7 @@ fig, ax = plt.subplots(2, 2, figsize=(4, 4))
 for a in ax.ravel():
     a.xaxis.set_tick_params(labelsize=6)
     a.yaxis.set_tick_params(labelsize=6)
-    a.set_xlabel('growth rate [hr$^{-1}$]')
+    a.set_xlabel('growth rate [hr$^{-1}$]', fontweight='normal')
 
 
 # Plot the E coli mass frac data
@@ -92,7 +92,7 @@ for g, d in ecoli_mass.groupby('source'):
    count += 1 
 
 # Plot the E coli mass frac theory
-ax[0, 0].plot(ecoli_lam, ecoli_phiR, 'k-', lw=1)
+# ax[0, 0].plot(ecoli_lam, ecoli_phiR, 'k-', lw=1)
 
 
 
@@ -100,12 +100,15 @@ ax[0, 0].plot(ecoli_lam, ecoli_phiR, 'k-', lw=1)
 count = 0
 markers = ['o', 's', 'X', 'v', '^', 'd']
 for g, d in yeast_mass.groupby('source'):
-   ax[1,0].plot(d['growth_rate_hr'], d['mass_fraction'], 'o', color=palette[count],
+    if g == 'Waldron and Lacroute 1975':
+        continue
+    else:
+        ax[1,0].plot(d['growth_rate_hr'], d['mass_fraction'], 'o', color=palette[count],
                 ms=4, alpha=0.75, label=g, linestyle='none') 
-   count += 1 
+        count += 1 
 
 # Plot the yeast coli mass frac theory
-ax[1, 0].plot(yeast_lam, yeast_phiR, 'k-', lw=1)
+# ax[1, 0].plot(yeast_lam, yeast_phiR, 'k-', lw=1)
 
 
 
@@ -117,19 +120,23 @@ for g, d in  ecoli_elong.groupby('source'):
     count +=1 
 
 # Plot the E coli translation rate theory
-ax[0, 1].plot(ecoli_lam, ecoli_gamma, 'k-', lw=1)
+# ax[0, 1].plot(ecoli_lam, ecoli_gamma, 'k-', lw=1)
 
-# Plot the yeast translation rate data
-for g, d in  yeast_elong.groupby('source'):
-    ax[1, 1].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'], 'o',
-                color=palette[count], ms=4, alpha=0.75)
-    count +=1 
+# # Plot the yeast translation rate data
+# for g, d in  yeast_elong.groupby('source'):
+#     ax[1, 1].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'], 'o',
+#                 color=palette[count], ms=4, alpha=0.75)
+#     count +=1 
 
 # Plot the yeast translation rate theory
 ax[1, 1].plot(yeast_lam, yeast_gamma, 'k-', lw=1)
 
-    
+
+for a in [ax[0, 0], ax[1, 0]]:
+    leg = a.legend(fontsize=4)
+
 # ax[0,0].legend()
+# ax[1,0].legend()
 # Adjust the axis limits
 ax[0, 0].set_xlim([0, 2])
 ax[0, 1].set_xlim([0, 2.5])
@@ -142,29 +149,12 @@ ax[1, 1].set_ylim([0, 12])
 # Add titles and things
 
 for i in range(2):
-    ax[i, 0].set_ylabel('ribosomal mass fraction', fontsize=8)
-    ax[i, 1].set_ylabel('elongation rate [AA/s]', fontsize=8)
-    ax[0, i].set_title('E. coli', fontsize=8, fontstyle='italic')
-    ax[1, i].set_title('S. cerevisiae', fontsize=8, fontstyle='italic')
+    ax[i, 0].set_ylabel('ribosomal mass fraction', fontsize=8, fontweight='normal')
+    ax[i, 1].set_ylabel('elongation rate [AA/s]', fontsize=8, fontweight='normal')
+    # ax[0, i].set_title('E. coli', fontsize=8, fontstyle='italic')
+    # ax[1, i].set_title('S. cerevisiae', fontsize=8, fontstyle='italic')
 plt.tight_layout()
-#%%
-# Set up the various plots
-ecoli_elong_plot = alt.Chart(ecoli_elong).mark_point().encode(
-                   x=alt.X('growth_rate_hr:Q', title='growth rate [per hr]'),
-                   y=alt.Y('elongation_rate_aa_s:Q', title='elongation rate [AA/s]'),
-                   color=alt.Color('source:N', title='data source'),
-                   shape=alt.Shape('source:N', title='data_source')
-)
+plt.savefig('../../figures/ecoli_yeast_data.pdf')
+# # %%
 
-ecoli_mass_fraction = alt.Chart(ecoli_mass).mark_point().encode(
-                x=alt.X('growth_rate_hr:Q)
-)
-
-points = alt.Chart(data, width=300, height=300).mark_point().encode(
-            x=alt.X('growth_rate_hr:Q', title='growth rate [per hr]'),
-            y=alt.Y('elongation_rate_aa_s:Q', title='peptide chain elongation rate [AA /s]'),
-            color=alt.Color('source:N', title='Primary Source')
-).facet(row='organism:N').resolve_scale( x='independent', 
-                                        y='independent')
-save(points, '../../figures/elongation_rates.pdf')
 # %%

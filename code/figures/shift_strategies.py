@@ -14,12 +14,13 @@ alt.data_transformers.disable_max_rows()
 # Define constants for the integration 
 OD_CONV = 1.5E17
 gamma_max = 9.65
+kappa = 0.1
 # Approximate Kd given intracellular amino acid concentrations
 Kd = (20 * 1E6 * 110) / (0.15E-12 * 6.022E23)
 
 # Define the shift (either up- or down-shift)
-nu_init = 4 
-nu_shift =  10 
+nu_init = 5 
+nu_shift =  1 
 time_shift = 0.5 # Time point at which the shift occurs.
  
 # Set the initial conditions
@@ -43,6 +44,7 @@ phiR_final_elong =  nu_shift / (gamma * (cAA_init + 1) + nu_shift)
 # Define the time ranges
 T_START = 0 
 T_END =  5 
+
 # N_STEPS = T_END * 3600
 N_STEPS = 2000 
 dt = (T_END - T_START) / N_STEPS
@@ -57,103 +59,123 @@ def integrate(params, t, gamma_max, nu_max, phiR, Kd=Kd):
     factor and assumes that nutrient concentration is high enough such that 
     nu ≈ nu_max.
     """
-    # Unpacking
-    Mr, Mp, cAA = params
-    gamma_max, nu_max, phiR = args
+    Mr, Mp, Mr_star, cAA = vars
+    M = Mr + Mr_star + Mp
 
-    # Translational efficiency
+    # Compute the elongation rate
     gamma = gamma_max * (cAA / (cAA + Kd))
 
     # Biomass dynamics
-    dM_dt = gamma * Mr
-            
-    # Metabolism
-    dcAA_dt = (nu_max * Mp - (1 + cAA) * dM_dt) / (Mr + Mp)
+    dM_dt = gamma * Mr 
+
+    # Precursor dynamics
+    dcAA_dt = nu_max * (Mp/M) - gamma * (Mr/M) * (1 + (cAA/M))
 
     # Allocation
-    dMr_dt = phiR * dM_dt 
-    dMp_dt = (1 - phiR) * dM_dt    
-    return np.array([dMr_dt, dMp_dt, dcAA_dt])
+    dMr_dt = kappa * Mr_star
+    dMr_star_dt = phiR * dM_dt - kappa * Mr_star
+    dMp_dt = (1 - phiR) * dM_dt
+    return [dMr_dt, dMp_dt, dMr_star_dt, dcAA_dt]
 
-#%% Scenario I: Instantaneous changing of phiR
-dfs = []
-for i, strat in enumerate(tqdm.tqdm(['constant', 'optimal', 'elongation'])):
-    # Set the output vector and the initial conditions
-    out = np.zeros((3, len(time_range)))
-    out[:, 0] = [Mr_init, Mp_init, cAA_init]
-    nu = np.zeros_like(time_range)
-    phi = np.zeros_like(time_range)
-    nu[0] = nu_init
-    phi[0] = phiR_init
+
+    # # Unpacking
+    # Mr, Mp, cAA = params
+    # gamma_max, nu_max, phiR = args
+
+    # # Translational efficiency
+    # gamma = gamma_max * (cAA / (cAA + Kd))
+
+    # # Biomass dynamics
+    # dM_dt = gamma * Mr
+            
+    # # Metabolism
+    # dcAA_dt = (nu_max * Mp - (1 + cAA) * dM_dt) / (Mr + Mp)
+
+    # # Allocation
+    # dMr_dt = phiR * dM_dt 
+    # dMp_dt = (1 - phiR) * dM_dt    
+    # return np.array([dMr_dt, dMp_dt, dcAA_dt])
+
+# #%% Scenario I: Instantaneous changing of phiR
+# dfs = []
+# for i, strat in enumerate(tqdm.tqdm(['constant', 'optimal', 'elongation'])):
+#     # Set the output vector and the initial conditions
+#     out = np.zeros((3, len(time_range)))
+#     out[:, 0] = [Mr_init, Mp_init, cAA_init]
+#     nu = np.zeros_like(time_range)
+#     phi = np.zeros_like(time_range)
+#     nu[0] = nu_init
+#     phi[0] = phiR_init
     
-    # Loop through the time step
-    for j in range(1, len(time_range)):
-        # Set the initial conditions for the time step given the system configuration
-        # at the previous time step
-        params = out[:, j-1]
+#     # Loop through the time step
+#     for j in range(1, len(time_range)):
+#         # Set the initial conditions for the time step given the system configuration
+#         # at the previous time step
+#         params = out[:, j-1]
 
-        # If in the preshift condition, integrate given the initial steady state
-        if time_range[j] < time_shift:
-            _nu = nu_init
-            _phi = phiR_init
-        else:
-            _nu = nu_shift 
-            if strat == 'constant':
-                _phi = phiR_final_constant  
-            elif strat == 'optimal':
-                _phi = phiR_final_optimal 
-            elif strat == 'elongation':
-                _phi = phiR_final_elong
+#         # If in the preshift condition, integrate given the initial steady state
+#         if time_range[j] < time_shift:
+#             _nu = nu_init
+#             _phi = phiR_init
+#         else:
+#             _nu = nu_shift 
+#             if strat == 'constant':
+#                 _phi = phiR_final_constant  
+#             elif strat == 'optimal':
+#                 _phi = phiR_final_optimal 
+#             elif strat == 'elongation':
+#                 _phi = phiR_final_elong
 
-        args = (gamma_max, _nu, _phi)
-        _out = scipy.integrate.odeint(integrate, params, [0, dt], args=args)
-        out[:, j] = _out[-1]
-        nu[j] = _nu
-        phi[j]= _phi
+#         args = (gamma_max, _nu, _phi)
+#         _out = scipy.integrate.odeint(integrate, params, [0, dt], args=args)
+#         out[:, j] = _out[-1]
+#         nu[j] = _nu
+#         phi[j]= _phi
 
-    # Store everything as a dataframe
-    df = pd.DataFrame(out.T, columns=['Mr', 'Mp', 'cAA'])
-    df['rel_biomass'] = (df['Mr'].values + df['Mp'].values )/ M0
-    df['strategy'] = strat
-    df['time'] = time_range
-    df['nu'] = nu
-    df['phiR'] = phi
-    dfs.append(df)
+#     # Store everything as a dataframe
+#     df = pd.DataFrame(out.T, columns=['Mr', 'Mp', 'cAA'])
+#     df['rel_biomass'] = (df['Mr'].values + df['Mp'].values )/ M0
+#     df['strategy'] = strat
+#     df['time'] = time_range
+#     df['nu'] = nu
+#     df['phiR'] = df['Mr'].values / (df['Mr'].values + df['Mp'].values)
+#     dfs.append(df)
 
-instantaneous_df = pd.concat(dfs, sort=False)
+# instantaneous_df = pd.concat(dfs, sort=False)
 
-#%%
-# Set up the plots
-base = alt.Chart(instantaneous_df)
-nu_plot =  base.mark_line().encode(
-                x=alt.X('time:Q', title='time [hr]'),
-                y=alt.Y('nu:Q', title='ν [per hr]')
-            ).properties(width=800, height=100)
+# #%%
+# # Set up the plots
+# base = alt.Chart(instantaneous_df)
+# nu_plot =  base.mark_line().encode(
+#                 x=alt.X('time:Q', title='time [hr]'),
+#                 y=alt.Y('nu:Q', title='ν [per hr]')
+#             ).properties(width=800, height=100)
 
-M_plot = base.mark_line().encode(
-            x=alt.X('time:Q', title='time [hr]'),
-            y=alt.Y('rel_biomass:Q', title='relative biomass', 
-                    scale=alt.Scale(type='log')),
-            color=alt.Color('strategy:N'),
-            strokeDash=alt.StrokeDash('strategy:N')
-            ).properties(width=250, height=250)
-cAA_plot = base.mark_line().encode(
-            x=alt.X('time:Q', title='time [hr]'),
-            y=alt.Y('cAA:Q', title='precursor abundance'),
-            color=alt.Color('strategy:N'),
-            strokeDash=alt.StrokeDash('strategy:N')
-            ).properties(width=250, height=250)
-phiR_plot = base.mark_line().encode(
-            x=alt.X('time:Q', title='time [hr]'),
-            y=alt.Y('phiR:Q', title='ribosome allocation ΦR'),
-            color=alt.Color('strategy:N'),
-            strokeDash=alt.StrokeDash('strategy:N')
-            ).properties(width=250, height=250)
+# M_plot = base.mark_line().encode(
+#             x=alt.X('time:Q', title='time [hr]'),
+#             y=alt.Y('rel_biomass:Q', title='relative biomass', 
+#                     # scale=alt.Scale(type='log')
+#                     ),
+#             color=alt.Color('strategy:N'),
+#             strokeDash=alt.StrokeDash('strategy:N')
+#             ).properties(width=250, height=250)
+# cAA_plot = base.mark_line().encode(
+#             x=alt.X('time:Q', title='time [hr]'),
+#             y=alt.Y('cAA:Q', title='precursor abundance'),
+#             color=alt.Color('strategy:N'),
+#             strokeDash=alt.StrokeDash('strategy:N')
+#             ).properties(width=250, height=250)
+# phiR_plot = base.mark_line().encode(
+#             x=alt.X('time:Q', title='time [hr]'),
+#             y=alt.Y('phiR:Q', title='ribosome allocation ΦR'),
+#             color=alt.Color('strategy:N'),
+#             strokeDash=alt.StrokeDash('strategy:N')
+#             ).properties(width=250, height=250)
 
 
-layout = nu_plot & (M_plot  | cAA_plot | phiR_plot)
-# altair_saver.save(layout, './nutrient_shift_instantaneous_reallocation.pdf')
-layout
+# layout = nu_plot & (M_plot  | cAA_plot | phiR_plot)
+# # altair_saver.save(layout, './nutrient_shift_instantaneous_reallocation.pdf')
+# layout
 #%% Scenario II: Dynamic changing of phiR
 dfs = []
 for i, strat in enumerate(tqdm.tqdm(['constant', 'optimal', 'elongation'])): 

@@ -14,7 +14,7 @@ AVO = 6.022E23
 VOL = 1E-3
 OD_CONV = 1 / (7.7E-18)
 gamma_max = 20 * 3600 / 7459 # Ribosomes per hr
-Kd = 0.02
+Kd = 0.025
 Km_0 = 1E5 # microgram glucose per liter
 
 Km = (Km_0 * 1E-6) / (180.16)
