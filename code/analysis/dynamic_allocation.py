@@ -35,7 +35,7 @@ def integrate_step(t, vars, phiR, gamma_max):
     cAA = mAA / (Mr + Mp)
 
     # Compute the elongation rate
-    gamma = gamma_max * (cAA**2 / (cAA**2 + Kd**2))
+    gamma = gamma_max * (cAA / (cAA + Kd))
 
     # Biomass dynamics
     dM_dt = gamma * Mr 
