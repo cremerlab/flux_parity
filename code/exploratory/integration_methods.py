@@ -22,19 +22,15 @@ OD_CONV = 1.5E17
 M_init = 0.01 * OD_CONV
 phiR_init = growth.model.phi_R_optimal_allocation(gamma_max, 
                                                   nu_max, 
-                                                  Kd, 
-                                                  0) 
+                                                  Kd) 
 init_phiR = phiR_init
 Mr_init = phiR_init * M_init
 Mp_init = (1 - init_phiR) * M_init
-lam = growth.model.steady_state_growth_rate(gamma_max, 
-                                            nu_max, 
-                                            phiR_init, 
-                                            1 - phiR_init, 
+lam = growth.model.steady_state_mu(gamma_max, 
+                                    phiR_init,  
+                                    nu_max,
                                             Kd)
-cAA_init = growth.model.steady_state_tRNA_balance(nu_max, 
-                                                  1 - phiR_init, 
-                                                  lam)
+cAA_init = growth.model.steady_state_cAA(gamma_max, init_phiR, nu_max, Kd) 
 
 
 

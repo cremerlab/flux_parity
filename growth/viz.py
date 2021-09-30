@@ -1,6 +1,11 @@
 import matplotlib.pyplot 
 import matplotlib
 import altair as alt
+import bokeh.plotting 
+import bokeh.io 
+import bokeh.palettes
+import bokeh.themes
+from bokeh.models import * 
 import seaborn as sns
 
 def get_colors(all_palettes=False):
@@ -294,3 +299,80 @@ def altair_style(return_colors=True, return_palette=True, pub=False, **kwargs):
         return out[0]
     else:
         return out
+
+
+def bokeh_style(return_colors=True, return_palette=True):
+    theme_json = {
+        "attrs": {
+            "Figure": {"background_fill_color": "#f0f3f7",},
+            "Axis": {
+                "axis_line_color": None,
+                "major_tick_line_color": None,
+                "minor_tick_line_color": None,
+            },
+            "Legend": {
+                "border_line_color": "slategray",
+                "background_fill_color": "#f0f3f7",
+                "border_line_width": 0.75,
+                "background_fill_alpha": 0.75,
+            },
+            "Grid": {"grid_line_color": "#FFFFFF", "grid_line_width": 0.75,},
+            "Text": {
+                "text_font_style": "regular",
+                "text_font_size": "12pt",
+                "text_font": "Nunito"
+            },
+            "Title": {
+                "background_fill_color": "#FFFFFF",
+                "text_color": "#3c3c3c",
+                "align": "left",
+                'text_font_style': 'normal',
+                'text_font_size': "10pt",
+                "offset": 5 
+            },
+        }
+    }
+
+    colors, palette = get_colors()
+    theme = bokeh.themes.Theme(json=theme_json)
+    bokeh.io.curdoc().theme = theme
+    out = []
+    if return_colors:
+        out.append(colors)  
+    if return_palette:  
+       out.append(palette) 
+    if return_colors | return_palette:
+        return out
+
+
+def load_js(fname, args):
+    """
+    Given external javascript file names and arguments, load a bokeh CustomJS
+    object
+    
+    Parameters
+    ----------
+    fname: str or list of str
+        The file name of the external javascript file. If the desired javascript
+        exists in multiple external files, they can be provided as a list of
+        strings.
+    args: dict
+        The arguments to supply to the custom JS callback. 
+    
+    Returns
+    -------
+    cb : bokeh CustomJS model object
+        Returns a bokeh CustomJS model object with the supplied code and
+        arguments. This can be directly assigned as callback functions.
+    """
+    if type(fname) == str:
+        with open(fname) as f:
+            js = f.read() 
+    elif type(fname) == list:
+        js = ''
+        for _fname in fname:
+            with open(_fname) as f:
+                js += f.read()
+
+    cb = CustomJS(code=js, args=args)
+    return cb
