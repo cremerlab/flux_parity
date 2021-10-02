@@ -23,21 +23,23 @@ Kd_cAA = 0.025
 # INITIALIZATION    
 # ############################################################################## 
 growth_rate = growth.model.steady_state_mu(gamma_max, phiR_range, nu_max, Kd_cAA)
+growth_rate /= growth_rate.max()
 cAA = growth.model.steady_state_cAA(gamma_max, phiR_range, nu_max, Kd_cAA)
 gamma = growth.model.steady_state_gamma(gamma_max, phiR_range, nu_max, Kd_cAA)
 df = pd.DataFrame(np.array([phiR_range, growth_rate, cAA/Kd_cAA, gamma/gamma_max]).T,
                    columns=['phiR', 'mu', 'cAA', 'gamma'])
 source = bokeh.models.ColumnDataSource(df)
 
+
 # ############################################################################## 
 # WIDGET DEFINITIONS
 # ############################################################################## 
 
-gamma_slider = bokeh.models.Slider(start=0, end=15, step=0.001, value=gamma_max,
+gamma_slider = bokeh.models.Slider(start=0.001, end=15, step=0.001, value=gamma_max,
                     title='maximum translational efficiency [inv. hr]')
-nu_slider = bokeh.models.Slider(start=0, end=15, step=0.001, value=nu_max,
+nu_slider = bokeh.models.Slider(start=0.001, end=15, step=0.001, value=nu_max,
                     title='maximal nutritional efficiency [inv. hr]')
-Kd_cAA_slider = bokeh.models.Slider(start=-4, end=0, step=0.001, value=np.log10(Kd_cAA),
+Kd_cAA_slider = bokeh.models.Slider(start=-4, end=-0.0001, step=0.001, value=np.log10(Kd_cAA),
                     title='log10 effective dissociation constant')
 
 # ############################################################################## 
@@ -46,7 +48,7 @@ Kd_cAA_slider = bokeh.models.Slider(start=-4, end=0, step=0.001, value=np.log10(
 
 growth_axis = bokeh.plotting.figure(width=300, height=300, 
                                     x_axis_label='ribosomal allocation factor',
-                                    y_axis_label='growth rate [per hr]',
+                                    y_axis_label='$$\mu/\mu_{max}$$',
                                     title='steady state growth rate')
 precursor_axis = bokeh.plotting.figure(width=300, height=300,
                                     x_axis_label='ribosomal allocation factor',

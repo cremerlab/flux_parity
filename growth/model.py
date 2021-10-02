@@ -218,3 +218,94 @@ def phi_R_max_translation(gamma_max, nu_max, phi_O, f_a=1):
 
 def phi_R_specific_cAA(cAA, gamma_max, nu_max, Kd, f_a=1):
     return nu_max * (cAA + Kd) / (cAA * nu_max * ((gamma_max/nu_max) + (Kd/cAA) + 1))
+
+
+
+
+
+
+def batch_culture_self_replicator_ppGpp(params,
+                                  time,
+                                  gamma_max,
+                                  nu_max,
+                                  phi_R,
+                                  tau = 1,
+                                  Kd_TAA_star = 0.025,
+                                  Kd_TAA = 0.025,
+                                  dil_approx=False,
+                                  num_muts=1):
+    """
+    Defines the system of ordinary differenetial equations (ODEs) which describe 
+    the self-replicator model in batch culture conditions.
+
+    Parameters
+    ----------
+    params: list, [Mr, Mp, T_AA, T_AA_star]
+        A list of the parameters whose dynamics are described by the ODEs.
+        M_r : positive float, must be < M 
+            Ribosomal protein biomass of the system
+        M_p : positive float, must be < M
+            Metabolic protein biomass of the system 
+        T_AA_star : positive float
+            Concentration of charged tRNAs in the culture. This is normalized to 
+            total protein biomass.
+        T_AA : positive float
+            Concentration of uncharged tRNAs in the culture. This is normalized to 
+            total protein biomass.
+    time : float
+        Evaluated time step of the system.
+    gamma_max: positive float 
+        The maximum translational capacity in units of inverse time.
+    nu_max : positive float
+        The maximum nutritional capacity in units of inverse time. 
+    omega: positive float
+        The yield coefficient of the nutrient source in mass of amino acid 
+        produced per mass of nutrient.
+    phi_R : float, [0, 1]
+        The fraction of the proteome occupied by ribosomal protein mass
+    Kd_cAA : positive float 
+        The effective dissociation constant of precursors to the elongating
+        ribosome. This is in units of mass fraction.
+    Kd_cN: positive float
+        The effective dissociation constant for growth on the specific nutrient 
+        source. This is in units of molar.
+    dil_approx: bool
+        If True, then the approximation is made that the dilution of charged-tRNAs
+        with growing biomass is negligible.
+    num_muts: int
+        The number of mutants whose dynamics need to be tracked.
+
+    Returns
+    -------
+    out: list, [dM_dt, dMr_dt, dMp_dt, dcAA_dt, dcN_dt]
+        A list of the evaluated ODEs at the specified time step.
+
+        dMr_dt : The dynamics of the ribosomal protein biomass.
+        dMp_dt : the dynamics of the metabolic protein biomass.
+        dcAA_dt : The dynamics of the precursor concentration.
+        dcN_dt :  The dynamics of the nutrient concentration in the growth medium
+    """
+    # Unpack the parameters
+    M_r, M_p, T_AA, T_AA_star = params
+
+    # Compute the capacities
+    gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star))
+    nu = nu_max * (T_AA / (T_AA + Kd_TAA))
+
+    # Compute the active fraction
+    ratio = T_AA_star / T_AA
+    fa = ratio / (ratio + tau)
+
+    # Biomass accumulation
+    dM_dt = gamma * fa * M_r
+
+    # Resource allocation
+    dMr_dt = phi_R * dM_dt
+    dMp_dt = (1 - phi_R) * dM_dt
+
+    dT_AA_star_dt = (nu * M_p - dM_dt) / (M_r + M_p)
+    dT_AA_dt = (dM_dt - nu * M_p) / (M_r + M_p)
+
+    # Pack and return the output.
+    out = [dMr_dt, dMp_dt, dT_AA_dt, dT_AA_star_dt]
+    return out

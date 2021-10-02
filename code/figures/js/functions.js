@@ -37,7 +37,7 @@ function steadyStatePrecursorConc(gamma_max, phi_R, nu_max, Kd_cAA) {
 function steadyStateGrowthRate(gamma_max, phi_R, nu_max, Kd_cAA) {
     let Gamma = gamma_max * phi_R;
     let Nu = nu_max * (1 - phi_R);
-    let numer = Nu + Gamma - Math.sqrt(Math.pow((Nu + Gamma, 2) - 4 * (1 - Kd_cAA) * Nu * Gamma))
+    let numer = Nu + Gamma - Math.sqrt(Math.pow(Nu + Gamma, 2) - 4 * (1 - Kd_cAA) * Nu * Gamma)
     let denom = 2 * (1 - Kd_cAA);
     return numer / denom
 }
@@ -74,7 +74,6 @@ function odeintForwardEuler(fun, params, args, dt, nSteps) {
 
 
 // Functions below aren't quite working yet
-
 function odeintMidpointMethod(fun, params, args, dt, nSteps){
     let out = [params];
     for (let i=1; i < nSteps; i++) {
