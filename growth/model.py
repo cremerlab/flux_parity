@@ -293,10 +293,9 @@ def batch_culture_self_replicator_ppGpp(params,
 
     # Compute the active fraction
     ratio = T_AA_star / T_AA
-    fa = ratio / (ratio + tau)
 
     # Biomass accumulation
-    dM_dt = gamma * fa * M_r
+    dM_dt = gamma * M_r
 
     # Resource allocation
     phi_R = ratio / (ratio + tau)
@@ -308,4 +307,67 @@ def batch_culture_self_replicator_ppGpp(params,
 
     # Pack and return the output.
     out = [dMr_dt, dMp_dt, dT_AA_dt, dT_AA_star_dt]
+    return out
+
+
+
+
+def batch_culture_self_replicator_cAA(params,
+                                  time,
+                                  gamma_max,
+                                  nu_max, 
+                                  Kd_cAA = 0.025,
+                                  dil_approx=False,
+                                  num_muts=1):
+    """
+    Defines the system of ordinary differenetial equations (ODEs) which describe 
+    the self-replicator model in batch culture conditions.
+
+    Parameters
+    ----------
+    params: list, [Mr, Mp, T_AA, T_AA_star]
+        A list of the parameters whose dynamics are described by the ODEs.
+        M_r : positive float, must be < M 
+            Ribosomal protein biomass of the system
+        M_p : positive float, must be < M
+            Metabolic protein biomass of the system 
+        c_AA
+    time : float
+        Evaluated time step of the system.
+    gamma_max: positive float 
+        The maximum translational capacity in units of inverse time.
+    nu_max : positive float
+        The maximum nutritional capacity in units of inverse time. 
+    Kd_cAA : positive float 
+        The effective dissociation constant of precursors to the elongating
+        ribosome. This is in units of mass fraction.
+
+    Returns
+    -------
+    out: list, [dM_dt, dMr_dt, dMp_dt, dcAA_dt]
+        A list of the evaluated ODEs at the specified time step.
+
+        dMr_dt : The dynamics of the ribosomal protein biomass.
+        dMp_dt : the dynamics of the metabolic protein biomass.
+        dcAA_dt : The dynamics of the precursor concentration.
+    """
+    # Unpack the parameters
+    M_r, M_p, c_AA = params
+
+    # Compute the capacities
+    gamma = gamma_max * (c_AA / (c_AA + Kd_cAA))
+
+
+    # Biomass accumulation
+    dM_dt = gamma * M_r
+
+    # Resource allocation
+    phi_R = c_AA / (c_AA + Kd_cAA)
+    dMr_dt = phi_R * dM_dt
+    dMp_dt = (1 - phi_R) * dM_dt
+
+    dcAA_dt = (nu_max * M_p - dM_dt * (1 + c_AA)) / (M_r + M_p)
+
+    # Pack and return the output.
+    out = [dMr_dt, dMp_dt, dcAA_dt]
     return out
