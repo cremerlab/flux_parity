@@ -169,7 +169,7 @@ def steady_state_gamma(gamma_max, phi_R, nu_max, Kd_cAA):
     phi_R : float [0, 1]
         The fraction of the proteome occupied by ribosomal protein mass.
     nu_max : positive float 
-        The maximum nutritional capaaaaacity in units of inverse time.
+        The maximum nutritional capacity in units of inverse time.
     Kd_cAA : positive float 
         The effective dissociation constant of charged tRNA to the elongating
         ribosome.
@@ -227,8 +227,7 @@ def phi_R_specific_cAA(cAA, gamma_max, nu_max, Kd, f_a=1):
 def batch_culture_self_replicator_ppGpp(params,
                                   time,
                                   gamma_max,
-                                  nu_max,
-                                  phi_R,
+                                  nu_max, 
                                   tau = 1,
                                   Kd_TAA_star = 0.025,
                                   Kd_TAA = 0.025,
@@ -300,6 +299,7 @@ def batch_culture_self_replicator_ppGpp(params,
     dM_dt = gamma * fa * M_r
 
     # Resource allocation
+    phi_R = ratio / (ratio + tau)
     dMr_dt = phi_R * dM_dt
     dMp_dt = (1 - phi_R) * dM_dt
 
