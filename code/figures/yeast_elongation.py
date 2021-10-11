@@ -22,7 +22,7 @@ ecoli_mass = pd.read_csv('../../data/collated_mass_fraction_measurements.csv')
 nu_max = np.linspace(0, 5, 200)
 ecoli_params = {'nu_max':nu_max,
                 'gamma_max': 20 * 3600 / 7459,
-                'Kd':0.015}
+                'Kd':0.025}
 yeast_params = {'nu_max':nu_max,
                 'gamma_max': 10 * 3600 / 11984,
                 'Kd':0.15}
