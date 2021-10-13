@@ -6,6 +6,10 @@ import bokeh.io
 import bokeh.palettes
 import bokeh.themes
 from bokeh.models import * 
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+from matplotlib.path import Path
+from matplotlib.patches import BoxStyle
+from matplotlib.offsetbox import AnchoredText
 import seaborn as sns
 
 def get_colors(all_palettes=False):
@@ -110,7 +114,7 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
         "axes.titlesize": 8,
         "axes.titleweight": 700,
         "axes.titlepad": 3,
-        "axes.titlelocation": "center",
+        "axes.titlelocation": "left",
 
         # Axes label formatting. 
         "axes.labelpad": 0,
@@ -144,7 +148,7 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
 
         # General Font styling
         "font.family": "sans-serif",
-        "font.family": "Arial",
+        "font.family": "Nunito",
         "font.weight": 400, # Weight of all fonts unless overriden.
         "font.style": "normal",
         "text.color": "#5b5b5b",
@@ -175,6 +179,30 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
         return out[0]
     else:
         return out
+
+
+def titlebox(
+    ax, text, color, bgcolor=None, size=8, boxsize=0.1, pad=0.05, loc=10, **kwargs
+):
+    """Sets a colored box about the title with the width of the plot"""
+    boxsize=str(boxsize * 100)  + '%'
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes("top", size=boxsize, pad=pad)
+    cax.get_xaxis().set_visible(False)
+    cax.get_yaxis().set_visible(False)
+    cax.spines["top"].set_visible(False)
+    cax.spines["right"].set_visible(False)
+    cax.spines["bottom"].set_visible(False)
+    cax.spines["left"].set_visible(False)
+
+    matplotlib.pyplot.setp(cax.spines.values(), color=color)
+    if bgcolor != None:
+        cax.set_facecolor(bgcolor)
+    else:
+        cax.set_facecolor("white")
+    at = AnchoredText(text, loc=loc, frameon=False, prop=dict(size=size, color=color))
+    cax.add_artist(at)
+
 
 def altair_style(return_colors=True, return_palette=True, pub=False, **kwargs):
     """

@@ -36,4 +36,4 @@ for (let i=0; i < time.length; i++ ) {
 }
 source.change.emit()
 
-// console.log(dynamics[0][0], dynamics[0][1], dynamics[0][0] + dynamics[0][1]);
+

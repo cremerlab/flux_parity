@@ -28,7 +28,7 @@ cAA_0 = 1E-3
 cN_0 = 0.010
 
 # Perform the integration and instantiate data source
-time_range = np.linspace(0, 10, 10000)
+time_range = np.linspace(0, 20, 3000)
 params = [MR_0, MP_0, cAA_0, cN_0]
 args = (gamma_max, nu_max, omega, phi_R, Kd_cAA, Kd_cN)
 out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator,

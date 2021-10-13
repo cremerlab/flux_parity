@@ -1,0 +1,22 @@
+# ##############################################################################
+# ABOUT
+# ------------------------------------------------------------------------------
+# This data file contains all information that will be displayed on the home
+# page of your website. The fields `title` and `authors` are necessary. These
+# keys cannot be changed or they will not be displayed on the website. 
+#
+# The remainder of the fileds can be changed to fit your needs. The field name
+# (e.g. abstract, summary, etc) Will appear with as H2 headings on the website.
+# The content below will appear 
+
+title: >
+  Title TBD 
+authors: >
+  Griffin Chure and Jonas Cremer
+Abstract: >
+  This is a website dedicated to our upcoming publication on the fundamentals 
+  of protein-mediated growth. This page will be updated and changed dramatically
+  as the paper is developed.
+# Summary:  >
+# Acknowledgments: > 
+
