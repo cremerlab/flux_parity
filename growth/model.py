@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def batch_culture_self_replicator(params,
+def self_replicator(params,
                                   time,
                                   gamma_max,
                                   nu_max,
