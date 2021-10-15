@@ -25,16 +25,16 @@ Kd_cN = 5E-4  # in M
 Kd_cAA = (20 * 1E6 * 110) / (0.15E-12 * 6.022E23) # in abundance units 
 
 # Define the allocation parameters
-phi_R = 0.3
-phi_P = 1 - phi_R #0.35
+phi_Rb = 0.2
+phi_Mb = 0.3
 
 # Define other useful constants
 OD_CONV = 1.5E17 
 
 # Define starting masses
 M0 = 0.1 * OD_CONV
-MR_0 = phi_R * M0
-MP_0 = phi_P * M0
+MR_0 = phi_Rb * M0
+MP_0 = phi_Mb * M0
 
 # Define starting concentrations
 cAA_0 = 1E-3 # in abundance units
@@ -49,10 +49,10 @@ for i, nu in enumerate(nu_max):
 
     # Pack parameters and arguments
     params = [MR_0, MP_0, cAA_0, cN_0] 
-    args = (gamma_max, nu, omega, phi_R, Kd_cAA, Kd_cN)
+    args = (gamma_max, nu, omega, phi_Rb, phi_Mb, Kd_cAA, Kd_cN)
 
     # Perform the integration
-    out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator, 
+    out = scipy.integrate.odeint(growth.model.self_replicator, 
                                 params, time_range, args=args)
 
     # Pack the integration output into a tidy dataframe
@@ -90,5 +90,5 @@ for g, d in df.groupby('nu_max'):
     ax[2].plot(d['time'], d['c_N']  / Kd_cN, '-', lw=0.75, color=palette[count])
     count += 1
 plt.tight_layout()
-plt.savefig('../../figures/Fig2_dynamics_plots.pdf', bbox_inches='tight')
+# plt.savefig('../../figures/Fig2_dynamics_plots.pdf', bbox_inches='tight')
 # %%
