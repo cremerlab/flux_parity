@@ -96,9 +96,9 @@ counter = 0
 for g, d in elong_rate[elong_rate['organism']=='Saccharomyces cerevisiae'].groupby(['source']):    
     print(g)
     ax[1, 2].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'].values * 3600 / 11984, markers[counter],
-                 ms=5, color='white', markeredgecolor='k', alpha=0.5, label=g)
+                 ms=5, color='white', markeredgecolor='k', alpha=0.25, label=g)
     ax[1, 2].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'].values * 3600 / 11984, 'x',
-                 ms=6, markeredgewidth=0.5, markeredgecolor='k', alpha=0.5, label='__nolegend__')
+                 ms=6, markeredgewidth=0.5, markeredgecolor='k', alpha=0.25, label='__nolegend__')
 
     counter += 1
 
@@ -118,19 +118,13 @@ ax[1, 1].plot(opt_mu_yeast, opt_phiRb_yeast, '-', color=colors['primary_blue'], 
 ax[1, 2].plot(const_mu_yeast, const_gamma_yeast, '-', color=colors['primary_purple'], label='(I) constant $\phi_{Rb}$', lw=1)
 ax[1, 2].plot(cAA_mu_yeast, cAA_gamma_yeast, '-', color=colors['primary_green'], label='(II) constant $\gamma$', lw=1)
 ax[1, 2].plot(opt_mu_yeast, opt_gamma_yeast, '-', color=colors['primary_blue'], label='(III) optimal $\phi_{Rb}$', lw=1)
-#
-# ax[0, 2].plot(mu_ecoli, gamma_ecoli, 'k-')
-# ax[1, 1].plot(mu_yeast, opt_phiRb_yeast, 'k-')
-# ax[1, 2].plot(mu_yeast, gamma_yeast, 'k-')
-
-
 
 # Plot the theory
-# ax[0, 1].legend()
-# ax[1, 1].legend()
-# ax[1, 2].legend()
-# ax[0, 2].legend()
+ax[0, 1].legend()
+ax[1, 1].legend()
+ax[1, 2].legend()
+ax[0, 2].legend()
 plt.tight_layout()
-# plt.savefig('../../../figures/')
+plt.savefig('../../figures/Fig5_data_comparison_plots.pdf', bbox_inches='tight')
 
 # %%

@@ -1,0 +1,36 @@
+COG Categories
+--------------
+Letters correspond to the identifier
+
+PROTEIN SYNTHESIS
+-----------------
+J - Translation Ribosomal Structure & Biogenesis
+
+METABOLISM
+----------------
+P - Inorganic Ion Transport & Metabolism
+H - Coenzyme Transport and Metabolism
+F - Nucleotide Transport and Metabolism
+E - Amino Acid Transport and Metabolism
+G - Carbohydrate Transport and Metabolism
+C - Energy Production and Conversion
+
+OTHER PROTEINS
+-----------------
+X - Mobilome: Prophages and Transposons
+O - Posttranslational Modification, Protein Turnover, Chaperones
+U - Intracellular Trafficking, Secretion, and Vesicular Transport
+W - Extracellular Structures
+Z - Cytoskeleton
+N - Cell Motility
+M - Cell Wall/Membrane/Envelope Biogenesis
+T - Signal Transduction Mechanism
+V - Defense Mechanisms
+Y - Nuclear Structure 
+D - Cell Cycle Control, Cell Division, Chromosome Partitioning
+B - Chromatin Structure and Dynamics
+L - Replication, Recombination, and Repair
+K - Transcription
+A - RNA Processing and Modification
+R - General Function Prediction Only
+S - Function Unknown
