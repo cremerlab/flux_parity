@@ -8,8 +8,8 @@ import scipy.integrate
 colors, palette = growth.viz.matplotlib_style()
 
 # %%
-nu_init =  3 
-nu_shift = 1 
+nu_init =   1 
+nu_shift = 5 
 
 # Set the constants for all scenarios
 gamma_max = 20 * 3600 / 7459
@@ -38,14 +38,9 @@ preshift = np.arange(0, shift_time,dt)
 postshift = np.arange(shift_time - dt, 7, dt)
 
 # Set the optimal and constant phiRbs
-# Integrate the ppGpp model to find the preshift and postshift allocation
-# init_phiRb = growth.model.phi_R_optimal_allocation(gamma_max, nu_init, Kd)
-# shift_phiRb = growth.model.phi_R_optimal_allocation(gamma_max,  nu_shift, Kd)
-# init_phiMb = 1 - init_phiRb
-# shift_phiMb = 1 - shift_phiRb
 init_params = [M_Rb, M_Mb, T_AA, T_AA_star]
-preshift_args = (gamma_max, nu_init, tau, Kd_TAA_star, Kd_TAA, False, True, kappa_max)
-postshift_args = (gamma_max, nu_shift, tau, Kd_TAA_star, Kd_TAA, False, True, kappa_max)
+preshift_args = (gamma_max, nu_init, tau, Kd_TAA_star, Kd_TAA, False, True, True, kappa_max)
+postshift_args = (gamma_max, nu_shift, tau, Kd_TAA_star, Kd_TAA, False, True, True, kappa_max)
 preshift_out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp,
                              init_params, np.arange(0, 200, dt), args=preshift_args)
 postshift_out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp,
@@ -53,58 +48,27 @@ postshift_out = scipy.integrate.odeint(growth.model.batch_culture_self_replicato
 
 preshift_out = preshift_out[-1]
 postshift_out = postshift_out[-1]
-init_numax = nu_init * (preshift[-2] / (preshift[-2] + Kd_TAA))
-shift_numax = nu_shift * (postshift[-2] / (postshift[-2] + Kd_TAA))
 init_phiRb = (preshift_out[0]) / (preshift_out[0] + preshift_out[1])
 shift_phiRb = (postshift_out[0]) / (postshift_out[0] + postshift_out[1])
 init_phiMb = 1 - init_phiRb
 shift_phiMb = 1 - shift_phiRb
-init_cpc = growth.model.steady_state_precursors(gamma_max, init_phiRb, nu_init, Kd)
 init_T_AA = preshift_out[2]
 init_T_AA_star = preshift_out[3]
-# ppGpp_init_params = [M0 * ppGpp_init_phiRb, M0 * ppGpp_init_phiMb, init_T_AA, init_T_AA_star]
 
-#
-
-
-#
-def integrate(params, t, gamma_max, nu_max, phiRb, phiMb, Kd=Kd):
-    """
-    Integrates the system of differential equations, including the dilution 
-    factor and assumes that nutrient concentration is high enough such that 
-    nu ≈ nu_max.
-    """
-    M_Rb, M_Mb, c_pc = params
-    M = M_Rb +  M_Mb
-
-    # Compute the elongation rate
-    gamma = gamma_max * (c_pc / (c_pc + Kd))
-
-    # Biomass dynamics
-    dM_dt = gamma * M_Rb 
-
-    # Precursor dynamics
-    dc_pc_dt = (nu_max * M_Mb - (1 + c_pc) * dM_dt) / M
-
-    # Allocation
-    dM_Rb_dt = phiRb * dM_dt
-    dM_Mb_dt = phiMb * dM_dt
-    return [dM_Rb_dt, dM_Mb_dt,  dc_pc_dt]
-
-init_params = [M0 * init_phiRb, M0 * init_phiMb, init_cpc]
+init_params = [M0 * init_phiRb, M0 * init_phiMb, init_T_AA, init_T_AA_star]
 # Compute the constant scenario
-const_preshift_args = (gamma_max, init_numax, init_phiRb, init_phiMb, Kd)
-const_postshift_args = (gamma_max, shift_numax, init_phiRb, init_phiMb, Kd)
-const_preshift_out = scipy.integrate.odeint(integrate, init_params,
+const_preshift_args = (gamma_max, nu_init, tau, Kd_TAA_star, Kd_TAA, False, False, True, kappa_max, init_phiRb)
+const_postshift_args = (gamma_max, nu_shift, tau, Kd_TAA_star, Kd_TAA, False, False, True, kappa_max, init_phiRb)
+const_preshift_out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp, init_params,
                                             preshift, args=const_preshift_args)
-preshift_df = pd.DataFrame(const_preshift_out, columns=['M_Rb', 'M_Mb', 'c_pc'])
+preshift_df = pd.DataFrame(const_preshift_out, columns=['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star'])
 preshift_df['nu'] = nu_init
 preshift_df['phase'] = 'preshift'
 preshift_df['time_hr'] =  preshift
 const_postshift_params = const_preshift_out[-1]
-const_postshift_out = scipy.integrate.odeint(integrate, const_postshift_params,
+const_postshift_out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp, const_postshift_params,
                                             postshift, args=const_postshift_args)
-postshift_df = pd.DataFrame(const_postshift_out[1:], columns=['M_Rb', 'M_Mb', 'c_pc'])
+postshift_df = pd.DataFrame(const_postshift_out[1:], columns=['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star'])
 postshift_df['nu'] = nu_shift
 postshift_df['phase'] = 'postshift'
 postshift_df['time_hr'] =  postshift[1:]
@@ -114,24 +78,26 @@ const_shift_df['total_biomass'] = const_shift_df['M_Rb'].values + const_shift_df
 const_shift_df['relative_biomass'] = const_shift_df['total_biomass'].values / M0
 const_shift_df['prescribed_phiR'] = init_phiRb
 const_shift_df['realized_phiR'] = const_shift_df['M_Rb'].values / const_shift_df['total_biomass'].values
-const_shift_df['gamma'] = gamma_max * const_shift_df['c_pc'].values / (const_shift_df['c_pc'] + Kd)
+const_shift_df['gamma'] = gamma_max * const_shift_df['T_AA_star'].values / (const_shift_df['T_AA_star'] + Kd_TAA_star)
 
 const_inst_gr = np.log(const_shift_df['total_biomass'].values[1:]/const_shift_df['total_biomass'].values[:-1])/dt
 
 # Optimal scenario
-opt_preshift_args = (gamma_max, init_numax, init_phiRb, init_phiMb, Kd)
-opt_postshift_args = (gamma_max, shift_numax, shift_phiRb, shift_phiMb, Kd)
-opt_preshift_out = scipy.integrate.odeint(integrate, init_params,
+
+
+opt_preshift_args = (gamma_max, nu_init, tau, Kd_TAA_star, Kd_TAA, False, False, True, kappa_max, init_phiRb)
+opt_postshift_args = (gamma_max, nu_shift, tau, Kd_TAA_star, Kd_TAA, False, False, True, kappa_max, shift_phiRb)
+opt_preshift_out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp, init_params,
                                             preshift, args=opt_preshift_args)
-preshift_df = pd.DataFrame(const_preshift_out, columns=['M_Rb', 'M_Mb', 'c_pc'])
+preshift_df = pd.DataFrame(const_preshift_out, columns=['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star'])
 preshift_df['nu'] = nu_init
 preshift_df['phase'] = 'preshift'
 preshift_df['time_hr'] =  preshift
 preshift_df['prescribed_phiR'] = init_phiRb
 opt_postshift_params = opt_preshift_out[-1]
-opt_postshift_out = scipy.integrate.odeint(integrate, opt_postshift_params,
+opt_postshift_out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp, opt_postshift_params,
                                             postshift, args=opt_postshift_args)
-postshift_df = pd.DataFrame(opt_postshift_out[1:], columns=['M_Rb', 'M_Mb', 'c_pc'])
+postshift_df = pd.DataFrame(opt_postshift_out[1:], columns=['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star'])
 postshift_df['nu'] = nu_shift
 postshift_df['phase'] = 'postshift'
 postshift_df['time_hr'] =  postshift[1:]
@@ -141,7 +107,7 @@ opt_shift_df = pd.concat([preshift_df, postshift_df])
 opt_shift_df['total_biomass'] = opt_shift_df['M_Rb'].values + opt_shift_df['M_Mb'].values
 opt_shift_df['relative_biomass'] = opt_shift_df['total_biomass'].values / M0
 opt_shift_df['realized_phiR'] = opt_shift_df['M_Rb'].values / opt_shift_df['total_biomass'].values
-opt_shift_df['gamma'] = gamma_max * opt_shift_df['c_pc'].values / (opt_shift_df['c_pc'] + Kd)
+opt_shift_df['gamma'] = gamma_max * opt_shift_df['T_AA_star'].values / (opt_shift_df['T_AA_star'] + Kd_TAA_star)
 
 opt_inst_gr = np.log(opt_shift_df['total_biomass'].values[1:]/opt_shift_df['total_biomass'].values[:-1])/dt
 
@@ -157,18 +123,19 @@ opt_inst_gr = np.log(opt_shift_df['total_biomass'].values[1:]/opt_shift_df['tota
 # ppGpp_init_phiMb = 1 - ppGpp_init_phiRb
 # init_T_AA = out[2]
 # init_T_AA_star = out[3]
-ppGpp_init_params = [M0 * init_phiRb, M0 * init_phiMb, init_T_AA, init_T_AA_star]
-
 # Compute the preshift ppGpp
+ppGpp_preshift_args = (gamma_max, nu_init, tau, Kd_TAA_star, Kd_TAA, False, True, True, kappa_max)
+ppGpp_postshift_args = (gamma_max, nu_shift, tau, Kd_TAA_star, Kd_TAA, False, True, True, kappa_max)
+
 ppGpp_preshift_out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp,
-                                        ppGpp_init_params, preshift, args=preshift_args)
+                                         init_params, preshift, args=ppGpp_preshift_args)
 preshift_df = pd.DataFrame(ppGpp_preshift_out, columns=['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star'])
 preshift_df['nu'] = nu_init
 preshift_df['phase'] = 'preshift'
 preshift_df['time_hr'] =  preshift
 ppGpp_shift_params = ppGpp_preshift_out[-1]
 ppGpp_postshift_out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp,
-                                        ppGpp_shift_params, postshift, args=postshift_args)
+                                        ppGpp_shift_params, postshift, args=ppGpp_postshift_args)
 postshift_df = pd.DataFrame(ppGpp_postshift_out[1:], columns=['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star'])
 postshift_df['nu'] = nu_shift
 postshift_df['phase'] = 'postshift'
@@ -190,8 +157,10 @@ ppGpp_inst_gr = np.log(ppGpp_shift_df['total_biomass'].values[1:] / ppGpp_shift_
 # palette = sns.color_palette('crest', n_colors=len(nu_max) + 10)
 
 # %%
+
 fig, ax = plt.subplots(4, 1, figsize=(6, 6), sharex=True)
-# ax[0].set( yscale='log')
+ax[0].set( yscale='log',)
+            # ylim=[1, 100])
 ax[1].set(ylabel='ribosomal allocation $\phi_{Rb}$',
           ylim=[0, 1])
 ax[2].set(ylabel='ribosome content $M_{Rb}/M$',
@@ -239,4 +208,10 @@ ax[0].legend()
 # plt.savefig('../figures/ppGpp_shift_strategies.pdf', bbox_inches='tight')
 # %%
 
+# %%
+fig, ax = plt.subplots(1, 1)
+
+ax.plot(opt_shift_df['time_hr'], opt_shift_df['T_AA_star'], 'b-', lw=1)
+ax.plot(ppGpp_shift_df['time_hr'], ppGpp_shift_df['T_AA_star'], 'r-', lw=1)
+ax.plot(const_shift_df['time_hr'], const_shift_df['T_AA_star'], 'k-', lw=1)
 # %%

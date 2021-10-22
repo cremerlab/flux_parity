@@ -212,9 +212,10 @@ def batch_culture_self_replicator_ppGpp(params,
                                   Kd_TAA_star = 0.025,
                                   Kd_TAA = 0.025,
                                   dil_approx = False,
+                                  dynamic_phiRb = True,
                                   tRNA_regulation = False,
                                   kappa_max = 0.01,
-                                  num_muts=1):
+                                  phi_Rb = 0.1):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
     the self-replicator model in batch culture conditions.
@@ -280,7 +281,9 @@ def batch_culture_self_replicator_ppGpp(params,
     dM_dt = gamma * M_Rb
 
     # Resource allocation
-    phi_Rb = ratio / (ratio + tau)
+    if dynamic_phiRb:
+        phi_Rb = ratio / (ratio + tau)
+
     dM_Rb_dt = phi_Rb * dM_dt
     dM_Mb_dt = (1 - phi_Rb) * dM_dt
 
@@ -299,3 +302,50 @@ def batch_culture_self_replicator_ppGpp(params,
     # Pack and return the output.
     out = [dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
     return out
+
+
+
+def nutrient_shift_ppGpp(nu_preshift, 
+                         nu_postshift, 
+                         shift_time, 
+                         init_params, 
+                         init_args,
+                         total_time,
+                         dt=0.0001):
+
+    # Set the timespans
+    preshift_time = np.arange(0, shift_time, dt)
+    postshift_time = np.arange(shift_time - dt, total_time, dt)
+
+    # Integrate the preshift
+    preshift_out = scipy.integrate.odeint(batch_culture_self_replicator_ppGpp,
+                                          init_params, 
+                                          preshift_time, 
+                                          args=init_args)
+
+    preshift_df = pd.DataFrame(preshift_out, 
+                               columns=['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star'])
+    preshift_df['nu'] = init_args[1]
+    preshift_df['phase'] = 'preshift'
+    preshift_df['time'] =  preshift_time
+   
+    postshift_params = preshift_out[-1]
+    postshift_args = [init_args[i] for i in len(init_args)]
+    postshift_args[1] = nu_postshift
+    postshift_out = scipy.integrate.odeint(batch_culture_self_replicator_ppGpp,
+                                                 postshift_params, 
+                                                 postshift_time, 
+                                                 args=postshift_args)
+    postshift_df = pd.DataFrame(postshift_out[1:], columns=['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star'])
+    postshift_df['nu'] = nu_postshift
+    postshift_df['phase'] = 'postshift'
+    postshift_df['time_hr'] = postshift[1:]
+    postshift_df = pd.concat([preshift_df, postshift_df])
+
+# Compute properties
+ppGpp_shift_df['total_biomass'] = ppGpp_shift_df['M_Rb'].values + ppGpp_shift_df['M_Mb'].values
+ppGpp_shift_df['relative_biomass'] = ppGpp_shift_df['total_biomass'].values / M0
+ppGpp_shift_df['tRNA_balance'] = ppGpp_shift_df['T_AA_star'].values / ppGpp_shift_df['T_AA'].values
+ppGpp_shift_df['prescribed_phiR'] = ppGpp_shift_df['tRNA_balance'].values / (ppGpp_shift_df['tRNA_balance'].values + tau)
+ppGpp_shift_df['realized_phiR'] = ppGpp_shift_df['M_Rb'].values / ppGpp_shift_df['total_biomass'].values
+ppGpp_shift_df['gamma'] = gamma_max * ppGpp_shift_df['T_AA_star'].values / (ppGpp_shift_df['T_AA_star'].values + Kd_TAA_star)
