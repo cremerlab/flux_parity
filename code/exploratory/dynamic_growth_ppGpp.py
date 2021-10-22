@@ -11,11 +11,11 @@ imp.reload(growth.model)
 colors, _ = growth.viz.matplotlib_style()
 
 # Set the constants
-gamma_max = 9.65
+gamma_max = 20 * 3600/ 7459 
 nu_max = np.linspace(0.1, 10, 20)
 Kd_TAA = 2E-5
 Kd_TAA_star = 2E-5 
-tau = 4
+tau = 3
 phi_R = 0.5
 phiP = 1 - phi_R
 OD_CONV = 1.5E17
@@ -82,6 +82,19 @@ for g, d in data.groupby(['nu_max']):
 plt.tight_layout()
 # plt.savefig('./ppGpp_integration_data_comparison.pdf')
 
+#%%
+# Compute the 'simple' model solutions
+Kd = 0.012
+
+nu_max = np.linspace(0.05, 12, 300)
+optimal_phiRb = growth.model.phi_R_optimal_allocation(gamma_max, nu_max, Kd)
+optimal_gamma = growth.model.steady_state_gamma(gamma_max, optimal_phiRb, nu_max, Kd) * 7459/3600
+optimal_lam = growth.model.steady_state_growth_rate(gamma_max, optimal_phiRb, nu_max, Kd)
+optimal_cpc = growth.model.steady_state_precursors(gamma_max, optimal_phiRb, nu_max, Kd)
+m =1 
+cpc = m * optimal_cpc
+Nrb = m * optimal_phiRb / 7459
+cpc_per_ribo = cpc / Nrb
 # %%
 # Set the constants
 nu_max = np.linspace(0.05, 12, 300)
@@ -119,6 +132,9 @@ for g, d in ecoli_elong.groupby(['source']):
     ax[0,1].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'], 'o', ms=4)
 for g, d in tRNA_data.groupby(['source']):
     ax[1, 0].plot(d['growth_rate_hr'], d['tRNA_per_ribosome'], 'o', ms=4)
+
+
+# Plot ppGpp model
 ax[0,0].plot(ss_df['mu'], ss_df['phi_R'], 'k-', lw=1)
 ax[0,0].set_xlabel('growth rate µ [per hr]')
 ax[0, 0].set_ylabel('$\phi_R$')
@@ -132,8 +148,16 @@ ax[1,0].set_ylim([0, 30])
 ax[1,1].plot(ss_df['mu'], ss_df['balance'], 'k-', lw=1) 
 ax[1, 1].set_xlabel('growth rate µ [per hr]')
 ax[1, 1].set_ylabel('charged fraction of tRNAs')
+
+# Plot optimal results
+ax[0,0].plot(optimal_lam, optimal_phiRb, '--',lw=1,  color=colors['primary_red'])
+ax[0,1].plot(optimal_lam, optimal_gamma, '--', lw=1, color=colors['primary_red'])
+
+
 plt.tight_layout()
-plt.savefig('../figures/ppGpp_data_comparison.pdf', bbox_inches='tight')
+
+# plt.savefig('../figures/ppGpp_data_comparison.pdf', bbox_inches='tight')
+
 # %%
 
 # %%
