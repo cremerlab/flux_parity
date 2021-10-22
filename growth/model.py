@@ -8,8 +8,8 @@ def self_replicator(params,
                     omega,
                     phi_Rb,
                     phi_Mb,
-                    Kd_cAA=0.025,
-                    Kd_cN=5E-4,
+                    Kd_cpc=0.025,
+                    Kd_cnt=5E-4,
                     dil_approx=False):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
@@ -55,38 +55,38 @@ def self_replicator(params,
 
     Returns
     -------
-    out: list, [dM_dt, dMr_dt, dMp_dt, dcAA_dt, dcN_dt]
+    out: list, [ dM_Rb_dt, dM_Mb_dt, dc_pc_dt, dc_nt_dt]
         A list of the evaluated ODEs at the specified time step.
-        dMr_dt : The dynamics of the ribosomal protein biomass.
-        dMp_dt : the dynamics of the metabolic protein biomass.
-        dcAA_dt : The dynamics of the precursor concentration.
-        dcN_dt :  The dynamics of the nutrient concentration in the growth medium
+        dM_Rb_dt : The dynamics of the ribosomal protein biomass.
+        dM_Mb_dt : the dynamics of the metabolic protein biomass.
+        dc_pc_dt : The dynamics of the precursor concentration.
+        dc_nt_dt :  The dynamics of the nutrient concentration in the growth medium
     """
     # Unpack the parameters
-    M_r, M_p, c_AA, c_N = params
+    M_Rb, M_Mb, c_pc, c_nt = params
 
     # Compute the capacities
-    gamma = gamma_max * (c_AA / (c_AA + Kd_cAA))
-    nu = nu_max * (c_N / (c_N + Kd_cN))
+    gamma = gamma_max * (c_pc / (c_pc + Kd_cpc))
+    nu = nu_max * (c_nt / (c_nt + Kd_cnt))
 
     # Biomass accumulation
-    dM_dt = gamma * M_r
+    dM_dt = gamma * M_Rb
 
     # Resource allocation
-    dMr_dt = phi_Rb * dM_dt
-    dMp_dt = phi_Mb * dM_dt
+    dM_Rb_dt = phi_Rb * dM_dt
+    dM_Mb_dt = phi_Mb * dM_dt
 
     # Precursor dynamics
     if dil_approx:
-        dcAA_dt = (nu * M_p - dM_dt) / (M_r + M_p)
+        dc_pc_dt = (nu * M_Mb - dM_dt) / (M_Rb + M_Mb)
     else:
-        dcAA_dt = (nu * M_p - (1 + c_AA) * dM_dt) / (M_r + M_p)
-    dcN_dt = -nu * M_p / omega
+        dc_pc_dt = (nu * M_Mb - (1 + c_pc) * dM_dt) / (M_Rb + M_Mb)
+    dc_nt_dt = -nu * M_Mb / omega
 
     # Pack and return the output
-    return [dMr_dt, dMp_dt, dcAA_dt, dcN_dt]
+    return [dM_Rb_dt, dM_Mb_dt, dc_pc_dt, dc_nt_dt]
 
-def steady_state_cAA(gamma_max, phi_Rb, nu_max, Kd_cAA):
+def steady_state_precursors(gamma_max, phi_Rb, nu_max, Kd_cpc):
     """
     Computes the steady state value of the charged-tRNA abundance.
 
@@ -98,12 +98,12 @@ def steady_state_cAA(gamma_max, phi_Rb, nu_max, Kd_cAA):
         The fraction of the proteome occupied by ribosomal proteins.
     nu_max : positive float 
         The maximum nutritional capacity in units of inverse time. 
-    Kd_cAA : positive float
+    Kd_cpc : positive float
         The effective dissociation constant of the precursors to the ribosome. 
 
     Returns
     -------
-    c_AA : float
+    c_pc : float
         The charged tRNA abunadance given the model parameters. This is defined
         as the mass of the charged-tRNA relative to the total biomass.
 
@@ -113,10 +113,11 @@ def steady_state_cAA(gamma_max, phi_Rb, nu_max, Kd_cAA):
     that the nutritional capacy is equal to its maximal value. 
 
     """
-    ss_mu = steady_state_mu(gamma_max, phi_Rb, nu_max, Kd_cAA)
-    return (nu_max * (1 - phi_Rb) / ss_mu) - 1
+    ss_lam = steady_state_growth_rate(gamma_max, phi_Rb, nu_max, Kd_cpc)
+    cpc = (nu_max * (1 - phi_Rb) / ss_lam) - 1
+    return cpc
 
-def steady_state_mu(gamma_max, phi_Rb, nu_max, Kd_cAA):
+def steady_state_growth_rate(gamma_max, phi_Rb, nu_max, Kd_cpc):
     """
     Computes the steady-state growth rate of the self-replicator model. 
 
@@ -128,13 +129,13 @@ def steady_state_mu(gamma_max, phi_Rb, nu_max, Kd_cAA):
         The fraction of the proteome occupied by ribosomal protein mass
     nu_max : positive float 
         The maximum nutritional capacity in units of inverse time. 
-    Kd_cAA :  positive float
+    Kd_cpc :  positive float
         The effective dissociation constant of charged tRNA to the elongating
         ribosome.
 
     Returns
     -------
-    mu : float 
+    lam : float 
         The physically meaningful growth rate (in units of inverse time) given 
         the provided model parameeters.
 
@@ -145,11 +146,12 @@ def steady_state_mu(gamma_max, phi_Rb, nu_max, Kd_cAA):
     """
     Nu = nu_max * (1 - phi_Rb)
     Gamma = gamma_max * phi_Rb
-    numer = Nu + Gamma - np.sqrt((Nu + Gamma)**2 - 4 * (1 - Kd_cAA) * Nu * Gamma)
-    denom = 2 * (1 - Kd_cAA)
-    return numer / denom 
+    numer = Nu + Gamma - np.sqrt((Nu + Gamma)**2 - 4 * (1 - Kd_cpc) * Nu * Gamma)
+    denom = 2 * (1 - Kd_cpc)
+    lam = numer / denom
+    return lam
 
-def steady_state_gamma(gamma_max, phi_Rb, nu_max, Kd_cAA):
+def steady_state_gamma(gamma_max, phi_Rb, nu_max, Kd_cpc):
     """
     Computes the steady-state translational efficiency, gamma.
 
@@ -161,7 +163,7 @@ def steady_state_gamma(gamma_max, phi_Rb, nu_max, Kd_cAA):
         The fraction of the proteome occupied by ribosomal protein mass.
     nu_max : positive float 
         The maximum nutritional capacity in units of inverse time.
-    Kd_cAA : positive float 
+    Kd_cpc : positive float 
         The effective dissociation constant of charged tRNA to the elongating
         ribosome.
 
@@ -171,11 +173,11 @@ def steady_state_gamma(gamma_max, phi_Rb, nu_max, Kd_cAA):
         The translational efficiency in units of inverse time
     """
 
-    c_AA = steady_state_cAA(gamma_max, phi_Rb, nu_max, Kd_cAA)
-    return gamma_max * (c_AA / (c_AA + Kd_cAA))
+    c_pc = steady_state_precursors(gamma_max, phi_Rb, nu_max, Kd_cpc)
+    return gamma_max * (c_pc / (c_pc + Kd_cpc))
 
 
-def phi_R_optimal_allocation(gamma_max, nu_max, Kd_cAA):
+def phi_R_optimal_allocation(gamma_max, nu_max, Kd_cpc):
     """
     Computes the optimal fraction of proteome that is occupied by ribosomal 
     proteins which maximizes the growth rate. 
@@ -186,7 +188,7 @@ def phi_R_optimal_allocation(gamma_max, nu_max, Kd_cAA):
         The maximum translational efficiency in units of inverse time.
     nu_max : positive float
         The maximum nutritional capacity in units of inverse time.
-    Kd_cAA: positive float 
+    Kd_cpc: positive float 
         The effective dissociation constant of charged tRNA to the elongating 
         ribosome.
 
@@ -195,13 +197,10 @@ def phi_R_optimal_allocation(gamma_max, nu_max, Kd_cAA):
     phi_Rb_opt : positive float [0, 1]
         The optimal allocation to ribosomes.
     """
-    numer = nu_max * (-2 * Kd_cAA * gamma_max + gamma_max + nu_max) +\
-        np.sqrt(Kd_cAA * gamma_max * nu_max) * (gamma_max - nu_max)
-    denom = -4 * Kd_cAA * gamma_max * nu_max + gamma_max**2 + 2 * gamma_max * nu_max + nu_max**2
+    numer = nu_max * (-2 * Kd_cpc * gamma_max + gamma_max + nu_max) +\
+        np.sqrt(Kd_cpc * gamma_max * nu_max) * (gamma_max - nu_max)
+    denom = -4 * Kd_cpc * gamma_max * nu_max + gamma_max**2 + 2 * gamma_max * nu_max + nu_max**2
     phi_Rb_opt = numer / denom
-    # prefix = (4 * Kd_cAA * gamma_max * nu_max - (nu_max + gamma_max)**2)**-1
-    # bracket = 2 * Kd_cAA * gamma_max * nu_max - gamma_max * nu_max +\
-                # np.sqrt(Kd_cAA * gamma_max * nu_max)*(nu_max - gamma_max) -nu_max**2
     return phi_Rb_opt
 
 
@@ -209,10 +208,12 @@ def batch_culture_self_replicator_ppGpp(params,
                                   time,
                                   gamma_max,
                                   nu_max, 
-                                  tau = 1,
+                                  tau = 1, 
                                   Kd_TAA_star = 0.025,
                                   Kd_TAA = 0.025,
-                                  dil_approx=False,
+                                  dil_approx = False,
+                                  tRNA_regulation = False,
+                                  kappa_max = 0.01,
                                   num_muts=1):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
@@ -266,7 +267,7 @@ def batch_culture_self_replicator_ppGpp(params,
         dcN_dt :  The dynamics of the nutrient concentration in the growth medium
     """
     # Unpack the parameters
-    M_r, M_p, T_AA, T_AA_star = params
+    M_Rb, M_Mb, T_AA, T_AA_star = params
 
     # Compute the capacities
     gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star))
@@ -276,79 +277,25 @@ def batch_culture_self_replicator_ppGpp(params,
     ratio = T_AA_star / T_AA
 
     # Biomass accumulation
-    dM_dt = gamma * M_r
+    dM_dt = gamma * M_Rb
 
     # Resource allocation
-    phi_R = ratio / (ratio + tau)
-    dMr_dt = phi_R * dM_dt
-    dMp_dt = (1 - phi_R) * dM_dt
+    phi_Rb = ratio / (ratio + tau)
+    dM_Rb_dt = phi_Rb * dM_dt
+    dM_Mb_dt = (1 - phi_Rb) * dM_dt
 
-    dT_AA_star_dt = (nu * M_p - dM_dt) / (M_r + M_p)
-    dT_AA_dt = (dM_dt - nu * M_p) / (M_r + M_p)
+    # tRNA dynamics
 
-    # Pack and return the output.
-    out = [dMr_dt, dMp_dt, dT_AA_dt, dT_AA_star_dt]
-    return out
-
-
-
-
-def batch_culture_self_replicator_cAA(params,
-                                  time,
-                                  gamma_max,
-                                  nu_max, 
-                                  Kd_cAA = 0.025,
-                                  dil_approx=False,
-                                  num_muts=1):
-    """
-    Defines the system of ordinary differenetial equations (ODEs) which describe 
-    the self-replicator model in batch culture conditions.
-
-    Parameters
-    ----------
-    params: list, [Mr, Mp, T_AA, T_AA_star]
-        A list of the parameters whose dynamics are described by the ODEs.
-        M_r : positive float, must be < M 
-            Ribosomal protein biomass of the system
-        M_p : positive float, must be < M
-            Metabolic protein biomass of the system 
-        c_AA
-    time : float
-        Evaluated time step of the system.
-    gamma_max: positive float 
-        The maximum translational capacity in units of inverse time.
-    nu_max : positive float
-        The maximum nutritional capacity in units of inverse time. 
-    Kd_cAA : positive float 
-        The effective dissociation constant of precursors to the elongating
-        ribosome. This is in units of mass fraction.
-
-    Returns
-    -------
-    out: list, [dM_dt, dMr_dt, dMp_dt, dcAA_dt]
-        A list of the evaluated ODEs at the specified time step.
-
-        dMr_dt : The dynamics of the ribosomal protein biomass.
-        dMp_dt : the dynamics of the metabolic protein biomass.
-        dcAA_dt : The dynamics of the precursor concentration.
-    """
-    # Unpack the parameters
-    M_r, M_p, c_AA = params
-
-    # Compute the capacities
-    gamma = gamma_max * (c_AA / (c_AA + Kd_cAA))
-
-
-    # Biomass accumulation
-    dM_dt = gamma * M_r
-
-    # Resource allocation
-    phi_R = c_AA / (c_AA + Kd_cAA)
-    dMr_dt = phi_R * dM_dt
-    dMp_dt = (1 - phi_R) * dM_dt
-
-    dcAA_dt = (nu_max * M_p - dM_dt * (1 + c_AA)) / (M_r + M_p)
+    dT_AA_star_dt = (nu * M_Mb - dM_dt) / (M_Rb + M_Mb)
+    dT_AA_dt = (dM_dt - nu * M_Mb) / (M_Rb + M_Mb)
+    if dil_approx == False:
+        dT_AA_star_dt -= T_AA_star * dM_dt / (M_Rb + M_Mb)
+        if tRNA_regulation:
+            kappa = kappa_max * phi_Rb
+        else:
+            kappa = kappa_max
+        dT_AA_dt += kappa - (T_AA * dM_dt) / (M_Rb + M_Mb)
 
     # Pack and return the output.
-    out = [dMr_dt, dMp_dt, dcAA_dt]
+    out = [dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
     return out
