@@ -64,35 +64,58 @@ growth_rate_hr,mass_fraction,source,organism,notes
 1.0,0.13081460000000000,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 1.31,0.18870120000000000,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 1.58,0.2124028,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-0.16125441216399700,0.15129310344827600,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.19753371345823200,0.14195402298850600,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.22897547289347500,0.15057471264367800,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.21939542040003600,0.17140804597701100,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.2493347814281840,0.16853448275862100,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.33109331161191100,0.189367816091954,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.3516517331885240,0.1757183908045980,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.6642546836817810,0.30000000000000000,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.6641777536428640,0.3122126436781610,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.6641415512716080,0.3179597701149430,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.4725042990315870,0.24037356321839100,Paulo et al. 2015,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.48649199022536000,0.2698275862068970,Paulo et al. 2015,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.35301837270341200,0.20876436781609200,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.3843560503212960,0.23390804597701100,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.5274504480043440,0.2676724137931030,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.528948321115033,0.27988505747126400,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.6013078106615980,0.292816091954023,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
-0.026693227091633500,0.13767123287671200,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
-0.044223107569721100,0.1424657534246580,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
-0.10159362549800800,0.1664383561643840,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
-0.15179282868525900,0.18219178082191800,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
-0.21314741035856600,0.20068493150684900,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
-0.25378486055776900,0.21575342465753400,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
-0.2840637450199200,0.2253424657534250,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
-0.3342629482071710,0.2479452054794520,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
-0.3780876494023900,0.2595890410958910,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
-0.62,0.241446063157895,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
-0.46,0.192577669565217,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
-0.41,0.237549511111111,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
-0.25,0.205710538271605,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
-0.076,0.121236560629921,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
-0.056,0.165404429473684,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.16125441216399700,0.15129310344827600,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.19753371345823200,0.14195402298850600,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.22897547289347500,0.15057471264367800,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.21939542040003600,0.17140804597701100,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.2493347814281840,0.16853448275862100,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.33109331161191100,0.189367816091954,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.3516517331885240,0.1757183908045980,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.6642546836817810,0.30000000000000000,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.6641777536428640,0.3122126436781610,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.6641415512716080,0.3179597701149430,"Paulo et al., 2016",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.4725042990315870,0.24037356321839100,"Paulo et al., 2015",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.48649199022536000,0.2698275862068970,"Paulo et al., 2015",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.35301837270341200,0.20876436781609200,"Metzl-Raz et al., 2017",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.3843560503212960,0.23390804597701100,"Metzl-Raz et al., 2017",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.5274504480043440,0.2676724137931030,"Metzl-Raz et al., 2017",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.528948321115033,0.27988505747126400,"Metzl-Raz et al., 2017",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.6013078106615980,0.292816091954023,"Metzl-Raz et al., 2017",Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.026693227091633500,0.13767123287671200,"Xia et al., 2021",Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.044223107569721100,0.1424657534246580,"Xia et al., 2021",Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.10159362549800800,0.1664383561643840,"Xia et al., 2021",Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.15179282868525900,0.18219178082191800,"Xia et al., 2021",Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.21314741035856600,0.20068493150684900,"Xia et al., 2021",Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.25378486055776900,0.21575342465753400,"Xia et al., 2021",Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.2840637450199200,0.2253424657534250,"Xia et al., 2021",Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.3342629482071710,0.2479452054794520,"Xia et al., 2021",Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.3780876494023900,0.2595890410958910,"Xia et al., 2021",Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.62,0.241446063157895,"Waldron & Lacroute, 1975",Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.46,0.192577669565217,"Waldron & Lacroute, 1975",Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.41,0.237549511111111,"Waldron & Lacroute, 1975",Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.25,0.205710538271605,"Waldron & Lacroute, 1975",Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.076,0.121236560629921,"Waldron & Lacroute, 1975",Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.056,0.165404429473684,"Waldron & Lacroute, 1975",Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.408956836530368,0.0767719133333332,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.408956836530368,0.0860588383333332,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.492134498197561,0.094726635,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.492134498197561,0.0996796616666668,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.51292891361436,0.06686586,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.478271554586362,0.0773910416666668,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.478271554586362,0.0811058116666668,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.679284236948746,0.04829201,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.866433975699932,0.123206538333333,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.866433975699932,0.134969976666667,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.866433975699932,0.13744649,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.942680165561526,0.149209928333333,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.942680165561526,0.16344988,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+1.42788319195349,0.196263681666667,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+1.42788319195349,0.190691526666667,"Brunshede et al., 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.433216987849966,0.08988,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
+0.346573590279973,0.07704,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
+0.303568108274429,0.07704,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
+0.244640181374098,0.0790673684210526,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
+0.109733062885479,0.0586971428571429,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
+0.106912161525956,0.0499333333333333,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
+0.0999731510422998,0.0608864516129032,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
+0.085573725995055,0.0521948571428571,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1

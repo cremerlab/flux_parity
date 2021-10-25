@@ -21,26 +21,26 @@ nu_max = np.linspace(0.001, 5, 300)
 
 # Scenario I
 const_phiRb_ecoli = 0.15 * np.ones_like(nu_max)
-const_mu_ecoli = growth.model.steady_state_mu(gamma_max_ecoli, const_phiRb_ecoli, nu_max, Kd_cAA_yeast)
+const_mu_ecoli = growth.model.steady_state_growth_rate(gamma_max_ecoli, const_phiRb_ecoli, nu_max, Kd_cAA_ecoli)
 const_gamma_ecoli = growth.model.steady_state_gamma(gamma_max_ecoli, const_phiRb_ecoli, nu_max, Kd_cAA_yeast)
 const_phiRb_yeast  = 0.2 * np.ones_like(nu_max)
-const_mu_yeast = growth.model.steady_state_mu(gamma_max_yeast, const_phiRb_yeast, nu_max, Kd_cAA_yeast)
+const_mu_yeast = growth.model.steady_state_growth_rate(gamma_max_yeast, const_phiRb_yeast, nu_max, Kd_cAA_yeast)
 const_gamma_yeast = growth.model.steady_state_gamma(gamma_max_yeast, const_phiRb_yeast, nu_max, Kd_cAA_yeast)
 
 # Scenario II
 cAA_phiRb_ecoli = nu_max / (nu_max + gamma_max_ecoli)
-cAA_mu_ecoli = growth.model.steady_state_mu(gamma_max_ecoli, cAA_phiRb_ecoli, nu_max, Kd_cAA_ecoli)
+cAA_mu_ecoli = growth.model.steady_state_growth_rate(gamma_max_ecoli, cAA_phiRb_ecoli, nu_max, Kd_cAA_ecoli)
 cAA_gamma_ecoli = growth.model.steady_state_gamma(gamma_max_ecoli, cAA_phiRb_ecoli, nu_max, Kd_cAA_ecoli)
 cAA_phiRb_yeast = nu_max / (nu_max + gamma_max_yeast)
-cAA_mu_yeast= growth.model.steady_state_mu(gamma_max_yeast, cAA_phiRb_yeast, nu_max, Kd_cAA_yeast)
+cAA_mu_yeast= growth.model.steady_state_growth_rate(gamma_max_yeast, cAA_phiRb_yeast, nu_max, Kd_cAA_yeast)
 cAA_gamma_yeast= growth.model.steady_state_gamma(gamma_max_yeast, cAA_phiRb_yeast, nu_max, Kd_cAA_yeast)
 
 # Scenario III
 opt_phiRb_ecoli = growth.model.phi_R_optimal_allocation(gamma_max_ecoli,  nu_max, Kd_cAA_ecoli) 
-opt_mu_ecoli = growth.model.steady_state_mu(gamma_max_ecoli,  opt_phiRb_ecoli, nu_max, Kd_cAA_ecoli)
+opt_mu_ecoli = growth.model.steady_state_growth_rate(gamma_max_ecoli,  opt_phiRb_ecoli, nu_max, Kd_cAA_ecoli)
 opt_gamma_ecoli = growth.model.steady_state_gamma(gamma_max_ecoli, opt_phiRb_ecoli,  nu_max, Kd_cAA_ecoli)
 opt_phiRb_yeast = growth.model.phi_R_optimal_allocation(gamma_max_yeast,  nu_max, Kd_cAA_yeast) 
-opt_mu_yeast = growth.model.steady_state_mu(gamma_max_yeast,  opt_phiRb_yeast, nu_max, Kd_cAA_yeast)
+opt_mu_yeast = growth.model.steady_state_growth_rate(gamma_max_yeast,  opt_phiRb_yeast, nu_max, Kd_cAA_yeast)
 opt_gamma_yeast = growth.model.steady_state_gamma(gamma_max_yeast, opt_phiRb_yeast,  nu_max, Kd_cAA_yeast)
 
 
@@ -75,7 +75,7 @@ for g, d in mass_frac.groupby('organism'):
         _ax = ax[1, 1]
     counter = 0
     for _g, _d in d.groupby(['source']): 
-        _ax.plot(_d['growth_rate_hr'], _d['mass_fraction'], ms=5, marker=markers[counter],
+        _ax.plot(_d['growth_rate_hr'], _d['mass_fraction'], 'o', ms=5, # marker=markers[counter],
                 label=_g, alpha=0.75, linestyle='none')
         counter += 1
 
@@ -125,6 +125,6 @@ ax[1, 1].legend()
 ax[1, 2].legend()
 ax[0, 2].legend()
 plt.tight_layout()
-plt.savefig('../../figures/Fig5_data_comparison_plots.pdf', bbox_inches='tight')
+# plt.savefig('../../figures/Fig5_data_comparison_plots.pdf', bbox_inches='tight')
 
 # %%

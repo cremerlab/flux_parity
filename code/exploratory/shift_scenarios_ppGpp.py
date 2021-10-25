@@ -8,8 +8,8 @@ import scipy.integrate
 colors, palette = growth.viz.matplotlib_style()
 
 # %%
-nu_init =   1 
-nu_shift = 5 
+nu_init = 0.5 
+nu_shift = 2
 
 # Set the constants for all scenarios
 gamma_max = 20 * 3600 / 7459
@@ -159,12 +159,12 @@ ppGpp_inst_gr = np.log(ppGpp_shift_df['total_biomass'].values[1:] / ppGpp_shift_
 # %%
 
 fig, ax = plt.subplots(4, 1, figsize=(6, 6), sharex=True)
-ax[0].set( yscale='log',)
+# ax[0].set( 
             # ylim=[1, 100])
 ax[1].set(ylabel='ribosomal allocation $\phi_{Rb}$',
           ylim=[0, 1])
-ax[2].set(ylabel='ribosome content $M_{Rb}/M$',
-         ylim=[0, 1])
+ax[2].set(ylabel='ribosome content $M_{Rb}/M$')
+        #  ylim=[0, 1])
 ax[3].set(ylabel='translation rate [AA / s]',
           xlabel='time [hr]',
           ylim=[0, 20])

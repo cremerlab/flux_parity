@@ -12,7 +12,7 @@ colors, _ = growth.viz.matplotlib_style()
 
 # Set the constants
 gamma_max = 20 * 3600/ 7459 
-nu_max = np.linspace(0.1, 10, 20)
+nu_max = np.linspace(0.1, 5, 20)
 Kd_TAA = 2E-5
 Kd_TAA_star = 2E-5 
 tau = 3
@@ -101,7 +101,7 @@ nu_max = np.linspace(0.05, 12, 300)
 ss_df = pd.DataFrame([])
 for i, nu in enumerate(nu_max):
     params = [Mr, Mp, T_AA, T_AA_star]
-    args = (gamma_max, nu, tau, Kd_TAA_star, Kd_TAA, False, True, kappa_max)
+    args = (gamma_max, nu, tau, Kd_TAA_star, Kd_TAA, False, True, True, kappa_max)
     out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp,
                                 params, time_range,  args=args)
     _out = out[-1]

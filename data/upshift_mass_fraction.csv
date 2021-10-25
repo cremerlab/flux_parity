@@ -1,0 +1,19 @@
+time_from_shift_min,mass_fraction,source,notes
+0,0.0692584237288136,"Brunshede, Dove, and Bremer, 1977","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4558"
+10,0.0768573103448276,"Brunshede, Dove, and Bremer, 1978","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4559"
+20,0.0890675847953216,"Brunshede, Dove, and Bremer, 1979","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4560"
+30,0.101311909090909,"Brunshede, Dove, and Bremer, 1980","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4561"
+40,0.112144,"Brunshede, Dove, and Bremer, 1981","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4562"
+50,0.119063141025641,"Brunshede, Dove, and Bremer, 1982","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4563"
+60,0.126253620915033,"Brunshede, Dove, and Bremer, 1983","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4564"
+80,0.134751460784314,"Brunshede, Dove, and Bremer, 1984","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4565"
+100,0.14487603,"Brunshede, Dove, and Bremer, 1985","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4566"
+125,0.155413846938776,"Brunshede, Dove, and Bremer, 1986","Taken from Table 2, directly calculating RNA/Protein ratio using the conversion factor described in their text. This was then converted to mass fraction using a conversion factor of 0.4567"
+-15,0.0898,"Erickson et al., 2017",Data calculated from Supplementary Dataset 2
+0,0.0939,"Erickson et al., 2017",Data calculated from Supplementary Dataset 3
+15,0.09946,"Erickson et al., 2017",Data calculated from Supplementary Dataset 4
+30,0.1063,"Erickson et al., 2017",Data calculated from Supplementary Dataset 5
+60,0.1057,"Erickson et al., 2017",Data calculated from Supplementary Dataset 6
+90,0.1227,"Erickson et al., 2017",Data calculated from Supplementary Dataset 7
+120,0.1136,"Erickson et al., 2017",Data calculated from Supplementary Dataset 8
+139.98,0.1111,"Erickson et al., 2017",Data calculated from Supplementary Dataset 9

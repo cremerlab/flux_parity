@@ -1,0 +1,113 @@
+growth_rate_hr,mass_fraction,source,organism,notes
+1.934364224818450,0.2716336902769160,"Li et al., 2014",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+1.5693898427772300,0.1977195157722970,"Li et al., 2014",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.738700370046123,0.1238757041794200,"Li et al., 2014",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.66,0.11755559645893200,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.3,0.06500133387718800,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.12,0.058824366030883200,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.2,0.06346804685147410,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.35,0.07048055782486180,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.5,0.09432597260724240,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.65,0.12136313940127600,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.42,0.08815724507350830,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.26,0.0727277145153816,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.46,0.09799028403238970,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.58,0.11970589115922000,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.47,0.10303196667315900,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+1.27,0.14753824639590200,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+1.9,0.20388755275797700,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.47,0.0895039116448498,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.55,0.10360904665640200,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.63,0.1054885108019070,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.4,0.08088553580721010,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.44,0.09510101491318330,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.55,0.11320194422640400,"Schmidt et al., 2016",Escherichia coli,Data taken from Belliveau and Chure et al. 2021
+0.0,0.04035324999864370,"Dai et al., 2016",Escherichia coli,
+0.03324706890845650,0.04440783899477530,"Dai et al., 2016",Escherichia coli,
+0.12844176066233700,0.055412304128213900,"Dai et al., 2016",Escherichia coli,
+0.19652012565308700,0.05887636137740960,"Dai et al., 2016",Escherichia coli,
+0.23055930814846100,0.06060839000200740,"Dai et al., 2016",Escherichia coli,
+0.2849547247405280,0.06697960437724140,"Dai et al., 2016",Escherichia coli,
+0.33601892391911700,0.0692873272676964,"Dai et al., 2016",Escherichia coli,
+0.4074068045812380,0.07797615618743790,"Dai et al., 2016",Escherichia coli,
+0.417639175984852,0.07739254859833870,"Dai et al., 2016",Escherichia coli,
+0.4517000602223340,0.07796329703716960,"Dai et al., 2016",Escherichia coli,
+0.485674137491387,0.0831791662190682,"Dai et al., 2016",Escherichia coli,
+0.5503561798423370,0.08606357254078570,"Dai et al., 2016",Escherichia coli,
+0.6727865579409390,0.09822140453674920,"Dai et al., 2016",Escherichia coli,
+0.6864152519843530,0.09821744787512820,"Dai et al., 2016",Escherichia coli,
+0.7000547968988210,0.09763285112062370,"Dai et al., 2016",Escherichia coli,
+0.7170798135820350,0.09820854538648090,"Dai et al., 2016",Escherichia coli,
+0.744196140345166,0.1057489532707240,"Dai et al., 2016",Escherichia coli,
+0.9177883754618400,0.11498874732119100,"Dai et al., 2016",Escherichia coli,
+0.9448830004828640,0.123690435391201,"Dai et al., 2016",Escherichia coli,
+0.9926268331190280,0.12135402670399400,"Dai et al., 2016",Escherichia coli,
+0.9753630972726340,0.1335524144815730,"Dai et al., 2016",Escherichia coli,
+1.0979236858238800,0.1387425653629350,"Dai et al., 2016",Escherichia coli,
+1.1624538159800800,0.14975593298502000,"Dai et al., 2016",Escherichia coli,
+1.2677832212980900,0.16540255136531100,"Dai et al., 2016",Escherichia coli,
+1.566952587118930,0.2007345504755390,"Dai et al., 2016",Escherichia coli,
+1.7949076862145100,0.21808747917989100,"Dai et al., 2016",Escherichia coli,
+0.42,0.09116,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.69,0.102555,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.04,0.1508698,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.39,0.1782178,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.73,0.21468180000000000,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.38,0.08614620000000000,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.6,0.1020992,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.04,0.134461,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.46,0.19189180000000000,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.73,0.21377020000000000,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.4,0.08067660000000000,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.57,0.104834,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.71,0.1007318,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.0,0.13081460000000000,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.31,0.18870120000000000,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.58,0.2124028,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.16125441216399700,0.15129310344827600,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.19753371345823200,0.14195402298850600,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.22897547289347500,0.15057471264367800,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.21939542040003600,0.17140804597701100,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.2493347814281840,0.16853448275862100,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.33109331161191100,0.189367816091954,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.3516517331885240,0.1757183908045980,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.6642546836817810,0.30000000000000000,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.6641777536428640,0.3122126436781610,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.6641415512716080,0.3179597701149430,Paulo et al. 2016,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.4725042990315870,0.24037356321839100,Paulo et al. 2015,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.48649199022536000,0.2698275862068970,Paulo et al. 2015,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.35301837270341200,0.20876436781609200,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.3843560503212960,0.23390804597701100,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.5274504480043440,0.2676724137931030,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.528948321115033,0.27988505747126400,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.6013078106615980,0.292816091954023,Metzl-Raz et al. 2017,Saccharomyces cerevisiae,Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.026693227091633500,0.13767123287671200,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.044223107569721100,0.1424657534246580,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.10159362549800800,0.1664383561643840,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.15179282868525900,0.18219178082191800,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.21314741035856600,0.20068493150684900,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.25378486055776900,0.21575342465753400,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.2840637450199200,0.2253424657534250,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.3342629482071710,0.2479452054794520,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.3780876494023900,0.2595890410958910,Xia et al. 2021,Saccharomyces cerevisiae,Data digitized from Figure 1 C of Xia et al. 2021
+0.62,0.241446063157895,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.46,0.192577669565217,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.41,0.237549511111111,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.25,0.205710538271605,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.076,0.121236560629921,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.056,0.165404429473684,Waldron and Lacroute 1975,Saccharomyces cerevisiae,"Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.408956836530368,0.0767719133333332,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.408956836530368,0.0860588383333332,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.492134498197561,0.094726635,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.492134498197561,0.0996796616666668,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.51292891361436,0.06686586,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.478271554586362,0.0773910416666668,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.478271554586362,0.0811058116666668,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.679284236948746,0.04829201,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.866433975699932,0.123206538333333,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.866433975699932,0.134969976666667,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.866433975699932,0.13744649,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.942680165561526,0.149209928333333,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+0.942680165561526,0.16344988,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+1.42788319195349,0.196263681666667,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
+1.42788319195349,0.190691526666667,"Brunshede, Dove, and Bremer 1977",Escherichia coli,"Data recorded from Table 1, using conversion factor described in text. Mass fraction computed assuming conversion factor of RNA/protein * 0.4558 = mass fraction."
