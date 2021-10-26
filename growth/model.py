@@ -452,11 +452,11 @@ def nutrient_shift_ppGpp(nu_preshift,
                          init_args,
                          total_time,
                          postshift_args = False,
-                         phi_O = False,
+                         maturation = False,
                          dt=0.0001):
                         
-    if phi_O:
-        cols = ['M_Rb', 'M_Mb', 'M_O', 'T_AA', 'T_AA_star']
+    if maturation: 
+        cols = ['M_Rb', 'M_Rb_star', 'M_Mb', 'T_AA', 'T_AA_star']
     else:
         cols = ['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star']
 
@@ -476,13 +476,10 @@ def nutrient_shift_ppGpp(nu_preshift,
     preshift_df['phase'] = 'preshift'
     preshift_df['time'] =  preshift_time
     preshift_df['tRNA_balance'] = preshift_df['T_AA_star'].values / preshift_df['T_AA'].values
-    if init_args[6]:
+    if init_args[-2]:
         preshift_df['prescribed_phiR'] = preshift_df['tRNA_balance'].values / (preshift_df['tRNA_balance'].values + init_args[2])
     else:
-        if phi_O:
-            preshift_df['prescribed_phiR'] = init_args[-2]
-        else:
-            preshift_df['prescribed_phiR'] = init_args[-1]
+        preshift_df['prescribed_phiR'] = init_args[-6]
    
 
     postshift_params = preshift_out[-1]
@@ -509,13 +506,15 @@ def nutrient_shift_ppGpp(nu_preshift,
     shift_df = pd.concat([preshift_df, postshift_df])
 
     # Compute properties
-    if phi_O:
-        shift_df['total_biomass'] = shift_df['M_Rb'].values + shift_df['M_Mb'].values + shift_df['M_O'].values
+    if maturation:
+        shift_df['total_biomass'] = shift_df['M_Rb'].values + shift_df['M_Mb'].values + shift_df['M_Rb_star'].values
         shift_df['relative_biomass'] = shift_df['total_biomass'].values / (preshift_out[0][0] + preshift_out[0][1] + preshift_out[0][2])
     else:
         shift_df['total_biomass'] = shift_df['M_Rb'].values + shift_df['M_Mb'].values
         shift_df['relative_biomass'] = shift_df['total_biomass'].values / (preshift_out[0][0] + preshift_out[0][1])
-
-    shift_df['realized_phiR'] = shift_df['M_Rb'].values / shift_df['total_biomass'].values
+    if maturation:
+        shift_df['realized_phiR'] = (shift_df['M_Rb_star'].values + shift_df['M_Rb'].values) / shift_df['total_biomass'].values
+    else:
+        shift_df['realized_phiR'] = shift_df['M_Rb'].values/ shift_df['total_biomass'].values
     shift_df['gamma'] = init_args[0] * shift_df['T_AA_star'].values / (shift_df['T_AA_star'].values + init_args[3])
     return shift_df
