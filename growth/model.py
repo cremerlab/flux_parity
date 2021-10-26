@@ -398,10 +398,7 @@ def batch_culture_self_replicator_ppGpp_phi_O(params,
         dcN_dt :  The dynamics of the nutrient concentration in the growth medium
     """
     # Unpack the parameters
-    if phi_O:
-        M_Rb, M_Mb, M_O, T_AA, T_AA_star = params
-    else:
-        M_Rb, M_Mb, M_O, T_AA, T_AA_star = params
+    M, M_Rb, M_Mb, T_AA, T_AA_star = params
 
 
     # Compute the capacities
@@ -422,22 +419,18 @@ def batch_culture_self_replicator_ppGpp_phi_O(params,
     dM_Mb_dt = (1 - phi_Rb - phi_O) * dM_dt
 
     # tRNA dynamics
-    dT_AA_star_dt = (nu * M_Mb - dM_dt) / (M_Rb + M_Mb)
+    dT_AA_star_dt = (nu * M_Mb - dM_dt) / M
     dT_AA_dt = (dM_dt - nu * M_Mb) / (M_Rb + M_Mb)
     if dil_approx == False:
-        dT_AA_star_dt -= T_AA_star * dM_dt / (M_Rb + M_Mb)
+        dT_AA_star_dt -= T_AA_star * dM_dt / M
         if tRNA_regulation:
             kappa = kappa_max * phi_Rb
         else:
             kappa = kappa_max
-        dT_AA_dt += kappa - (T_AA * dM_dt) / (M_Rb + M_Mb)
+        dT_AA_dt += kappa - (T_AA * dM_dt) / M
 
     # Pack and return the output.
-    if phi_O:
-        dM_O_dt = phi_O * dM_dt
-        out = [dM_Rb_dt, dM_Mb_dt, dM_O_dt, dT_AA_dt, dT_AA_star_dt]
-    else:
-        out = [dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
+    out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
     return out
 
 
@@ -452,25 +445,21 @@ def nutrient_shift_ppGpp(nu_preshift,
                          init_args,
                          total_time,
                          postshift_args = False,
-                         maturation = False,
                          dt=0.0001):
                         
-    if maturation: 
-        cols = ['M_Rb', 'M_Rb_star', 'M_Mb', 'T_AA', 'T_AA_star']
-    else:
-        cols = ['M_Rb', 'M_Mb', 'T_AA', 'T_AA_star']
+    cols = ['M', 'M_Rb', 'M_Mb', 'T_AA', 'T_AA_star']
 
     # Set the timespans
     preshift_time = np.arange(0, shift_time, dt)
     postshift_time = np.arange(shift_time - dt, total_time, dt)
 
     # Integrate the preshift
-    preshift_out = scipy.integrate.odeint(batch_culture_self_replicator_ppGpp,
+    preshift_out = scipy.integrate.odeint(batch_culture_self_replicator_ppGpp_phi_O,
                                           init_params, 
                                           preshift_time, 
                                           args=init_args)
     
-    preshift_df = pd.DataFrame(preshift_out, 
+    preshift_df = pd.DataFrame(preshift_out,
                                columns=cols)
     preshift_df['nu'] = nu_preshift
     preshift_df['phase'] = 'preshift'
@@ -488,7 +477,7 @@ def nutrient_shift_ppGpp(nu_preshift,
         postshift_args = [init_args[i] for i in range(len(init_args))]
         postshift_args[1] = nu_postshift
         postshift_args = tuple(postshift_args)
-    postshift_out = scipy.integrate.odeint(batch_culture_self_replicator_ppGpp,
+    postshift_out = scipy.integrate.odeint(batch_culture_self_replicator_ppGpp_phi_O,
                                                  postshift_params, 
                                                  postshift_time, 
                                                  args=postshift_args) 
@@ -506,15 +495,9 @@ def nutrient_shift_ppGpp(nu_preshift,
     shift_df = pd.concat([preshift_df, postshift_df])
 
     # Compute properties
-    if maturation:
-        shift_df['total_biomass'] = shift_df['M_Rb'].values + shift_df['M_Mb'].values + shift_df['M_Rb_star'].values
-        shift_df['relative_biomass'] = shift_df['total_biomass'].values / (preshift_out[0][0] + preshift_out[0][1] + preshift_out[0][2])
-    else:
-        shift_df['total_biomass'] = shift_df['M_Rb'].values + shift_df['M_Mb'].values
-        shift_df['relative_biomass'] = shift_df['total_biomass'].values / (preshift_out[0][0] + preshift_out[0][1])
-    if maturation:
-        shift_df['realized_phiR'] = (shift_df['M_Rb_star'].values + shift_df['M_Rb'].values) / shift_df['total_biomass'].values
-    else:
-        shift_df['realized_phiR'] = shift_df['M_Rb'].values/ shift_df['total_biomass'].values
+    shift_df['total_biomass'] = shift_df['M'].values
+    shift_df['relative_biomass'] = shift_df['total_biomass'].values / (preshift_out[0][0])
+    shift_df['realized_phiR'] = shift_df['M_Rb'].values / shift_df['total_biomass'].values
+    shift_df['realized_phiO'] = (shift_df['M'].values - shift_df['M_Rb'].values - shift_df['M_Mb'].values)/shift_df['M'].values
     shift_df['gamma'] = init_args[0] * shift_df['T_AA_star'].values / (shift_df['T_AA_star'].values + init_args[3])
     return shift_df
