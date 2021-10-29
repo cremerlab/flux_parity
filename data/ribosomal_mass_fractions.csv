@@ -119,3 +119,8 @@ growth_rate_hr,mass_fraction,source,organism,notes
 0.106912161525956,0.0499333333333333,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
 0.0999731510422998,0.0608864516129032,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
 0.085573725995055,0.0521948571428571,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
+0.42,0.09116,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
+0.69,0.11395,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
+1.04,0.150414,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
+1.39,0.177762,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
+1.73,0.214226,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
