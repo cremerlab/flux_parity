@@ -499,6 +499,7 @@ def nutrient_shift_ppGpp(nu_preshift,
     shift_df['relative_biomass'] = shift_df['total_biomass'].values / (preshift_out[0][0])
     shift_df['realized_phiR'] = shift_df['M_Rb'].values / shift_df['total_biomass'].values
     shift_df['realized_phiMb'] = shift_df['M_Mb'].values / shift_df['total_biomass'].values
+    shift_df['total_tRNA'] = shift_df['T_AA'].values + shift_df['T_AA_star'].values
     shift_df['gamma'] = init_args[0] * shift_df['T_AA_star'].values / (shift_df['T_AA_star'].values + init_args[3])
     return shift_df
     
