@@ -10,8 +10,13 @@ colors, _ = growth.viz.matplotlib_style()
 # Load the data sets
 mass_frac = pd.read_csv('../../data/ribosomal_mass_fractions.csv')
 elong_rate = pd.read_csv('../../data/peptide_elongation_rates.csv')
-palette = sns.cubehelix_palette(start=.5, rot=-.5, n_colors=12).as_hex()
-markers = ['X', 's', 'd', 'o', 'v', '^', '<', '>', 'P', 'p', 'h', '*']
+# palette = sns.cubehelix_palette(start=.5, rot=-.5, n_colors=12).as_hex()
+# palette =  [colors['dark_black'], colors['primary_black'], colors['pale_black'],
+            # colors['red'], colors['primary_red'], colors['pale_red'],
+            # colors['purple'], colors['primary_purple'], colors['pale_purple'],
+            # colors['blue'], colors['primary_blue'], colors['pale_blue']]
+palette = sns.cubehelix_palette(start=.2, rot=-.3, n_colors=12).as_hex()
+markers = ['X', 's', 'o', 'v', 'd',  '8', '^', '<', '>', 'P', 'p', 'h', '*']
 
 # Map colors to E coli sources
 ecoli_sources = []

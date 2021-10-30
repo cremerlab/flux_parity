@@ -53,11 +53,11 @@ growth_rate_hr,mass_fraction,source,organism,notes
 1.04,0.1508698,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 1.39,0.1782178,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 1.73,0.21468180000000000,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-0.38,0.08614620000000000,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-0.6,0.1020992,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-1.04,0.134461,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-1.46,0.19189180000000000,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-1.73,0.21377020000000000,"Forchammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.38,0.08614620000000000,"Forchhammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.6,0.1020992,"Forchhammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.04,0.134461,"Forchhammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.46,0.19189180000000000,"Forchhammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.73,0.21377020000000000,"Forchhammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 0.4,0.08067660000000000,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 0.57,0.104834,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 0.71,0.1007318,"Scott et al., 2010",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
@@ -119,8 +119,24 @@ growth_rate_hr,mass_fraction,source,organism,notes
 0.106912161525956,0.0499333333333333,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
 0.0999731510422998,0.0608864516129032,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
 0.085573725995055,0.0521948571428571,"Boehlke & Friesen, 1975",Saccharomyces cerevisiae,Data converted from RNA/Protein ratio of Table 1
-0.42,0.09116,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
-0.69,0.11395,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
-1.04,0.150414,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
-1.39,0.177762,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
-1.73,0.214226,"Cox, 2003",Escherichia coli,Data converted from RNA/Protein ratio of Table 2
+0.04023668639053270,0.04378829710683590,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.13491124260355000,0.05351662038000650,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.20355029585798800,0.05909231304451250,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.23195266272189400,0.06095720198626250,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.2934911242603550,0.06698285331985380,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.33372781065088800,0.06931938568582570,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.34082840236686400,0.06932751746900170,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.38106508875739700,0.07303832119175780,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.4118343195266270,0.07857064434599050,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.4615384615384620,0.07862756682822410,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.5017751479289940,0.0841707323600251,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.5514792899408290,0.08835046891261030,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.6911242603550300,0.09950456483601430,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.7195266272189350,0.09907900151645800,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.7005917159763310,0.10409631173619600,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.6911242603550300,0.10408546935862800,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.7502958579881660,0.10690177693199700,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.9183431952662720,0.1162560381790610,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.949112426035503,0.1245369040468620,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.9893491124260350,0.1232087127947430,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
+0.9798816568047340,0.1351082221759680,"Wu et al., 2021",Escherichia coli,Data digitized from Fig. 3 C and converted to Ribosomal mass fraction
