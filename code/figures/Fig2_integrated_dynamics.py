@@ -18,7 +18,7 @@ opt_phiRb = growth.model.phi_R_optimal_allocation(const['gamma_max'],
                                                   nu_max,
                                                   const['Kd_cpc'],
                                                   phi_O)
-phi_Rb = np.linspace(0.2, 1, 7) * opt_phiRb
+phi_Rb = np.array([opt_phiRb]) #np.linspace(0.2, 1, 7) * opt_phiRb
 phi_Mb = 1 - phi_Rb - phi_O
 
 # Define starting masses
@@ -72,8 +72,8 @@ ax[0].set_ylabel(r'$M(t)\, / \, M(t=0)$')
 ax[1].set_ylabel(r'$c_{pc}(t)\, /\,  K_D^{c_{pc}}$')
 ax[2].set_ylabel(r'$c_{nt}(t)\, /\, c_{nt}(t=0)$')
 ax[0].set_yscale('log')
-ax[1].set_yscale('log')
-ax[1].set_ylim([0.1, 500])
+# ax[1].set_yscale('log')
+
 
 # Add titles
 ax[0].set_title('biomass dynamics')
@@ -81,7 +81,8 @@ ax[1].set_title('precursor dynamics')
 ax[2].set_title('nutrient dynamics')
 
 # cmap = [colors['dark_gold'], colors['gold'], colors['primary_gold'], colors['light_gold'], colors['pale_gold']]
-cmap = sns.color_palette('YlOrBr_r', n_colors=10)[:-3]
+# cmap = sns.color_palette('YlOrBr_r', n_colors=10)[:-3]
+cmap = [colors['primary_black']]
 
 count = 0
 for g, d in df.groupby('phi_Rb'):

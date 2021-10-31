@@ -15,20 +15,21 @@ palette = sns.color_palette('crest', len(nu_max))
 grey_palette = sns.color_palette('Greys', len(nu_max) + 5)
 
 # generate the figure
-fig, ax = plt.subplots(2, 3, figsize=(6, 5))
+fig, ax = plt.subplots(2, 3, figsize=(6.5, 4))
 for a in ax.ravel():
     a.set_xlabel('ribosomal allocation $\phi_{Rb}$', fontsize=8)
 
 # Add axis labels
 for i in range(2):
         ax[i,0].set(ylabel='$c_{pc}^* / K_D^{c_{pc}}$',
-                  title='steady-state\nprecursor concentration $c_{pc}^*$',
+                #   title='steady-state\nprecursor concentration $c_{pc}^*$',
                   yscale='log',
                   ylim=[0.1, 1E3])
         ax[i,1].set(ylabel='$\gamma$ [hr$^{-1}$]',
-                 title='steady-state\ntranslation rate $\gamma$')
+                #  title='steady-state\ntranslation rate $\gamma$'
+                 )
         ax[i,2].set(ylabel='$\lambda$ [hr$^{-1}$]')
-        ax[i,2].set_title(label='steady-state growth rate $\lambda$', y=1.05)
+        # ax[i,2].set_title(label='steady-state growth rate $\lambda$', y=1.05)
 
 # Add panel values
 height=0.89
