@@ -48,11 +48,11 @@ growth_rate_hr,mass_fraction,source,organism,notes
 1.2677832212980900,0.16540255136531100,"Dai et al., 2016",Escherichia coli,
 1.566952587118930,0.2007345504755390,"Dai et al., 2016",Escherichia coli,
 1.7949076862145100,0.21808747917989100,"Dai et al., 2016",Escherichia coli,
-0.42,0.09116,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-0.69,0.102555,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-1.04,0.1508698,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-1.39,0.1782178,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
-1.73,0.21468180000000000,"Bremmer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.42,0.09116,"Bremer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+0.69,0.102555,"Bremer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.04,0.1508698,"Bremer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.39,0.1782178,"Bremer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
+1.73,0.21468180000000000,"Bremer & Dennis, 2008",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 0.38,0.08614620000000000,"Forchhammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 0.6,0.1020992,"Forchhammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA
 1.04,0.134461,"Forchhammer & Lindahl, 1971",Escherichia coli,Calculated from RNA/Protein ratio assuming 0.86 µg rRNA/1µg RNA and 0.53 µg ribosomal protein per 1µg rRNA

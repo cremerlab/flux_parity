@@ -227,23 +227,23 @@ def phi_R_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O=0):
     return phi_Rb_opt
 
 
-def batch_culture_self_replicator_ppGpp(params,
-                                  time,
-                                  gamma_max,
-                                  nu_max, 
-                                  tau, 
-                                  Kd_TAA,
-                                  Kd_TAA_star,
-                                  kappa_max = 0.01,
-                                  phi_O = 0,
-                                  phi_Rb = 0.1,
-                                  dil_approx = False,
-                                  dynamic_phiRb = True,
-                                  tRNA_regulation = True
+def self_replicator_ppGpp(params,
+                          time,
+                          gamma_max,
+                          nu_max, 
+                          tau, 
+                          Kd_TAA,
+                          Kd_TAA_star,
+                          kappa_max = 0.01,
+                          phi_O = 0,
+                          phi_Rb = 0.1,
+                          dil_approx = False,
+                          dynamic_phiRb = True,
+                          tRNA_regulation = True
                                   ):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
-    the self-replicator model in batch culture conditions.
+    the self-replicator model with ppGpp regulation.
 
     Parameters
     ----------
@@ -352,7 +352,7 @@ def nutrient_shift_ppGpp(nu_preshift,
     postshift_time = np.arange(shift_time - dt, total_time, dt)
 
     # Integrate the preshift
-    preshift_out = scipy.integrate.odeint(batch_culture_self_replicator_ppGpp,
+    preshift_out = scipy.integrate.odeint(self_replicator_ppGpp,
                                           init_params, 
                                           preshift_time, 
                                           args=init_args)
@@ -377,7 +377,7 @@ def nutrient_shift_ppGpp(nu_preshift,
         postshift_args = [init_args[i] for i in range(len(init_args))]
         postshift_args[1] = nu_postshift
         postshift_args = tuple(postshift_args)
-    postshift_out = scipy.integrate.odeint(batch_culture_self_replicator_ppGpp,
+    postshift_out = scipy.integrate.odeint(self_replicator_ppGpp,
                                                  postshift_params, 
                                                  postshift_time, 
                                                  args=postshift_args) 

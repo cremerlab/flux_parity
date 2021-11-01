@@ -8,39 +8,25 @@ import growth.viz
 import seaborn as sns
 import tqdm
 colors, palette = growth.viz.matplotlib_style()
-np.random.seed(4310)
+mapper = growth.viz.load_markercolors()
+const = growth.model.load_constants()
+
 #%% Load the data
 mass_frac = pd.read_csv('../../data/ribosomal_mass_fractions.csv')
 mass_frac = mass_frac[mass_frac['organism']=='Escherichia coli']
 elong_rate = pd.read_csv('../../data/peptide_elongation_rates.csv')
 elong_rate = elong_rate[elong_rate['organism']=='Escherichia coli']
-# tRNA = pd.read_csv('../../data/tRNA_abundances.csv')
-
-# Map colors to sources
-sources = []
-for g, d in mass_frac.groupby(['source']):
-    sources.append(g)
-for g, d in elong_rate.groupby(['source']):
-    if g not in sources:
-        sources.append(g)
-# palette = sns.color_palette('flare', n_colors=12).as_hex()
-palette = sns.cubehelix_palette(start=.5, rot=-.5, n_colors=12).as_hex()
-palette = np.random.choice(palette, len(sources), replace=False)
-color_map = {s:c for s, c in zip(sources, palette)}
-markers = ['o', 's', 'd', 'X', 'v', '^', '<', '>', 'P', 'p', 'h']
-markers = np.random.choice(markers, len(sources), replace=False)
-marker_map = {s:m for s, m in zip(sources, markers)}
-
+tRNA = pd.read_csv('../../data/tRNA_abundances.csv')
 
 #%%
 # Define the parameters
-gamma_max = 20 * 3600 / 7459
-Kd_cpc = 0.01
+gamma_max = const['gamma_max']
+Kd_cpc = const['Kd_cpc']
 nu_max = np.linspace(0.01, 10, 200)
-Kd_TAA = 2E-5 #in M, Kd of uncharged tRNA to  ligase
-Kd_TAA_star = 2E-5 # in M, Kd of charged tRNA to ribosom
-kappa_max = (88 * 5 * 3600) / 1E9
-tau = 3
+Kd_TAA = const['Kd_TAA'] #in M, Kd of uncharged tRNA to  ligase
+Kd_TAA_star = const['Kd_TAA_star'] # in M, Kd of charged tRNA to ribosom
+kappa_max = const['kappa_max']
+tau = const['tau']
 
 # Compute the optimal scenario
 opt_phiRb = growth.model.phi_R_optimal_allocation(gamma_max,  nu_max, Kd_cpc) 
@@ -62,10 +48,10 @@ for i, nu in enumerate(tqdm.tqdm(nu_max)):
     M_Rb = _opt_phiRb * M0
     M_Mb = phi_Mb * M0
     params = [M0, M_Rb, M_Mb, T_AA, T_AA_star]
-    args = (gamma_max, nu, tau, Kd_TAA_star, Kd_TAA, 0, kappa_max, 0, False, True, True)
+    args = (gamma_max, nu, tau, Kd_TAA, Kd_TAA_star, kappa_max)
 
     # Integrate
-    out = scipy.integrate.odeint(growth.model.batch_culture_self_replicator_ppGpp,
+    out = scipy.integrate.odeint(growth.model.self_replicator_ppGpp,
                                 params, time_range,  args=args)
     # Compute the final props
     _out = out[-1]
@@ -83,37 +69,53 @@ for i, nu in enumerate(tqdm.tqdm(nu_max)):
                           ignore_index=True)
 
 #%%
-fig, ax = plt.subplots(1, 3, figsize=(6,2.5))
-ax[0].axis('off')
-ax[1].set(ylim=[0, 0.3], xlim=[-0.05, 2.5], 
+fig, ax = plt.subplots(2, 2, figsize=(6,4.25))
+ax[0, 0].axis('off')
+ax[0, 1].set(ylim=[0, 0.3], xlim=[-0.05, 2.5], 
           xlabel='growth rate $\lambda$ [hr$^{-1}$]',
           ylabel='ribosomal allocation $\phi_{Rb}$')
-ax[2].set(ylim=[5, 20], xlim=[-0.05, 2.5], xlabel='growth rate $\lambda$ [hr$^{-1}$]',
+ax[1, 0].set(ylim=[5, 20], xlim=[-0.05, 2.5], xlabel='growth rate $\lambda$ [hr$^{-1}$]',
          ylabel='translation rate $\gamma$ [AA / s]')
 
+ax[1, 1].set(ylim=[0, 22], xlabel='growth rate $\lambda$ [hr$^{-1}$]',
+         ylabel='tRNA per ribosome')
+
+sources = []
 for g, d in mass_frac.groupby('source'):
-    ax[1].plot(d['growth_rate_hr'], d['mass_fraction'],  ms=4, marker=marker_map[g],
-            color=color_map[g], label='__nolegend__', alpha=0.75,  markeredgecolor='k', markeredgewidth=0.25, linestyle='none')
+    sources.append(g)
+    ax[0, 1].plot(d['growth_rate_hr'], d['mass_fraction'],  ms=4, marker=mapper[g]['m'],
+            color=mapper[g]['c'], label='__nolegend__', alpha=0.75,  markeredgecolor='k', 
+            markeredgewidth=0.25, linestyle='none')
 
 for g, d in elong_rate.groupby(['source']):
-    ax[2].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'].values, marker=marker_map[g], 
-                 ms=4, alpha=0.75, color=color_map[g], markeredgecolor='k', markeredgewidth=0.25,
+    if g not in sources:
+        sources.append(g)
+    ax[1, 0].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'].values, marker=mapper[g]['m'],
+                 ms=4, alpha=0.75, color=mapper[g]['c'], markeredgecolor='k', markeredgewidth=0.25,
                  linestyle='none', label='__nolegend__')
 
-# Plot the theory curves
-ax[1].plot(opt_mu, opt_phiRb, '-', color=colors['primary_blue'], lw=1)
-ax[1].plot(ss_df['lam'], ss_df['phi_Rb'], '--', color=colors['primary_red'], zorder=1000, lw=1)
-ax[2].plot(opt_mu, opt_gamma, '-', color=colors['primary_blue'], lw=1)
-ax[2].plot(ss_df['lam'], ss_df['gamma'], '--', color=colors['primary_red'], zorder=1000, lw=1)
-for s in sources:
-    ax[0].plot([], [], ms=5, color=color_map[s], markeredgecolor='k',  markeredgewidth=0.25,
-            marker=marker_map[s], label=s, linestyle='none')
+for g, d in tRNA.groupby(['source']):
+    if g not in sources:
+        sources.append(g)
+    ax[1, 1].plot(d['growth_rate_hr'], d['tRNA_per_ribosome'], marker=mapper[g]['m'],
+                ms=4, alpha=0.74, color=mapper[g]['c'], markeredgecolor='k', markeredgewidth=0.25,
+                linestyle='none')
 
-ax[0].plot([], [], '-', color=colors['primary_blue'], lw=1, label='optimal allocation model')
-ax[0].plot([], [], '--', color=colors['primary_red'], lw=1, label='ppGpp regulation model')
-ax[0].legend()
+# Plot the theory curves
+ax[0, 1].plot(opt_mu, opt_phiRb, '-', color=colors['primary_blue'], lw=1)
+ax[0, 1].plot(ss_df['lam'], ss_df['phi_Rb'], '--', color=colors['primary_red'], zorder=1000, lw=1)
+ax[1, 0].plot(opt_mu, opt_gamma, '-', color=colors['primary_blue'], lw=1)
+ax[1, 0].plot(ss_df['lam'], ss_df['gamma'], '--', color=colors['primary_red'], zorder=1000, lw=1)
+ax[1, 1].plot(ss_df['lam'], ss_df['tRNA_per_ribosome'], '--', color=colors['primary_red'], zorder=1000,  lw=1)
+
+
+for s in sources:
+    ax[0,0].plot([], [], ms=3, color=mapper[s]['c'], markeredgecolor='k',  markeredgewidth=0.25,
+            marker=mapper[s]['m'], label=s, linestyle='none')
+
+ax[0,0].legend()
 plt.tight_layout()
-plt.savefig('../../figures/Fig6_ppGpp_model_plots.pdf')
+plt.savefig('../../figures/Fig5_ppGpp_model_plots.pdf')
 
 
 # %%
