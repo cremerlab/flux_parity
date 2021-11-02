@@ -29,9 +29,9 @@ kappa_max = const['kappa_max']
 tau = const['tau']
 
 # Compute the optimal scenario
-opt_phiRb = growth.model.phi_R_optimal_allocation(gamma_max,  nu_max, Kd_cpc) 
-opt_mu = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc)
-opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc) * 7459 / 3600
+opt_phiRb = growth.model.phi_R_optimal_allocation(gamma_max,  nu_max, Kd_cpc, 0.25) 
+opt_mu = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc, 0.25)
+opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc, 0.25) * 7459 / 3600
 
 # Numerically compute the optimal scenario
 dt = 0.0001
@@ -48,7 +48,7 @@ for i, nu in enumerate(tqdm.tqdm(nu_max)):
     M_Rb = _opt_phiRb * M0
     M_Mb = phi_Mb * M0
     params = [M0, M_Rb, M_Mb, T_AA, T_AA_star]
-    args = (gamma_max, nu, tau, Kd_TAA, Kd_TAA_star, kappa_max)
+    args = (gamma_max, nu, tau, Kd_TAA, Kd_TAA_star, kappa_max, 0.25)
 
     # Integrate
     out = scipy.integrate.odeint(growth.model.self_replicator_ppGpp,
@@ -115,7 +115,7 @@ for s in sources:
 
 ax[0,0].legend()
 plt.tight_layout()
-plt.savefig('../../figures/Fig5_ppGpp_model_plots.pdf')
+# plt.savefig('../../figures/Fig5_ppGpp_model_plots.pdf')
 
 
 # %%

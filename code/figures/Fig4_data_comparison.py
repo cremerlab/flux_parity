@@ -24,18 +24,18 @@ nu_max = np.linspace(0.001, 5, 300)
 
 # Scenario I
 const_phiRb = 0.15 * np.ones_like(nu_max)
-const_lam = growth.model.steady_state_growth_rate(gamma_max, const_phiRb, nu_max, Kd_cpc)
-const_gamma = growth.model.steady_state_gamma(gamma_max, const_phiRb, nu_max, Kd_cpc) * 7459/3600
+const_lam = growth.model.steady_state_growth_rate(gamma_max, const_phiRb, nu_max, Kd_cpc, 0.25)
+const_gamma = growth.model.steady_state_gamma(gamma_max, const_phiRb, nu_max, Kd_cpc, 0.25) * 7459/3600
 
 # Scenario II
 cpc_phiRb = nu_max / (nu_max + gamma_max)
-cpc_lam = growth.model.steady_state_growth_rate(gamma_max, cpc_phiRb, nu_max, Kd_cpc)
+cpc_lam = growth.model.steady_state_growth_rate(gamma_max, cpc_phiRb, nu_max, Kd_cpc, 0.25)
 cpc_gamma = growth.model.steady_state_gamma(gamma_max, cpc_phiRb, nu_max, Kd_cpc) * 7459/3600
 
 # Scenario III
-opt_phiRb = growth.model.phi_R_optimal_allocation(gamma_max,  nu_max, Kd_cpc) 
-opt_lam = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc)
-opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc) * 7459/3600
+opt_phiRb = growth.model.phi_R_optimal_allocation(gamma_max,  nu_max, Kd_cpc, 0.25) 
+opt_lam = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc, 0.25)
+opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc, 0.25) * 7459/3600
 
 
 #%%
@@ -79,6 +79,6 @@ for k, v in mapper.items():
                 markeredgewidth=0.25, linestyle='none', label=k)
 ax[0].legend()
 plt.tight_layout()
-plt.savefig('../../figures/Fig4_data_comparison_plots.pdf', bbox_inches='tight')
+# plt.savefig('../../figures/Fig4_data_comparison_plots.pdf', bbox_inches='tight')
 
 # %%
