@@ -1,0 +1,66 @@
+I"ä<hr />
+
+<!--
+This page autogenerates a list of the authors provided in the people.yaml file
+in the _data folder. Do not touch the code below unless you have an idea of what
+you're doing, or it will break the display of the authors. 
+-->
+
+<!-- Loop through each author in the data file -->
+
+<!-- Define a new "article" environment, which is the object with author info -->
+<article class="post">
+
+<!-- Determine if an image is provided for the author, if not use a silhouette -->
+
+
+<!-- Determine if a website is associated with the author, if not use a blank-->
+
+
+<!-- Populate the author fields --> 
+
+ <a class="post-thumbnail" style="background-image: url(/assets/img/people/noimg.jpg)" href="https://gchure.github.io"></a>
+
+<!-- Populate the author environment with the information -->
+<div class="post-content">
+
+<a href="https://gchure.github.io"><b class="post-title">Griffin Chure</b></a>
+
+<p>NSF Postdoctoral Research Fellow</p>
+
+<p>Stanford Univeristy</p>
+
+
+<p>Email Address: gchure@stanford.edu</p>
+
+</div>
+</article>
+
+<!-- Define a new "article" environment, which is the object with author info -->
+<article class="post">
+
+<!-- Determine if an image is provided for the author, if not use a silhouette -->
+
+
+<!-- Determine if a website is associated with the author, if not use a blank-->
+
+
+<!-- Populate the author fields --> 
+
+ <a class="post-thumbnail" style="background-image: url(/assets/img/people/noimg.jpg)" href="https://cremerlab.com"></a>
+
+<!-- Populate the author environment with the information -->
+<div class="post-content">
+
+<a href="https://cremerlab.com"><b class="post-title">Jonas Cremer</b></a>
+
+<p>Assistant Professor of Biology</p>
+
+<p>Stanford University</p>
+
+
+<p>Email Address: jonas.cremer@stanford.edu</p>
+
+</div>
+</article>
+:ET
