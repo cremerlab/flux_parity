@@ -3,7 +3,7 @@ layout: page
 title: Interactive Data Comparison
 permalink: data_comparison
 sidebar: true
-interactive: interactive_ecoli_data_comparison.html
+interactive: interactive_ecoli_data.html
 ---
 ---
 

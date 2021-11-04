@@ -1,4 +1,4 @@
-I"ä<hr />
+I"<hr />
 
 <!--
 This page autogenerates a list of the authors provided in the people.yaml file
@@ -19,7 +19,7 @@ you're doing, or it will break the display of the authors.
 
 <!-- Populate the author fields --> 
 
- <a class="post-thumbnail" style="background-image: url(/assets/img/people/noimg.jpg)" href="https://gchure.github.io"></a>
+ <a class="post-thumbnail" style="background-image: url(/ribosomal_allocation//assets/img/people/noimg.jpg)" href="https://gchure.github.io"></a>
 
 <!-- Populate the author environment with the information -->
 <div class="post-content">
@@ -47,7 +47,7 @@ you're doing, or it will break the display of the authors.
 
 <!-- Populate the author fields --> 
 
- <a class="post-thumbnail" style="background-image: url(/assets/img/people/noimg.jpg)" href="https://cremerlab.com"></a>
+ <a class="post-thumbnail" style="background-image: url(/ribosomal_allocation//assets/img/people/noimg.jpg)" href="https://cremerlab.com"></a>
 
 <!-- Populate the author environment with the information -->
 <div class="post-content">

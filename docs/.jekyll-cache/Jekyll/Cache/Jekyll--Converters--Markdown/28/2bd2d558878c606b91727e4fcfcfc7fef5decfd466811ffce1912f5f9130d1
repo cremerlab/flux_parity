@@ -1,4 +1,4 @@
-I"À<hr />
+I"Ö<hr />
 
 <h2 id="integrating-the-dynamics-of-the-ribosomal-allocation-model">Integrating the Dynamics of the Ribosomal Allocation Model</h2>
 <p>As presented in the main text of the paper, a simple model of microbial growth 
@@ -6,7 +6,7 @@ focused on the accumulation of biomass can be summarized by the following
 handful of differential equations:</p>
 
 <center>
-<img src="/assets/img/equations.png" />
+<img src="/ribosomal_allocation//assets/img/equations.png" />
 </center>
 
 <p>We can numerically integrate these equations to get a sense for how the model 
