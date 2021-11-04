@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Interactive Data Comparison
-permalink: scenarios
+permalink: data_comparison
 sidebar: true
 interactive: interactive_ecoli_data_comparison.html
 ---
