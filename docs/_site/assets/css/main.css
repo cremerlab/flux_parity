@@ -7,6 +7,7 @@
  *    IE on Windows Phone and in iOS.
  */
 @import "variables.css";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
 html {
   line-height: 1.15;
   /* 1 */
@@ -786,7 +787,7 @@ html {
 }
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Nunito', 'Lato', 'Arial', sans-serif;
   color: var(--secondary-color); /* #515151; */
   background-color: #fbfbfb;
   margin: 0;
@@ -1255,7 +1256,7 @@ a.newer-posts:hover {
   position: relative;
   padding: 0;
   margin: 0;
-  max-height: 200px;
+  max-height: 250px;
   background-color: #fafafa;
   overflow: hidden;
 }
@@ -1279,7 +1280,8 @@ a.newer-posts:hover {
 
 .page-cover-image .page-image {
   width: 100%;
-  height: 100%;
+  height: 110%;
+  min-height: 250px;
 }
 
 .page-footer {

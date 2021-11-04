@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Integration of Dynamics
+title: Interactive Dynamics
 permalink: dynamics
 sidebar: true
 interactive: interactive_integration.html
