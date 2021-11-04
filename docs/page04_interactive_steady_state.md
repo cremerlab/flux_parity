@@ -28,7 +28,7 @@ With these in hand, we can then calculate an expression for the steady-state
 growth rate, which is a quadratic equation with only one physically meaningful root 
 of 
 $$
-\lambda = \frac{\mathsf{N} + \Gamma - \sqrt{(\mathsf{N} + \Gamma)^2 - 4\mathsf{N}\Gamma(1 - K_D^{c_{pc})}}{2(1 - K_D^{c_{pc}})}, \tag{3}
+\lambda = \frac{\mathsf{N} + \Gamma - \sqrt{(\mathsf{N} + \Gamma)^2 - 4\mathsf{N}\Gamma(1 - K_D^{c_{pc}})}}{2(1 - K_D^{c_{pc}})}, \tag{3}
 $$
 were we have introduce the notation of $\Gamma = \gamma_{max}\phi_{Rb}$, which 
 is the maximum translational output. 
