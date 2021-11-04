@@ -200,7 +200,7 @@ def steady_state_gamma(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
     return gamma_max * (c_pc / (c_pc + Kd_cpc))
 
 
-def phi_R_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O=0):
+def phiRb_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O=0):
     """
     Computes the optimal fraction of proteome that is occupied by ribosomal 
     proteins which maximizes the growth rate. 
@@ -226,6 +226,26 @@ def phi_R_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O=0):
     phi_Rb_opt = (1 - phi_O) * numer / denom
     return phi_Rb_opt
 
+def phiRb_constant_translation(gamma_max, nu_max, phi_O=0):
+    """
+    Computes the ribosomal allocation which maintains a high translation rate. 
+
+    Parameters
+    ----------
+    gamma_max : positive float 
+        The maximum translational efficiency in units of inverse time.
+    nu_max : positive float
+        The maximum nutritional capacity in units of inverse time.
+    phi_O : positive float
+        The allocation of resources to 'other' proteins.
+
+    Returns
+    -------
+    phi_Rbt : positive float [0, 1]
+        The ribosomal allocation for constant translation.
+    """
+
+    return (1 - phi_O) * nu_max / (nu_max + gamma_max)
 
 def self_replicator_ppGpp(params,
                           time,

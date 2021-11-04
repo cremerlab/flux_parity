@@ -19,19 +19,19 @@ def load_markercolors():
     and glyphs. This ensures constant marking of data across plots.
     """
     mapper = {
-        'Bremer & Dennis, 2008': {'m':'X', 'c':'#556895'},
-        'Brunshede et al., 1977': {'m':'s', 'c':'#343158'},
-        'Dai et al., 2016': {'m':'o',  'c':'#4b5583'},
-        'Forchhammer & Lindahl, 1971': {'m': 'v', 'c':'#9ac5d0'},
-        'Li et al., 2014': {'m':'d', 'c':'#27231f'},
-        'Schmidt et al., 2016': {'m':'8', 'c':'#88b3c7'},
-        'Scott et al., 2010': {'m':'^', 'c':'#6c8fb2'},
-        'Wu et al., 2021': {'m':'<', 'c':'#add4d9'},
-        'Bremer & Dennis, 1996': {'m':'>', 'c':'#5f7ba4'},
-        'Dalbow & Young, 1975': {'m':'P', 'c':'#c3e2e3'},
-        'Young & Bremer, 1976': {'m':'h', 'c':'#3f426e'},
-        'Skjold et al., 1973' : {'m': '*', 'c': '#6c8fb2'},
-        'Dong et al., 1996' : {'m': 'D', 'c':'#556895'}
+        'Bremer & Dennis, 2008': {'m':'X', 'c':'#556895', 'm_bokeh':'circle_dot'},
+        'Brunshede et al., 1977': {'m':'s', 'c':'#343158', 'm_bokeh':'square'},
+        'Dai et al., 2016': {'m':'o',  'c':'#4b5583', 'm_bokeh': 'circle'},
+        'Forchhammer & Lindahl, 1971': {'m': 'v', 'c':'#9ac5d0', 'm_bokeh': 'inverted_triangle'},
+        'Li et al., 2014': {'m':'d', 'c':'#27231f', 'm_bokeh':'diamond'},
+        'Schmidt et al., 2016': {'m':'8', 'c':'#88b3c7', 'm_bokeh':'hex'},
+        'Scott et al., 2010': {'m':'^', 'c':'#6c8fb2', 'm_bokeh': 'square_pin'},
+        'Wu et al., 2021': {'m':'<', 'c':'#add4d9', 'm_bokeh': 'square_dot'},
+        'Bremer & Dennis, 1996': {'m':'>', 'c':'#5f7ba4', 'm_bokeh': 'circle_cross'},
+        'Dalbow & Young, 1975': {'m':'P', 'c':'#c3e2e3', 'm_bokeh': 'hex_dot'},
+        'Young & Bremer, 1976': {'m':'h', 'c':'#3f426e', 'm_bokeh': 'triangle_pin'},
+        'Skjold et al., 1973' : {'m': '*', 'c': '#6c8fb2', 'm_bokeh': 'star'},
+        'Dong et al., 1996' : {'m': 'D', 'c':'#556895', 'm_bokeh': 'diamond_dot'}
         }
     return mapper
 
