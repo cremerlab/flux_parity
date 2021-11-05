@@ -3,7 +3,6 @@
 // FUNCTIONS DEFINING SELF-REPLICATOR MODEL
 // /////////////////////////////////////////////////////////////////////////////
 
-
 function selfReplicator(params,args, dt) { 
     let [M, M_Rb, M_Mb, c_pc, c_nt] = params;
     let [gamma_max, nu_max, Y, phi_Rb, phi_O, Kd_cpc, Kd_cnt] = args;
@@ -25,6 +24,38 @@ function selfReplicator(params,args, dt) {
     // Define nutrient dynamics
     let dcnt_dt = -nu * M_Mb / Y;
     return [dM_dt * dt, dM_Rb_dt * dt, dM_Mb_dt * dt, dcpc_dt * dt, dcnt_dt * dt]
+}
+
+function ppGppSelfReplicator(params, args, dt) {
+    // Unpack params
+    let [M, M_Rb, M_Mb, T_AA, T_AA_star] = params;
+    let [gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max, phi_O, phi_Rb, dynamic] = args;
+    
+    // Compute rates
+    let ratio = T_AA_star / T_AA;
+    let gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star));
+    let nu = nu_max * (T_AA / (T_AA + Kd_TAA));
+
+    if (dynamic == true) { 
+        let phi_Rb = ratio / (ratio + tau); 
+        let kappa = kappa_max * phi_Rb;
+    }
+
+    else { 
+        let kappa = kappa_max;
+    }
+
+    // Define dynamics
+    let dM_dt = gamma * M_Rb;
+    let dT_AA_star_dt = (nu * M_Mb - dM_dt * (1 + T_AA_star)) / M;
+    let dT_AA_dt = kappa + (dM_dt - nu * M_Mb - dM_dt) / M;
+
+    // Define allocation
+    let dM_Rb_dt = phi_Rb * dM_dt;
+    let dM_Mb_dt = (1 - phi_O - phi_Rb) * dM_dt
+
+    // Pack and return
+    return [dM_dt * dt, dM_Rb_dt * dt, dM_Mb_dt * dt, dT_AA_dt * dt, dT_AA_star_dt * dt]
 }
 
 // /////////////////////////////////////////////////////////////////////////////
@@ -57,6 +88,9 @@ function optimalAllocation(gamma_max, nu_max, Kd_cpc, phi_O) {
     return (1 - phi_O) * prefix * bracket
 }
 
+function constTranslation(gamma_max, nu_max, phi_O) { 
+    return (1 - phi_O) * (nu_max / (nu_max + gamma_max))
+}
 
 // /////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS FOR NUMERICAL INTEGRATION
@@ -74,7 +108,10 @@ function odeintForwardEuler(fun, params, args, dt, nSteps) {
 }
 
 
-// 
+
+// /////////////////////////////////////////////////////////////////////////////
+// MISCELLANEOUS
+// /////////////////////////////////////////////////////////////////////////////
 
 // Function for linearly spacing values. Adapted from StackOverflow user mhodges
 // https://stackoverflow.com/questions/40475155/does-javascript-have-a-method-that-returns-an-array-of-numbers-based-on-start-s
