@@ -37,18 +37,15 @@ function ppGppSelfReplicator(params, args, dt) {
     let nu = nu_max * (T_AA / (T_AA + Kd_TAA));
 
     if (dynamic == true) { 
-        let phi_Rb = ratio / (ratio + tau); 
-        let kappa = kappa_max * phi_Rb;
+        phi_Rb = ratio / (ratio + tau); 
     }
 
-    else { 
-        let kappa = kappa_max;
-    }
+    let kappa = phi_Rb * kappa_max;
 
     // Define dynamics
     let dM_dt = gamma * M_Rb;
     let dT_AA_star_dt = (nu * M_Mb - dM_dt * (1 + T_AA_star)) / M;
-    let dT_AA_dt = kappa + (dM_dt - nu * M_Mb - dM_dt) / M;
+    let dT_AA_dt = kappa + (dM_dt * (1 - T_AA) - nu * M_Mb) / M;
 
     // Define allocation
     let dM_Rb_dt = phi_Rb * dM_dt;
@@ -107,7 +104,38 @@ function odeintForwardEuler(fun, params, args, dt, nSteps) {
     return out
 }
 
+function ppGppEquilibrate(gamma_max, nu_max, tau, phi_O, Kd_TAA, Kd_TAA_star, kappa_max) {
+    // Determine 'optimal' allocation from simple model
+    let optPhiRb = optimalAllocation(gamma_max, nu_max, 0.01, phi_O);
 
+    // Set initial conditions
+    let M0 = 1E9;
+    let MRb = optPhiRb * M0;
+    let MMb = (1 - optPhiRb - phi_O) * M0;
+    let tAA = 0.2; 
+    let tAAStar = 0.2;
+
+    // Define the timescale to integrate
+    let dt = 0.001;
+    let nSteps = parseInt(100 / dt);
+
+    // Pack parameters and args
+    let params = [M0, MRb, MMb, tAA, tAAStar];
+    let args = [gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max, phi_O, 0, true];
+
+    // Perform integration
+    let out = odeintForwardEuler(ppGppSelfReplicator, params, args, dt, nSteps)
+    console.log(out)
+
+    // Identify output
+    let eq = out.slice(-1)
+    // Compute steady-state params.
+    let eqPhiRb = eq[1] / eq[0];
+    let eqPhiMb = eq[2] / eq[0];
+    let eqTAA = eq[3];
+    let eqTAAStar = eq[4]; 
+    return  [eqPhiRb, eqPhiMb, eqTAA, eqTAAStar]
+}
 
 // /////////////////////////////////////////////////////////////////////////////
 // MISCELLANEOUS
