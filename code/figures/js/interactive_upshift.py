@@ -143,9 +143,9 @@ nu_preshift_slider = bokeh.models.Slider(start=0.001, end=5, step=0.001, value=n
                                         title='preshift metabolic rate [inv. hr]')
 nu_postshift_slider = bokeh.models.Slider(start=0.001, end=5, step=0.001, value=nu_postshift,
                                         title='postshift metabolic rate [inv. hr]')
-phiO_preshift_slider = bokeh.models.Slider(start=0.001, end=5, step=0.001, value=phiO_preshift,
+phiO_preshift_slider = bokeh.models.Slider(start=0.001, end=0.5, step=0.001, value=phiO_preshift,
                                         title="preshift allocation to 'other' proteins")
-phiO_postshift_slider = bokeh.models.Slider(start=0.001, end=5, step=0.001, value=phiO_postshift,
+phiO_postshift_slider = bokeh.models.Slider(start=0.001, end=0.5, step=0.001, value=phiO_postshift,
                                         title="postshift allocation to 'other' proteins")
 
 # ##############################################################################
@@ -212,5 +212,7 @@ plots2 = bokeh.layouts.Row(precursor_axis, growth_axis)
 layout = bokeh.layouts.Column(sliders, plots1, plots2)
 bokeh.io.save(layout)
 
+
+# %%
 
 # %%

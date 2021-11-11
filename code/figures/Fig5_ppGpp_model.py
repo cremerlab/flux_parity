@@ -29,7 +29,7 @@ kappa_max = const['kappa_max']
 tau = const['tau']
 
 # Compute the optimal scenario
-opt_phiRb = growth.model.phi_R_optimal_allocation(gamma_max,  nu_max, Kd_cpc, 0.25) 
+opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max,  nu_max, Kd_cpc, 0.25) 
 opt_mu = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc, 0.25)
 opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc, 0.25) * 7459 / 3600
 
@@ -42,7 +42,7 @@ T_AA = total_tRNA / 2
 T_AA_star = total_tRNA / 2
 for i, nu in enumerate(tqdm.tqdm(nu_max)):
     # Set the intitial state
-    _opt_phiRb = growth.model.phi_R_optimal_allocation(gamma_max,  nu, Kd_cpc) 
+    _opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max,  nu, Kd_cpc) 
     M0 = 1E9
     phi_Mb = 1 -  _opt_phiRb
     M_Rb = _opt_phiRb * M0
@@ -110,12 +110,14 @@ ax[1, 1].plot(ss_df['lam'], ss_df['tRNA_per_ribosome'], '--', color=colors['prim
 
 
 for s in sources:
+    if s == 'Bremer & Dennis, 1996':
+        continue
     ax[0,0].plot([], [], ms=3, color=mapper[s]['c'], markeredgecolor='k',  markeredgewidth=0.25,
             marker=mapper[s]['m'], label=s, linestyle='none')
 
 ax[0,0].legend()
 plt.tight_layout()
-# plt.savefig('../../figures/Fig5_ppGpp_model_plots.pdf')
+plt.savefig('../../figures/Fig5_ppGpp_model_plots.pdf')
 
 
 # %%

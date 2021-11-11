@@ -18,28 +18,29 @@ elong_rate = elong_rate[elong_rate['organism']=='Escherichia coli']
 # Define the organism specific constants
 gamma_max = const['gamma_max']
 Kd_cpc = const['Kd_cpc']
-nu_max = np.linspace(0.001, 5, 300)
+nu_max = np.linspace(0.001, 8, 300)
 phi_O = 0.25
 # Compute the theory curves
 
 # Scenario I
-const_phiRb = 0.15 * np.ones_like(nu_max)
+const_phiRb = 0.1 * np.ones_like(nu_max)
 const_lam = growth.model.steady_state_growth_rate(gamma_max, const_phiRb, nu_max, Kd_cpc, phi_O)
 const_gamma = growth.model.steady_state_gamma(gamma_max, const_phiRb, nu_max, Kd_cpc, phi_O) * 7459/3600
 
 # Scenario II
-cpc_phiRb = nu_max * (1 - phi_O) / (nu_max + gamma_max)
+cpc_phiRb = growth.model.phiRb_constant_translation(gamma_max, nu_max, phi_O)
 cpc_lam = growth.model.steady_state_growth_rate(gamma_max, cpc_phiRb, nu_max, Kd_cpc, phi_O)
 cpc_gamma = growth.model.steady_state_gamma(gamma_max, cpc_phiRb, nu_max, Kd_cpc) * 7459/3600
 
 # Scenario III
-opt_phiRb = growth.model.phi_R_optimal_allocation(gamma_max,  nu_max, Kd_cpc, phi_O) 
+opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max,  nu_max, Kd_cpc, phi_O) 
 opt_lam = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc, phi_O)
 opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc, phi_O) * 7459/3600
 
 
 #%%
 # Set up the figure canvas
+
 fig, ax = plt.subplots(1, 3, figsize=(6.5, 2.5))
 ax[0].axis('off')
 
