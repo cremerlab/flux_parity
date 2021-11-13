@@ -23,15 +23,16 @@ tRNA = pd.read_csv('../../data/tRNA_abundances.csv')
 gamma_max = const['gamma_max']
 Kd_cpc = const['Kd_cpc']
 nu_max = np.linspace(0.01, 10, 200)
-Kd_TAA = const['Kd_TAA'] #in M, Kd of uncharged tRNA to  ligase
-Kd_TAA_star = const['Kd_TAA_star'] # in M, Kd of charged tRNA to ribosom
+Kd_TAA = 1E-5 #in M, Kd of uncharged tRNA to  ligase
+Kd_TAA_star = 1E-5
 kappa_max = const['kappa_max']
 tau = const['tau']
+phi_O = 0.25
 
 # Compute the optimal scenario
-opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max,  nu_max, Kd_cpc, 0.25) 
-opt_mu = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc, 0.25)
-opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc, 0.25) * 7459 / 3600
+opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max,  nu_max, Kd_cpc, phi_O)
+opt_mu = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc, phi_O)
+opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc, phi_O) * 7459 / 3600
 
 # Numerically compute the optimal scenario
 dt = 0.0001

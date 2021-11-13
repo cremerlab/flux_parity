@@ -254,12 +254,15 @@ def self_replicator_ppGpp(params,
                           tau, 
                           Kd_TAA,
                           Kd_TAA_star,
-                          kappa_max = 0.01,
-                          phi_O = 0,
-                          phi_Rb = 0.1,
+                          kappa_max,
+                          phi_O,
+                          nutrients = False,
                           dil_approx = False,
                           dynamic_phiRb = True,
-                          tRNA_regulation = True
+                          tRNA_regulation = True,
+                          phi_Rb = 0,
+                          Km = 0,
+                          Y = 1,
                                   ):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
@@ -319,12 +322,18 @@ def self_replicator_ppGpp(params,
         dT_AA_star_dt : The dynamics of the uncharged tRNA concentration.
     """
     # Unpack the parameters
-    M, M_Rb, M_Mb, T_AA, T_AA_star = params
-
+    if nutrients:
+        M, M_Rb, M_Mb, c_nt, T_AA, T_AA_star = params
+    else:
+        M, M_Rb, M_Mb, T_AA, T_AA_star = params
 
     # Compute the capacities
     gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star))
-    nu = nu_max * (T_AA / (T_AA + Kd_TAA))
+    if nutrients:
+        pref = c_nt / (c_nt + Km)
+    else:
+        pref = 1
+    nu = pref * nu_max * (T_AA / (T_AA + Kd_TAA))
 
     # Compute the active fraction
     ratio = T_AA_star / T_AA
@@ -350,8 +359,12 @@ def self_replicator_ppGpp(params,
             kappa = kappa_max
         dT_AA_dt += kappa - (T_AA * dM_dt) / M
 
-    # Pack and return the output.
-    out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
+    if nutrients:
+        dcnt_dt = -nu * M_Mb / Y
+        out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dcnt_dt, dT_AA_dt, dT_AA_star_dt]
+    else:
+        out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
+        
     return out
 
 
