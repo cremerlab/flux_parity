@@ -40,11 +40,12 @@ function ppGppSelfReplicator(params, args, dt) {
         var ratio = (T_AA_star / T_AA)
         phi_Rb = ratio / (ratio + tau);
     }
+    var kappa = phi_Rb * kappa_max
 
     // Compute dynamics
     var dM_dt = gamma * M_Rb
-    var dTAA_star_dt = (nu * M_Mb - dM_dt) / M
-    var dTAA_dt = (dM_dt - nu * M_Mb) / M
+    var dTAA_star_dt = (nu * M_Mb - dM_dt * (1 + T_AA_star)) / M
+    var dTAA_dt = kappa + ((dM_dt * (1 - T_AA) - nu * M_Mb) / M)
     var dM_Rb_dt = phi_Rb * dM_dt
     var dM_Mb_dt = (1 - phi_Rb - phi_O) * dM_dt
 
@@ -112,8 +113,8 @@ function ppGppEquilibrate(gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max
     let tAAStar = 0.00002;
 
     // Define the timescale to integrate
-    let dt = 0.0001;
-    let nSteps = parseInt(10 / dt);
+    let dt = 0.001;
+    let nSteps = parseInt(100 / dt);
 
     // Pack parameters and args
     let params = [M0, MRb, MMb, tAA, tAAStar];

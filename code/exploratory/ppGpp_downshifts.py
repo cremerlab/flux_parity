@@ -7,27 +7,25 @@ import growth.model
 import scipy.integrate
 colors, palette = growth.viz.matplotlib_style()
 const = growth.model.load_constants()
-# %%
-
 
 def shift(params,
-                          time,
-                          gamma_max,
-                          nu_max, 
-                          tau, 
-                          Kd_TAA,
-                          Kd_TAA_star,
-                          kappa_max,
-                          phi_O,
-                          prefactors,
-                          phi_Rb = 0.1,
-                          dil_approx = False,
-                          dynamic_phiRb = True,
-                          tRNA_regulation = True
-                                  ):
+          time,
+          gamma_max,
+          nu_max, 
+          tau, 
+          Kd_TAA,
+          Kd_TAA_star,
+          kappa_max,
+          phi_O,
+          prefactors,
+          phi_Rb = 0.1,
+          dil_approx = False,
+          dynamic_phiRb = True,
+          tRNA_regulation = True
+          ):
+
     # Unpack the parameters
     M, M_Rb, M_Mb_1, M_Mb_2, T_AA, T_AA_star = params
-
 
     # Compute the capacities
     gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star))
@@ -69,25 +67,9 @@ Kd = 2E-5
 tau = const['tau']
 kappa_max = const['kappa_max']
 prefactors = [[1, 0], [0, 1]]
-nu_max_1 = 2.320
-nu_max_2 = 0.704
+nu_max_1 = 2 
+nu_max_2 = 0.5 
 M0 = 1E9
-
-
-# phiRb_preshift = 0.292836
-# phiRb_postshift = 0.158632
-# lam_preshift = 0.94
-# lam_postshift = 0.38
-
-# def compute_numax(lam, phiRb, phiO, gamma_max=9.65, Kd=0.01):
-#     numer = lam * (Kd * lam + gamma_max * phiRb - lam)
-#     denom = (gamma_max * phiRb - lam) * (1 - phiRb - phiO)
-#     return numer/denom
-
-# nu_max_1 = compute_numax(lam_preshift, phiRb_preshift, phi_O)
-# nu_max_2 = compute_numax(lam_postshift, phiRb_postshift, phi_O)
-
-
 
 # Find the equilibrium from the ppGpp model
 opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max, nu_max_1, 0.01, phi_O)
@@ -99,10 +81,10 @@ out = scipy.integrate.odeint(shift, params, t_range, args=args)
 out = out[-1]
 denom = 10**np.log10(out[0])
 _out = [out[0] / denom, out[1] / denom, out[2] / denom, out[3]/denom, out[4], out[5]]
+
 # Set the initial conditions for the shift
 opt_phiRb = out[1] / out[0]
-
-M0 = 1E9
+M0 = 0.0089 * const['OD_conv'] 
 MRb = opt_phiRb * M0
 MMb_1 = (1 - phi_O - opt_phiRb) * M0
 MMb_2 = 0
@@ -151,14 +133,16 @@ shift_df['inst_gr'] = gr
 fig, ax = plt.subplots(2, 4, figsize=(8, 4))
 ax = ax.ravel()
 ax[0].set_yscale('log')
+ax[0].set_ylim([1E-3, 0.5])
+ax[0].set_xlim([-2, 10])
 ax[2].set_ylim([-0.1, 1.1])
+
 ax[3].set_ylim([-0.1, 1.1])
 ax[4].set_ylim([-0.1, 1.1])
 ax[5].set_ylim([-0.1, 1.1])
 ax[6].set_ylim([-0.1, 1.1])
 for a in ax:
     a.set_xlabel('time from shift [hr]')
-
 
 ax[0].set_ylabel('relative biomass $M / M_0$')
 ax[1].set_ylabel('instantaneous growth rate $\lambda$ [hr$^{-1}$]')
@@ -168,7 +152,7 @@ ax[4].set_ylabel('$M_{Rb} / M$')
 ax[5].set_ylabel('$M_{Mb, 1} / M$')
 ax[6].set_ylabel('$M_{Mb, 2} / M$')
 
-ax[0].plot(shift_df['time'], shift_df['M'].values / M0, '-', color=colors['light_blue'], lw=1)
+ax[0].plot(shift_df['time'], shift_df['M'].values / const['OD_conv'], '-', color=colors['light_blue'], lw=1, zorder=100)
 ax[1].plot(shift_df['time'], shift_df['inst_gr'], '-', color=colors['light_blue'], lw=1)
 ax[2].plot(shift_df['time'], shift_df['phi_Rb'].values, '-', color=colors['light_blue'], lw=1)
 ax[3].plot(shift_df['time'], shift_df['phi_Mb'].values, '-', color=colors['light_blue'], lw=1)

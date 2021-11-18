@@ -16,7 +16,7 @@ bokeh.io.output_file('./interactive_strategies.html')
 # ############################################################################## 
 phi_O = 0.25
 phiRb_range = np.arange(0.001, 1 - phi_O - 0.001, 0.001)
-nu_max= np.arange(0.001, 5, 0.001)
+nu_max= np.arange(0.001, 8, 0.001)
 
 const_phiRb = 0.15
 gamma_max = const['gamma_max']

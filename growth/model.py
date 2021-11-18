@@ -7,7 +7,7 @@ def load_constants(organism='ecoli'):
     if organism == 'ecoli':
        params =  {'vtl_max': 20 ,  #Max translation speed in AA/s
                   'm_Rb': 7459, # Proteinaceous mass of ribosome  in AA
-                  'Kd_cpc':  0.01, # precursor dissociation constant in abundance units 
+                  'Kd_cpc':  0.015, # precursor dissociation constant in abundance units 
                   'Kd_cnt': 5E-4, # Nutrient monod constant in M
                   'Y': 2.95E19, # Yield coefficient in  precursor mass per nutrient mass nutrient per L 
                   'OD_conv': 1.5E17, # Conversion factor from OD to AA mass.
@@ -226,7 +226,7 @@ def phiRb_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O=0):
     phi_Rb_opt = (1 - phi_O) * numer / denom
     return phi_Rb_opt
 
-def phiRb_constant_translation(gamma_max, nu_max, phi_O=0):
+def phiRb_constant_translation(gamma_max, nu_max, cpc_Kd, Kd_cpc, phi_O=0):
     """
     Computes the ribosomal allocation which maintains a high translation rate. 
 
@@ -244,8 +244,10 @@ def phiRb_constant_translation(gamma_max, nu_max, phi_O=0):
     phi_Rbt : positive float [0, 1]
         The ribosomal allocation for constant translation.
     """
+    c_pc = cpc_Kd * Kd_cpc
+    return (1 - phi_O) * nu_max * (c_pc + Kd_cpc) / (nu_max * (c_pc + Kd_cpc) + gamma_max * c_pc * (c_pc + 1))
 
-    return (1 - phi_O) * nu_max / (nu_max + gamma_max)
+
 
 def self_replicator_ppGpp(params,
                           time,
@@ -262,8 +264,7 @@ def self_replicator_ppGpp(params,
                           tRNA_regulation = True,
                           phi_Rb = 0,
                           Km = 0,
-                          Y = 1,
-                                  ):
+                          Y = 1):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
     the self-replicator model with ppGpp regulation.
@@ -437,3 +438,98 @@ def nutrient_shift_ppGpp(nu_preshift,
     shift_df['gamma'] = init_args[0] * shift_df['T_AA_star'].values / (shift_df['T_AA_star'].values + init_args[3])
     return shift_df
     
+def self_replicator_ppGpp_chlor(params,
+                          time,
+                          gamma_max,
+                          nu_max, 
+                          tau, 
+                          Kd_TAA,
+                          Kd_TAA_star,
+                          kappa_max,
+                          phi_O,
+                          c_ab,
+                          Kd_cab):
+    """
+    Defines the system of ordinary differenetial equations (ODEs) which describe 
+    the self-replicator model with ppGpp regulation.
+
+    Parameters
+    ----------
+    params: list, [M, Mr, Mp, T_AA, T_AA_star]
+        A list of the parameters whose dynamics are described by the ODEs.
+        M : positive float 
+            Total biomass of the system
+        M_Rb : positive float, must be < M 
+            Ribosomal protein biomass of the system
+        M_Mb : positive float, must be < M
+            Metabolic protein biomass of the system 
+        T_AA_star : positive float
+            Concentration of charged tRNAs in the culture. This is normalized to 
+            total protein biomass.
+        T_AA : positive float
+            Concentration of uncharged tRNAs in the culture. This is normalized to 
+            total protein biomass.
+    time : float
+        Evaluated time step of the system.
+    gamma_max: positive float 
+        The maximum translational capacity in units of inverse time.
+    nu_max : positive float
+        The maximum nutritional capacity in units of inverse time. 
+    Kd_TAA : positive float
+        The effective dissociation constant for uncharged tRNA to the metabolic 
+        machinery. In units of abundance.
+    Kd_TAA_star: positive float
+        The effective dissociation constant for charged tRNA to the ribosome complex.
+        In units of abundance
+    kappa_max : positive float
+        The maximum rate of uncharged tRNA synthesis in abundance units per unit time.
+    phi_O : float, [0, 1], optional
+        The fraction of the proteome occupied by 'other' protein mass.
+    phi_Rb : float, [0, 1], optional
+        The prescribed value of phi_Rb to use. This only holds if 'dyanamic_phiRb' is True.
+    dil_approx: bool
+        If True, then the approximation is made that the dilution of charged-tRNAs
+        with growing biomass is negligible.
+    dynamic_phiRb: bool
+        If True, phiRb will dynamically adjusted in reponse to charged/uncharged
+        tRNA balance.
+    tRNA_regulation: bool
+        if True, tRNA abundance will be regulated the same way as dynamic_phiRb. 
+    Returns
+    -------
+    out: list, [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
+        A list of the evaluated ODEs at the specified time step.
+
+        dM_dt : The dynamics of the total protein biomass.
+        dM_Rb_dt : The dynamics of the ribosomal protein biomass.
+        dM_Mb_dt : the dynamics of the metabolic protein biomass.
+        dT_AA_dt : The dynamics of the uncharged tRNA concentration.
+        dT_AA_star_dt : The dynamics of the uncharged tRNA concentration.
+    """
+    # Unpack the parameters 
+    M, M_Rb, M_Mb, T_AA, T_AA_star = params
+
+    # Compute the capacities
+    gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star)) 
+    nu = nu_max * (T_AA / (T_AA + Kd_TAA))
+    fa = 1 - (c_ab / (c_ab + Kd_cab))
+
+    # Compute the active fraction
+    ratio = T_AA_star / T_AA
+
+    # Biomass accumulation
+    dM_dt = gamma * fa * M_Rb
+
+    # Resource allocation
+    phi_Rb = ratio / (ratio + tau)
+    kappa = kappa_max * phi_Rb
+    dM_Rb_dt = phi_Rb * dM_dt
+    dM_Mb_dt = (1 - phi_Rb - phi_O) * dM_dt
+
+    # tRNA dynamics
+    dT_AA_star_dt = (nu * M_Mb - dM_dt * (1 + T_AA_star)) / M
+    dT_AA_dt = kappa + (dM_dt * (1 - T_AA) - nu * M_Mb) / M
+    out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
+     
+    return out
+

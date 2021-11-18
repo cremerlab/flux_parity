@@ -82,12 +82,12 @@ dynamic_postshift = dynamic_postshift[1:]
 init_params = [M0, preshift_phiRb * M0,
                preshift_phiMb * M0, preshift_TAA, preshift_TAA_star]
 args = (gamma_max, nu_preshift, tau, Kd_TAA, Kd_TAA_star,
-        kappa_max, phiO_preshift, phiRb_preshift, False, False)
+        kappa_max, phiO_preshift, False, False, False, True, phiRb_preshift)
 instant_preshift = scipy.integrate.odeint(growth.model.self_replicator_ppGpp, init_params,
                                           preshift_time, args=args)
 init_params = instant_preshift[-1]
 args = (gamma_max, nu_postshift, tau, Kd_TAA, Kd_TAA_star,
-        kappa_max, phiO_postshift, phiRb_postshift, False, False)
+        kappa_max, phiO_postshift, False, False, False, True, phiRb_postshift)
 instant_postshift = scipy.integrate.odeint(growth.model.self_replicator_ppGpp, init_params,
                                            postshift_time, args=args)
 instant_postshift = instant_postshift[1:]

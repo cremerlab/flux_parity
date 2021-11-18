@@ -125,7 +125,7 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
         "lines.linewidth": 0.5,
         "lines.dash_capstyle": "butt",
         "patch.linewidth": 0.25,
-        "lines.markeredgecolor": '#ffffff',
+        "lines.markeredgecolor": '#f0f3f7',
         "lines.markeredgewidth": 0.5,
 
         # Grid formatting
@@ -174,7 +174,7 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
         "font.family": "Nunito",
         "font.weight": 400, # Weight of all fonts unless overriden.
         "font.style": "normal",
-        "text.color": "#5b5b5b",
+        "text.color": "#3d3d3d", #"#5b5b5b",
 
         # Higher-order things
         "pdf.fonttype": 42,

@@ -21,10 +21,10 @@ tRNA = pd.read_csv('../../data/tRNA_abundances.csv')
 #%%
 # Define the parameters
 gamma_max = const['gamma_max']
-Kd_cpc = const['Kd_cpc']
+Kd_cpc = 0.015 #const['Kd_cpc']
 nu_max = np.linspace(0.01, 10, 200)
-Kd_TAA = 1E-5 #in M, Kd of uncharged tRNA to  ligase
-Kd_TAA_star = 1E-5
+Kd_TAA = const['Kd_TAA'] #1E-5 #in M, Kd of uncharged tRNA to  ligase
+Kd_TAA_star = const['Kd_TAA_star'] #1E-5
 kappa_max = const['kappa_max']
 tau = const['tau']
 phi_O = 0.25
@@ -73,22 +73,26 @@ for i, nu in enumerate(tqdm.tqdm(nu_max)):
 fig, ax = plt.subplots(2, 2, figsize=(6,4.25))
 ax[0, 0].axis('off')
 ax[0, 1].set(ylim=[0, 0.3], xlim=[-0.05, 2.5], 
-          xlabel='growth rate $\lambda$ [hr$^{-1}$]',
-          ylabel='ribosomal allocation $\phi_{Rb}$')
-ax[1, 0].set(ylim=[5, 20], xlim=[-0.05, 2.5], xlabel='growth rate $\lambda$ [hr$^{-1}$]',
-         ylabel='translation rate $\gamma$ [AA / s]')
+          xlabel='growth rate\n$\lambda$ [hr$^{-1}$]',
+          ylabel='$\phi_{Rb}$\nallocation towards ribosomes')
+ax[1, 0].set(ylim=[5, 20], xlim=[-0.05, 2.5], xlabel='growth rate\n$\lambda$ [hr$^{-1}$]',
+         ylabel='$v_{tl}$ [AA / s]\ntranslation speed')
 
-ax[1, 1].set(ylim=[0, 22], xlabel='growth rate $\lambda$ [hr$^{-1}$]',
+ax[1, 1].set(ylim=[0, 22], xlabel='growth rate\n$\lambda$ [hr$^{-1}$]',
          ylabel='tRNA per ribosome')
 
 sources = []
 for g, d in mass_frac.groupby('source'):
+    if g == 'Wu et al., 2021':
+        continue
     sources.append(g)
     ax[0, 1].plot(d['growth_rate_hr'], d['mass_fraction'],  ms=4, marker=mapper[g]['m'],
             color=mapper[g]['c'], label='__nolegend__', alpha=0.75,  markeredgecolor='k', 
             markeredgewidth=0.25, linestyle='none')
 
 for g, d in elong_rate.groupby(['source']):
+    if g == 'Wu et al., 2021':
+        continue
     if g not in sources:
         sources.append(g)
     ax[1, 0].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'].values, marker=mapper[g]['m'],
@@ -111,7 +115,7 @@ ax[1, 1].plot(ss_df['lam'], ss_df['tRNA_per_ribosome'], '--', color=colors['prim
 
 
 for s in sources:
-    if s == 'Bremer & Dennis, 1996':
+    if (s == 'Bremer & Dennis, 1996') | (s == 'Wu et al., 2021'):
         continue
     ax[0,0].plot([], [], ms=3, color=mapper[s]['c'], markeredgecolor='k',  markeredgewidth=0.25,
             marker=mapper[s]['m'], label=s, linestyle='none')
@@ -119,6 +123,5 @@ for s in sources:
 ax[0,0].legend()
 plt.tight_layout()
 plt.savefig('../../figures/Fig5_ppGpp_model_plots.pdf')
-
 
 # %%
