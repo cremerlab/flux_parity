@@ -7,7 +7,7 @@ def load_constants(organism='ecoli'):
     if organism == 'ecoli':
        params =  {'vtl_max': 20 ,  #Max translation speed in AA/s
                   'm_Rb': 7459, # Proteinaceous mass of ribosome  in AA
-                  'Kd_cpc':  0.015, # precursor dissociation constant in abundance units 
+                  'Kd_cpc': 0.03, # 0.015, # precursor dissociation constant in abundance units 
                   'Kd_cnt': 5E-4, # Nutrient monod constant in M
                   'Y': 2.95E19, # Yield coefficient in  precursor mass per nutrient mass nutrient per L 
                   'OD_conv': 1.5E17, # Conversion factor from OD to AA mass.
@@ -423,7 +423,7 @@ def nutrient_shift_ppGpp(nu_preshift,
     if init_args[-2]:
         postshift_df['prescribed_phiR'] = postshift_df['tRNA_balance'].values / (postshift_df['tRNA_balance'].values + init_args[2]) 
     else:
-        postshift_df['prescribed_phiR'] = postshift_args[-4]
+        postshift_df['prescribed_phiR'] = postshift_args[-1]
 
     postshift_df['prescribed_phiMb'] = (1 - postshift_df['prescribed_phiR'] - postshift_args[-6])
  

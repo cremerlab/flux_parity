@@ -62,13 +62,13 @@ def shift(params,
     return out
 
 gamma_max = const['gamma_max']
-phi_O = 0.3
+phi_O = 0.55
 Kd = 2E-5
 tau = const['tau']
 kappa_max = const['kappa_max']
 prefactors = [[1, 0], [0, 1]]
 nu_max_1 = 2 
-nu_max_2 = 0.5 
+nu_max_2 =  8
 M0 = 1E9
 
 # Find the equilibrium from the ppGpp model
@@ -163,7 +163,7 @@ ax[6].plot(shift_df['time'], shift_df['MMb_2_M'], '-', color=colors['light_blue'
 ax[7].set_visible(False)
 
 plt.tight_layout()
-plt.savefig('./ppGpp_downshift_plots.pdf', bbox_inches='tight')
+# plt.savefig('./ppGpp_downshift_plots.pdf', bbox_inches='tight')
 # %%
 
 # %%

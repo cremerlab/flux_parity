@@ -18,7 +18,7 @@ tau = const['tau']
 Kd_TAA = const['Kd_TAA']
 Kd_TAA_star = const['Kd_TAA_star']
 kappa_max = const['kappa_max']
-phi_O = 0.25 
+phi_O = 0.75 
 c_ab = np.linspace(0, 15, 100) * 1E-6 # in M
 Kd_cab = 5E-10  # in M
 

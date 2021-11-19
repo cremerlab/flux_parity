@@ -10,10 +10,11 @@ colors, palette=  growth.viz.matplotlib_style()
 
 # Load the constants
 const = growth.model.load_constants()
-nu_max = 1.85 
+# nu_max = 1.85 
+nu_max = 4.5
 
 # Define the allocation parameters
-phi_O = 0.25
+phi_O = 0.55
 opt_phiRb = growth.model.phiRb_optimal_allocation(const['gamma_max'],
                                                   nu_max,
                                                   const['Kd_cpc'],
@@ -72,7 +73,7 @@ for a in ax:
 ax[0].set_ylabel('approximate\noptical density [a.u.]')
 ax[0].set_ylim([1E-3, 5])
 ax[1].set_ylim([0, 22])
-ax[2].set_ylim([0, 3.2])
+# ax[2].set_ylim([0, 3.2])
 ax[1].set_ylabel(r'$c_{pc}\, /\,  K_D^{c_{pc}}$' + '\nprecursor concentration')
 ax[2].set_ylabel(r'$c_{nt}\, /\, K_D^{c_{nt}}$' + '\nprecursor concentration')
 ax[0].set_yscale('log')
@@ -93,7 +94,7 @@ for g, d in df.groupby('phi_Rb'):
 
 # Find the steady state region
 dd_cpc = np.diff(np.diff(d['c_pc'].values))
-where = np.where(np.round(dd_cpc, decimals=5) == 0)
+where = np.where(np.round(dd_cpc, decimals=4) == 0)
 ss_begin = time_range[where[0][0] - 2]
 ss_end = time_range[np.where(np.diff(where[0]) > 1)[0]- 3]
 

@@ -11,7 +11,8 @@ colors, palette = growth.viz.matplotlib_style()
 const = growth.model.load_constants()
 
 # Load the data   
-data = pd.read_csv('../../data/Scott2010_lacZ_overexpression.csv')
+# data = pd.read_csv('../../data/Scott2010_lacZ_overexpression.csv')
+data = pd.read_csv()
 markers = ['o', 's', 'X']
 
 
@@ -24,7 +25,6 @@ Kd_TAA_star = const['Kd_TAA_star']
 kappa_max = const['kappa_max']
 tau = const['tau']
 nu_max =  [9, 2.8, 1.8]
-palette = sns.color_palette('Greys', n_colors=4)
 phi_O = 0.55 # As reported in Scott 2010
 
 phiX_range = np.linspace(0, 0.35)
@@ -54,8 +54,8 @@ counter = 0
 labels = ['RDM + glucose', 'cAA + glucose', 'M63 + glucose']
 for g, d in data.groupby(['medium_id']):
     ax.plot(d['phi_X'].values / 100, d['growth_rate_hr'], linestyle='none', 
-            markerfacecolor=palette[counter],
-             ms=4, marker=markers[counter], label=labels[counter], markeredgecolor='k',
+            markerfacecolor=colors['primary_black'],
+             ms=4, marker=markers[counter], label=labels[counter],
             zorder=1000, markeredgewidth=0.25, alpha=0.75)
     counter += 1
 ax.set_ylim([0, 2])
@@ -64,9 +64,9 @@ ax.legend()
 counter = 0
 # Reset colors to match indices
 # _palette = [colors['primary_green'], colors['primary_blue'], colors['primary_black']]
-_palette = [palette[3], palette[-2], palette[1]]
+# palette[:-1].reverse()
 for g, d in df.groupby(['nu']):
-    ax.plot(d['phi_X'], d['growth_rate_hr'], '--', color=_palette[counter], lw=1)
+    ax.plot(d['phi_X'], d['growth_rate_hr'], '--', color=colors['primary_black'], lw=1)
     counter += 1
 ax.set_yticks([0, 0.5, 1, 1.5, 2])
 plt.savefig('../../figures/lacZ_overexpression.pdf', bbox_inches='tight')

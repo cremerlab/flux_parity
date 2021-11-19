@@ -16,9 +16,9 @@ elong_rate = elong_rate[elong_rate['organism']=='Escherichia coli']
 
 # Define the organism specific constants
 gamma_max = const['gamma_max']
-Kd_cpc = const['Kd_cpc']
-nu_max = np.linspace(0.001, 8, 300)
-phi_O = 0.25
+Kd_cpc =  0.03 #const['Kd_cpc']
+nu_max = np.linspace(0.001, 15, 300)
+phi_O = 0.55
 
 # Compute the theory curves
 # Scenario I
@@ -83,6 +83,6 @@ for k, v in mapper.items():
                 markeredgewidth=0.25, linestyle='none', label=k)
 ax[0].legend()
 plt.tight_layout()
-plt.savefig('../../figures/Fig4_data_comparison_plots.pdf', bbox_inches='tight')
+# plt.savefig('../../figures/Fig4_data_comparison_plots.pdf', bbox_inches='tight')
 
 # %%

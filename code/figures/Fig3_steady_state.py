@@ -6,10 +6,11 @@ import growth.viz
 import seaborn as sns
 colors, _  = growth.viz.matplotlib_style()
 const = growth.model.load_constants()
-
+const['Kd_cpc'] = 0.03
 # Define the parameter ranges
-nu_max = [0, 0.462, 0.925, 1.39, 1.85, 2.48, 3.11, 3.74, 4.37, 5] 
-phi_O = 0.25
+nu_max = np.array([0, 0.462, 0.925, 1.39, 1.85, 2.48, 3.11, 3.74, 4.37, 5]) 
+nu_max *= (4.5 / 1.85) # Adjusting for the change in phi_O
+phi_O = 0.55
 phiRb_range = np.linspace(0.001, 1 - phi_O - 0.001, 300)
 
 palette = sns.color_palette('bone', len(nu_max) + 2)
@@ -19,15 +20,15 @@ fig, ax = plt.subplots(2, 3, figsize=(7, 4.25))
 for i in range(3):
     ax[0, i].set_xlabel('allocation towards ribosomes\n' + ' $\phi_{Rb}$', fontsize=8)
     ax[1, i].set_xlabel('metabolic rate\n' +  r' $\nu_{max}$ [hr$^{-1}$]', fontsize=8)
-    ax[0, i].set_xlim([0, 0.75])
+    ax[0, i].set_xlim([0, 0.45])
 
 # Add axis labels
 ax[0, 0].set(ylabel=r'$c_{pc}^* / K_D^{c_{pc}}$' + '\nprecursor concentration', yscale='log')
 ax[1, 0].set_ylabel('$\phi_{Rb}$' + '\nallocation towards ribosomes')
 for i in range(2):
-        ax[i,1].set(ylabel='relative translation rate\n' +  '$\gamma / \gamma_{max}$')
+        ax[i,1].set(ylabel='$\gamma / \gamma_{max}$' + '\nrelative translation rate')
         ax[i,2].set(ylabel='$\lambda$ [hr$^{-1}$]' + '\ngrowth rate')
-
+ax[1, 1].set_ylim([0, 1])
 
 # Add panel values
 height=0.89
@@ -67,7 +68,7 @@ for i, nu in enumerate(nu_max):
     ax[0,2].plot(opt_phiRb, opt_lam, 'o', ms=4, color=color, zorder=1001)
 
 # Ccompute the various scenarios
-nu_max = np.linspace(0, 8, 300)
+nu_max = np.linspace(0, 15, 300)
 
 # Scenario II: Constant gamma
 cpc_Kd = 10
@@ -90,7 +91,7 @@ ax[1, 1].plot(nu_max, phiRb_opt_gamma / const['gamma_max'], lw=1, color=colors['
 ax[1, 2].plot(nu_max, phiRb_opt_lam, lw=1, color=colors['primary_blue'])
 
 # Scenario I: Constant allocation
-phiRb_const = 0.25 * np.ones_like(nu_max)
+phiRb_const = 0.2* np.ones_like(nu_max)
 strat1_params = (const['gamma_max'],  phiRb_const, nu_max, const['Kd_cpc'], phi_O)
 phiRb_const_lam = growth.model.steady_state_growth_rate(*strat1_params)
 phiRb_const_cpc = growth.model.steady_state_precursors(*strat1_params)
@@ -101,6 +102,6 @@ ax[1, 2].plot(nu_max, phiRb_const_lam, lw=1, color=colors['primary_black'])
 
 # Tighten and save
 plt.tight_layout()
-plt.savefig('../../figures/Fig3_steady_state_plots.pdf', bbox_inches='tight')
+# plt.savefig('../../figures/Fig3_steady_state_plots.pdf', bbox_inches='tight')
 
 # %%
