@@ -369,75 +369,87 @@ def self_replicator_ppGpp(params,
     return out
 
 
+def equilibrate_ppGpp(args, tol=5, max_iter=1, dt=0.0001):
+    M0 = 1
+    phi_Rb = 0.2
+    phi_Mb = 1 - phi_Rb - args['phi_O']
+    init_params = [M0, phi_Rb * M0, phi_Mb * M0, 1E-5, 1E-5]
 
-def nutrient_shift_ppGpp(nu_preshift, 
-                         nu_postshift, 
-                         shift_time, 
-                         init_params, 
-                         init_args,
-                         total_time,
-                         postshift_args = False,
-                         dt=0.0001):
-                        
-    cols = ['M', 'M_Rb', 'M_Mb', 'T_AA', 'T_AA_star']
+    iterations = 1 
+    converged = True
+    max_time = 200 
+    _args = tuple(args.values())
+    # while (iterations <= max_iter) | (converged == False):
+    time = np.arange(0, max_time, dt)
+    out = scipy.integrate.odeint(self_replicator_ppGpp, 
+                                    init_params, 
+                                    time,
+                                    args=_args) 
+    
+        # Determine if a steady state has been reached
+    # diff = out[-1][-1] - out[-2][-1]
+        # if np.round(diff, decimals=tol) == 0:
+            # converged = True
+        # else:
+            # iterations +=1
+            # max_time += 10
+          
+    # if iterations == max_iter:
+        # print(f'Steady state was not reached (diff = {np.round(diff, decimals=tol)}. Returning output anyway.')
+    return out[-1]
+
+def nutrient_shift_ppGpp(args,
+                         shift_time=2,
+                         total_time=10,
+                         dt=0.001,
+                         **kwargs):
+    cols = ['M', 'M_Rb', 'M_Mb', 'TAA', 'TAA_star']
 
     # Set the timespans
     preshift_time = np.arange(0, shift_time, dt)
     postshift_time = np.arange(shift_time - dt, total_time, dt)
 
-    # Integrate the preshift
+    # Equilibrate
+    preshift_out = equilibrate_ppGpp(args[0], **kwargs)
+    postshift_out = equilibrate_ppGpp(args[1], **kwargs)
+    eq_phiRb_preshift = preshift_out[1] / preshift_out[0]
+    eq_phiRb_postshift = postshift_out[1] / postshift_out[0]
+    eq_phiMb_preshift = preshift_out[2] / preshift_out[0]
+    eq_phiMb_postshift = postshift_out[2] / postshift_out[0]
+    eq_TAA_preshift = preshift_out[-2]
+    eq_TAA_star_preshift = preshift_out[-1]
+
+    # Pack the params   
+    M0 = 1
+    init_params = [M0, 
+                   M0 * eq_phiRb_preshift,  
+                   M0 * eq_phiMb_postshift, 
+                   eq_TAA_preshift, 
+                   eq_TAA_star_preshift]
+    init_args = tuple(args[0].values())
+    shift_args = tuple(args[1].values())
+
+    # Integrate the shifts
     preshift_out = scipy.integrate.odeint(self_replicator_ppGpp,
                                           init_params, 
                                           preshift_time, 
                                           args=init_args)
-    
-    preshift_df = pd.DataFrame(preshift_out,
-                               columns=cols)
-    preshift_df['nu'] = nu_preshift
-    preshift_df['phase'] = 'preshift'
-    preshift_df['time'] =  preshift_time
-    preshift_df['tRNA_balance'] = preshift_df['T_AA_star'].values / preshift_df['T_AA'].values
-
-    if init_args[-2]:
-        preshift_df['prescribed_phiR'] = preshift_df['tRNA_balance'].values / (preshift_df['tRNA_balance'].values + init_args[2])
-
-    else:
-        preshift_df['prescribed_phiR'] = init_args[-4]
-   
-    preshift_df['prescribed_phiMb'] = (1 - preshift_df['prescribed_phiR'] - init_args[-6])
-    postshift_params = preshift_out[-1]
-
-    if postshift_args == False:
-        postshift_args = [init_args[i] for i in range(len(init_args))]
-        postshift_args[1] = nu_postshift
-        postshift_args = tuple(postshift_args)
+    shift_params = preshift_out[-1] 
     postshift_out = scipy.integrate.odeint(self_replicator_ppGpp,
-                                                 postshift_params, 
-                                                 postshift_time, 
-                                                 args=postshift_args) 
-    postshift_df = pd.DataFrame(postshift_out[1:], columns=cols)
-    postshift_df['nu'] = nu_postshift
-    postshift_df['phase'] = 'postshift'
-    postshift_df['time'] = postshift_time[1:] 
-    postshift_df['tRNA_balance'] = postshift_df['T_AA_star'].values / postshift_df['T_AA'].values
-    if init_args[-2]:
-        postshift_df['prescribed_phiR'] = postshift_df['tRNA_balance'].values / (postshift_df['tRNA_balance'].values + init_args[2]) 
-    else:
-        postshift_df['prescribed_phiR'] = postshift_args[-1]
+                                          shift_params, 
+                                          postshift_time, 
+                                          args=shift_args)
+    postshift_out = postshift_out[1:]
 
-    postshift_df['prescribed_phiMb'] = (1 - postshift_df['prescribed_phiR'] - postshift_args[-6])
- 
-    shift_df = pd.concat([preshift_df, postshift_df])
-
-    # Compute properties
-    shift_df['total_biomass'] = shift_df['M'].values
-    shift_df['relative_biomass'] = shift_df['total_biomass'].values / (preshift_out[0][0])
-    shift_df['realized_phiR'] = shift_df['M_Rb'].values / shift_df['total_biomass'].values
-    shift_df['realized_phiMb'] = shift_df['M_Mb'].values / shift_df['total_biomass'].values
-    shift_df['total_tRNA'] = shift_df['T_AA'].values + shift_df['T_AA_star'].values
-    shift_df['gamma'] = init_args[0] * shift_df['T_AA_star'].values / (shift_df['T_AA_star'].values + init_args[3])
-    return shift_df
-    
+    # Form dataframes
+    preshift_df = pd.DataFrame(preshift_out, columns=cols)
+    preshift_df['time'] = preshift_time
+    postshift_df = pd.DataFrame(postshift_out, columns=cols)
+    postshift_df['time'] = postshift_time[1:]
+    df = pd.concat([preshift_df, postshift_df], sort=False)
+    df['shifted_time'] = df['time'].values - shift_time
+    return df
+   
 def self_replicator_ppGpp_chlor(params,
                           time,
                           gamma_max,

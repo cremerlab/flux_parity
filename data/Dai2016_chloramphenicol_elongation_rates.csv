@@ -1,0 +1,22 @@
+growth_rate_hr,elongation_rate_aa_s,chlor_conc_uM,medium,source,Notes
+1.8,16.7,0,RDM + 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+1.08,16.8,4,RDM + 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.57,17.3,8,RDM + 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.98,15.9,0,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.71,16.0,2,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.53,16.1,4,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.41,16.2,6,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.33,16.5,8,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.26,16.6,9,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.69,14.7,0,0.2% Fructose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.35,15.9,4,0.2% Fructose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.21,16.3,8,0.2% Fructose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.46,12.6,0,6mM Acetate + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.25,14.5,3,6mM Acetate + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.18,15.6,6,6mM Acetate + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.33,12.0,0,20 mM Potassium Aspartate,"Dai et al., 2016",Taken from Supplementary Table 4
+0.24,15.3,2,20 mM Potassium Aspartate,"Dai et al., 2016",Taken from Supplementary Table 4
+0.17,15.8,4,20 mM Potassium Aspartate,"Dai et al., 2016",Taken from Supplementary Table 4
+0.38,12.4,0,NQ1261 (∆ptsG) in 0.2% glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.16,14.3,2,NQ1261 (∆ptsG) in 0.2% glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4
+0.092,15.2,3,NQ1261 (∆ptsG) in 0.2% glucose + 10mM NH4Cl,"Dai et al., 2016",Taken from Supplementary Table 4

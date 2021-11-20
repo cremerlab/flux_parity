@@ -1,0 +1,26 @@
+growth_rate_hr,RNA_protein_ratio,mass_fraction,chlor_conc_uM,medium,source,notes
+1.8,0.476,0.2169608,0,RDM + 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+1.46,0.495,0.225621,2,RDM + 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+1.08,0.551,0.2511458,4,RDM + 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.87,0.582,0.2652756,6,RDM + 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.57,0.621,0.2830518,8,RDM + 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.98,0.294,0.1340052,0,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.71,0.358,0.1631764,2,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.53,0.440,0.201,4,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.41,0.487,0.2219746,6,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.33,0.511,0.2329138,8,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.26,0.569,0.2593502,9,0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.69,0.217,0.0989086,0,0.2% Fructose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.46,0.286,0.1303588,2,0.2% Fructose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.35,0.323,0.1472234,4,0.2% Fructose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.27,0.394,0.1795852,6,0.2% Fructose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.21,0.457,0.2083006,8,0.2% Fructose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.46,0.172,0.0783976,0,60mM Acetate + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.25,0.246,0.1121268,3,60mM Acetate + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.18,0.304,0.1385632,6,60mM Acetate + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.33,0.152,0.0692816,0,20 mM Potassium Aspartate,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.24,0.231,0.1052898,2,20 mM Potassium Aspartate,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.17,0.292,0.1330936,4,20 mM Potassium Aspartate,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.38,0.160,0.073,0,NQ1261 (∆ptsG) in 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.16,0.218,0.0993644,2,NQ1261 (∆ptsG) in 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
+0.092,0.252,0.1148616,3,NQ1261 (∆ptsG) in 0.2% Glucose + 10mM NH4Cl,"Dai et al., 2016",Values taken from Supplementary Table 5. Mass fraction computed from the RNA to protein ratio using a conversion factor of 0.4558.
