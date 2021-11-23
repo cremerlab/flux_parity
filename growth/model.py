@@ -534,8 +534,8 @@ def self_replicator_ppGpp_chlor(params,
     dM_dt = gamma * fa * M_Rb
 
     # Resource allocation
-    phi_Rb = ratio / (ratio + tau)
-    kappa = kappa_max * phi_Rb
+    phi_Rb = (1 - phi_O) * ratio / (ratio + tau)
+    kappa = kappa_max * phi_Rb / (1 - phi_O)
     dM_Rb_dt = phi_Rb * dM_dt
     dM_Mb_dt = (1 - phi_Rb - phi_O) * dM_dt
 

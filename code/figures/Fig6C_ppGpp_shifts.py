@@ -57,7 +57,7 @@ def ppGpp_shift(params,
         phiRb = (1 - phi_O) * ratio / (ratio + tau)
         kappa = kappa_max  * ratio / (ratio + tau)
     else:
-        kappa = kappa_max * phi_Rb
+        kappa = kappa_max * phi_Rb / (1 - phi_O)
     # Encode dynamics
     dM_dt = gamma * M_Rb
     dTAA_star_dt = (nu_1 * M_Mb_1 + nu_2 * M_Mb_2 - dM_dt * (1 + TAA_star)) / M

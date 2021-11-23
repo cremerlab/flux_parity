@@ -5,7 +5,6 @@ import scipy.integrate
 import matplotlib.pyplot as plt 
 import growth.model
 import growth.viz
-import seaborn as sns
 import tqdm
 colors, palette = growth.viz.matplotlib_style()
 mapper = growth.viz.load_markercolors()
@@ -24,10 +23,10 @@ lacZ = pd.read_csv('../../data/Scott2010_lacZ_overexpression.csv')
 # Define the parameters
 gamma_max = const['gamma_max']
 Kd_cpc = const['Kd_cpc']
-nu_max = np.linspace(0.1, 50, 300)
+nu_max = np.linspace(0.1, 50, 30)
 Kd_TAA = 3E-5 #const['Kd_TAA'] #1E-5 #in M, Kd of uncharged tRNA to  ligase
 Kd_TAA_star = 3E-5 #const['Kd_TAA_star'] #1E-5
-kappa_max = const['kappa_max']
+kappa_max = 0.0001 #const['kappa_max']
 tau = 1 # const['tau']
 phi_O = 0.55
 
@@ -261,7 +260,7 @@ for g, d in phiX_df.groupby(['nu']):
     counter += 1
 
 plt.tight_layout()
-plt.savefig('../../figures/Fig5_ppGpp_model_plots.pdf')
+# plt.savefig('../../figures/Fig5_ppGpp_model_plots.pdf')
 
 
 
