@@ -13,7 +13,7 @@ colors, palette = growth.viz.matplotlib_style()
 mass_frac = pd.read_csv('../../data/Dai2016_chloramphenicol_ribosome_content.csv')
 elong = pd.read_csv('../../data/Dai2016_chloramphenicol_elongation_rates.csv')
 #%%
-gamma_max = const['gamma_max']
+gamma_max = 18 * 3600 / 7459#const['gamma_max']
 Kd_cpc = const['Kd_cpc']
 tau = const['tau']
 Kd_TAA = const['Kd_TAA']
@@ -48,7 +48,7 @@ target_nu = {k: compute_nu(gamma_max, Kd_cpc, target_phiRb[k], v) for k, v in ta
 # Perform the chlor integration
 df = pd.DataFrame([])
 dt = 0.001
-time = np.arange(0, 18, dt)
+time = np.arange(0, 10, dt)
 
 for k, v in tqdm.tqdm(target_nu.items()):
     # Instantiate

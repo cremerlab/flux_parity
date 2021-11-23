@@ -19,7 +19,7 @@ mapper = growth.viz.load_markercolors()
 const = growth.model.load_constants()
 gamma_max = const['gamma_max']
 Kd_cpc = const['Kd_cpc']
-nu_max = np.linspace(0.001, 8, 20)
+nu_max = np.linspace(0.001, 8, 100)
 Kd_TAA = const['Kd_TAA']
 Kd_TAA_star = const['Kd_TAA_star']
 tau = const['tau']
@@ -48,7 +48,7 @@ elong_data = bokeh.models.ColumnDataSource(elong_data)
 tRNA_data = bokeh.models.ColumnDataSource(tRNA_data)
 
 # Compute the theory data
-phi_O = 0.25
+phi_O = 0.55
 opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max,  nu_max, Kd_cpc, phi_O)
 opt_lam = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc, phi_O)
 opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc, phi_O) * 7459 / 3600
@@ -91,10 +91,10 @@ for i, nu in enumerate(tqdm.tqdm(nu_max)):
 
 # Assemble the theory CDS
 theory = bokeh.models.ColumnDataSource({ 'nu_max': [nu_max, nu_max],
-                                        'lam': [[opt_lam], [ss_df['lam'].values]],
-                                        'phiRb': [[opt_phiRb], [ss_df['phi_Rb'].values]],
-                                        'gamma': [[opt_gamma], [ss_df['gamma'].values]],
-                                        'tRNA_ribo': [[], [ss_df['tRNA_per_ribosome'].values]],
+                                        'lam': [opt_lam, ss_df['lam'].values],
+                                        'phiRb': [opt_phiRb, ss_df['phi_Rb'].values],
+                                        'gamma': [opt_gamma, ss_df['gamma'].values],
+                                        'tRNA_ribo': [[], ss_df['tRNA_per_ribosome'].values],
                                         'linestyle': ['solid', 'dashed'],
                                         'color': [colors['primary_blue'], colors['primary_red']]
                                         })
@@ -123,32 +123,40 @@ elongation_ax = bokeh.plotting.figure(width=350, height=350,
 
 tRNA_ax = bokeh.plotting.figure(width=350, height=350, 
                                  y_axis_label='tRNA per ribosome',
-                                 x_axis_label='growth rate [inv. hr.]')
+                                 x_axis_label='growth rate [inv. hr.]',
+                                 y_range=[0, 20])
 
 # ##############################################################################
 # CANVAS POPULATION
 # ##############################################################################
 allocation_ax.scatter(x='growth_rate_hr',  y='mass_fraction', marker='marker',
                         color='color', source=mass_frac, size=10, line_color='black',
-                        alpha=0.75, name='data')
+                        alpha=0.5, name='data')
 allocation_ax.multi_line(xs='lam', ys='phiRb', line_color='color', source=theory,
-                    line_width=2)
+                    line_width=2, line_dash='linestyle')
 elongation_ax.scatter(x='growth_rate_hr',  y='elongation_rate_aa_s', marker='marker',
                         color='color', source=elong_data, size=10, line_color='black',
-                        alpha=0.75, name='data')
+                        alpha=0.5, name='data')
 elongation_ax.multi_line(xs='lam', ys='gamma', line_color='color', source=theory,
-                    line_width=2)
+                    line_width=2, line_dash='linestyle')
 
 tRNA_ax.scatter(x='growth_rate_hr',  y='tRNA_per_ribosome', marker='marker',
                         color='color', source=tRNA_data, size=10, line_color='black',
-                        alpha=0.75, name='data')
+                        alpha=0.5, name='data')
 tRNA_ax.multi_line(xs='lam', ys='tRNA_ribo', line_color='color', source=theory,
-                    line_width=2)
+                    line_width=2, line_dash='linestyle')
 
 # ##############################################################################
 # CALLBACK DEFINITION
 # ##############################################################################
-
+cb = growth.viz.load_js(['./interactive_ppGpp.js', './functions.js'], 
+                args={'Kd_TAA_slider': Kd_TAA_slider,
+                      'Kd_TAA_star_slider': Kd_TAA_star_slider,
+                      'kappa_slider': kappa_slider,
+                      'tau_slider': tau_slider,
+                      'source': theory})
+for s in [Kd_TAA_slider, Kd_TAA_star_slider, kappa_slider, tau_slider]:
+    s.js_on_change('value', cb)
 # ##############################################################################
 # LAYOUT AND SAVING
 # ##############################################################################

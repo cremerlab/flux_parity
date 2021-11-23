@@ -11,10 +11,10 @@ def load_constants(organism='ecoli'):
                   'Kd_cnt': 5E-4, # Nutrient monod constant in M
                   'Y': 2.95E19, # Yield coefficient in  precursor mass per nutrient mass nutrient per L 
                   'OD_conv': 1.5E17, # Conversion factor from OD to AA mass.
-                  'Kd_TAA': 2E-5, # uncharged tRNA dissociation constant in abundance units
-                  'Kd_TAA_star': 2E-5, # Charged tRNA dissociation constant in abundance units
-                  'kappa_max': (88 * 5 * 3600) / 1E9, # Maximum tRNA synthesis rate  in abundance units per unit time
-                  'tau': 3 # ppGpp threshold parameter for charged/uncharged tRNA balance
+                  'Kd_TAA': 3E-5, # uncharged tRNA dissociation constant in abundance units
+                  'Kd_TAA_star': 3E-5, # Charged tRNA dissociation constant in abundance units
+                  'kappa_max': (64 * 5 * 3600) / 1E9, # Maximum tRNA synthesis rate  in abundance units per unit time
+                  'tau': 1 # ppGpp threshold parameter for charged/uncharged tRNA balance
                 } 
     params['gamma_max'] = params['vtl_max'] * 3600 / params['m_Rb']
     return params
@@ -343,8 +343,9 @@ def self_replicator_ppGpp(params,
     dM_dt = gamma * M_Rb
 
     # Resource allocation
+    allocation = ratio / (ratio + tau)
     if dynamic_phiRb:
-        phi_Rb = ratio / (ratio + tau)
+        phi_Rb = (1 - phi_O) * allocation
 
     dM_Rb_dt = phi_Rb * dM_dt
     dM_Mb_dt = (1 - phi_Rb - phi_O) * dM_dt
@@ -355,7 +356,7 @@ def self_replicator_ppGpp(params,
     if dil_approx == False:
         dT_AA_star_dt -= T_AA_star * dM_dt / M
         if tRNA_regulation:
-            kappa = kappa_max * phi_Rb
+            kappa = kappa_max * allocation 
         else:
             kappa = kappa_max
         dT_AA_dt += kappa - (T_AA * dM_dt) / M

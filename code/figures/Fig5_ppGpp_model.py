@@ -25,10 +25,10 @@ lacZ = pd.read_csv('../../data/Scott2010_lacZ_overexpression.csv')
 gamma_max = const['gamma_max']
 Kd_cpc = const['Kd_cpc']
 nu_max = np.linspace(0.1, 50, 300)
-Kd_TAA = const['Kd_TAA'] #1E-5 #in M, Kd of uncharged tRNA to  ligase
-Kd_TAA_star = const['Kd_TAA_star'] #1E-5
+Kd_TAA = 3E-5 #const['Kd_TAA'] #1E-5 #in M, Kd of uncharged tRNA to  ligase
+Kd_TAA_star = 3E-5 #const['Kd_TAA_star'] #1E-5
 kappa_max = const['kappa_max']
-tau = const['tau']
+tau = 1 # const['tau']
 phi_O = 0.55
 
 # Compute the optimal scenario
@@ -64,8 +64,7 @@ for i, nu in enumerate(tqdm.tqdm(nu_max)):
 
     # Integrate
     _out = growth.model.equilibrate_ppGpp(args)
-    # out = scipy.integrate.odeint(growth.model.self_replicator_ppGpp,
-                                # params, time_range,  args=args)
+
     # Compute the final props
     ratio = _out[-1] / _out[-2]
     tRNA_abund = _out[-2] + _out[-1]
@@ -95,7 +94,7 @@ phiRb_targets = [i for i in chlor_init['mass_fraction'].values]
 lam_targets = [i for i in chlor_init['growth_rate_hr'].values]
 
 # Nudge nu by 10% to account for end product inhibition.
-nu_targets = [1.1 * compute_nu(gamma_max, Kd_cpc, p, l) for p, l in zip(phiRb_targets, lam_targets)]
+nu_targets = [1.25 * compute_nu(gamma_max, Kd_cpc, p, l) for p, l in zip(phiRb_targets, lam_targets)]
 
 # Define a range of chlor concs to consider 
 chlor_conc = np.linspace(0, 12, 100) * 1E-6
@@ -179,7 +178,7 @@ for i, nu in enumerate(tqdm.tqdm(nu_targets)):
                                   ignore_index=True)
 
 #%%
-fig, ax = plt.subplots(3, 2, figsize=(6,6.25))
+fig, ax = plt.subplots(3, 2, figsize=(5.75,6.25))
 ax[0, 0].axis('off')
 ax[0, 1].set(ylim=[0, 0.45], xlim=[-0.05, 2.5], 
           xlabel='growth rate\n$\lambda$ [hr$^{-1}$]',
@@ -238,8 +237,12 @@ for g, d in lacZ.groupby(['medium']):
     ax[2, 1].plot(d['phi_X'], d['growth_rate_hr'], 'o', ms=4,
             marker=markers[g], linestyle='none', markeredgecolor='k',
             alpha=0.75, color=cmap[g], label=g)
-for a in ax.ravel():
-    a.legend()
+for i, a in enumerate(ax.ravel()):
+    if i >= 4:
+        leg = a.legend(title='Scott et al., 2010')
+        leg.get_title().set_fontsize(6)
+    else:
+        a.legend()
 # Plot the theory curves
 ax[0, 1].plot(opt_mu, opt_phiRb, '-', color=colors['primary_blue'], lw=1)
 ax[0, 1].plot(ss_df['lam'], ss_df['phi_Rb'], '--', color=colors['primary_red'], zorder=1000, lw=1)
@@ -257,9 +260,11 @@ for g, d in phiX_df.groupby(['nu']):
     ax[2, 1].plot(d['phi_X'], d['lam'], '--', lw=1, color=_cmap[counter])
     counter += 1
 
-ax[0,0].legend()
 plt.tight_layout()
 plt.savefig('../../figures/Fig5_ppGpp_model_plots.pdf')
 
+
+
+# %%
 
 # %%

@@ -24,11 +24,11 @@ preshift_time = np.arange(0, shift_time, dt)
 postshift_time = np.arange(shift_time-dt, total_time, dt)
 
 # ppGpp params
-Kd_TAA = const['Kd_TAA']
-Kd_TAA_star = const['Kd_TAA_star']
-tau = const['tau'] 
+Kd_TAA = 2E-5 #const['Kd_TAA']
+Kd_TAA_star = 2E-5 # const['Kd_TAA_star']
+tau =  1 #const['tau'] 
 phi_Rb = 0.1
-phi_Mb = 0.1 
+phi_Mb = 1 - phi_O - phi_Rb
 
 # Define the integration function with multiple metabolic casettes
 def ppGpp_shift(params, 
@@ -52,11 +52,12 @@ def ppGpp_shift(params,
     nu_2 = prefactors[1] * nu_max[1] * (TAA / (TAA + Kd_TAA))
 
     # Define phiRb
-    if dynamic_phiRb:
+    if dynamic_phiRb: 
         ratio = TAA_star / TAA
-        phiRb = ratio / (ratio + tau)
-    kappa = kappa_max * phiRb 
-
+        phiRb = (1 - phi_O) * ratio / (ratio + tau)
+        kappa = kappa_max  * ratio / (ratio + tau)
+    else:
+        kappa = kappa_max * phi_Rb
     # Encode dynamics
     dM_dt = gamma * M_Rb
     dTAA_star_dt = (nu_1 * M_Mb_1 + nu_2 * M_Mb_2 - dM_dt * (1 + TAA_star)) / M
@@ -142,7 +143,7 @@ for  i, nu in enumerate(tqdm.tqdm(nu_max)):
         postshift_df['time'] = postshift_time[1:]
         dynamic_df = pd.concat([preshift_df, postshift_df], sort=False)
         dynamic_df['balance'] = dynamic_df['TAA_star'].values / dynamic_df['TAA'].values
-        dynamic_df['phi_Rb'] = dynamic_df['balance'].values / (dynamic_df['balance'].values + tau) 
+        dynamic_df['phi_Rb'] = (1 - phi_O) * dynamic_df['balance'].values / (dynamic_df['balance'].values + tau) 
         dynamic_df['MRb_M'] = dynamic_df['MRb'].values / dynamic_df['M'].values
         dynamic_df['shift_type'] = shift_type
         dynamic_dfs.append(dynamic_df) 
@@ -189,10 +190,10 @@ fig, ax = plt.subplots(1, 3, figsize=(6, 2))
 
 # Format and label axes
 for a in ax:
-    a.set_xlim([-1, 2])
+    a.set_xlim([-1, 8])
 ax[0].set_yscale('log')
 ax[0].set_ylim([1E-2, 5])
-ax[1].set_ylim([0.1, 0.8])
+ax[1].set_ylim([0.1, 0.5])
 ax[2].set_ylim([0.8, 2])
 for a in ax:
     a.set_xlabel('time from upshift [hr]')
@@ -215,7 +216,6 @@ ax[2].plot(dynamic_up['time'].values[1:], dynamic_gr, '--', color=colors['primar
 plt.tight_layout()
 plt.savefig('../../figures/Fig6C_upshift_plots.pdf', bbox_inches='tight')
 #%%
-
 fig, ax = plt.subplots(1, 4, figsize=(7, 2), sharex=True)
 ax = np.array([[ax[0],ax[1]], [ax[2], ax[3]]])
 

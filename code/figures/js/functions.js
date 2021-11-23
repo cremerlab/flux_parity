@@ -29,18 +29,16 @@ function selfReplicator(params,args, dt) {
 function ppGppSelfReplicator(params, args, dt) {
     // Unpack params
     var [M, M_Rb, M_Mb, T_AA, T_AA_star] = params;
-    var [gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max, phi_O, phi_Rb, dynamic] = args;
+    var [gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max, phi_O] = args;
 
     // Compute the rates
     var nu = nu_max * (T_AA / (T_AA + Kd_TAA));
     var gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star));
 
     // Compute the allocation
-    if (dynamic === true) {
-        var ratio = (T_AA_star / T_AA)
-        phi_Rb = ratio / (ratio + tau);
-    }
-    var kappa = phi_Rb * kappa_max
+    var ratio = (T_AA_star / T_AA);
+    var phi_Rb = ratio / (ratio + tau); 
+    var kappa = phi_Rb * kappa_max;
 
     // Compute dynamics
     var dM_dt = gamma * M_Rb
@@ -118,11 +116,11 @@ function ppGppEquilibrate(gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max
 
     // Pack parameters and args
     let params = [M0, MRb, MMb, tAA, tAAStar];
-    let args = [gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max, phi_O, 0.1, true];
+    let args = [gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max, phi_O];
 
     // Perform integration
     let out = odeintForwardEuler(ppGppSelfReplicator, params, args, dt, nSteps)
-    console.log(out)
+
     // Identify output
     let eq = out.slice(-1)[0]   
 

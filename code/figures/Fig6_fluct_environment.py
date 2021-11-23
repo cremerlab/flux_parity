@@ -48,7 +48,7 @@ for i, phiO in enumerate(tqdm.tqdm(phi_O)):
         preshift_out = scipy.integrate.odeint(growth.model.self_replicator_ppGpp,
                              init_params,np.arange(0, 200, dt), args=preshift_args)
         postshift_args = (gamma_max, nu_shift, tau, Kd_TAA_star, Kd_TAA, 
-                          kappa_max, phi_O)
+                          kappa_max, phi_O_post)
         postshift_out = scipy.integrate.odeint(growth.model.self_replicator_ppGpp,
                              init_params, np.arange(0, 200, dt), args=postshift_args)
 
@@ -70,7 +70,7 @@ for i, phiO in enumerate(tqdm.tqdm(phi_O)):
         preshift_args = (gamma_max, nu_init, tau, Kd_TAA, Kd_TAA_star, 
                         kappa_max, phiO)
         postshift_args = (gamma_max, nu_shift, tau, Kd_TAA, Kd_TAA_star,
-                          kappa_max, phi_O)
+                          kappa_max, phi_O_post)
 
         # Integrate preshift
         preshift_out = scipy.integrate.odeint(growth.model.self_replicator_ppGpp,
