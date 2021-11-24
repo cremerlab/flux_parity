@@ -1,6 +1,7 @@
 import numpy as np
 import scipy
 import pandas as pd
+import numba
 
 def load_constants(organism='ecoli'):
     """Returns constants frequently used in this work"""
@@ -108,6 +109,7 @@ def self_replicator(params,
     # Pack and return the output
     out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dc_pc_dt, dc_nt_dt]
     return out
+
 
 def steady_state_precursors(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
     """
@@ -248,7 +250,7 @@ def phiRb_constant_translation(gamma_max, nu_max, cpc_Kd, Kd_cpc, phi_O=0):
     return (1 - phi_O) * nu_max * (c_pc + Kd_cpc) / (nu_max * (c_pc + Kd_cpc) + gamma_max * c_pc * (c_pc + 1))
 
 
-
+@numba.jit(nopython=True)
 def self_replicator_ppGpp(params,
                           time,
                           gamma_max,
