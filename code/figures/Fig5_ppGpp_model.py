@@ -26,7 +26,7 @@ Kd_cpc = const['Kd_cpc']
 nu_max = np.linspace(0.1, 50, 30)
 Kd_TAA = 3E-5 #const['Kd_TAA'] #1E-5 #in M, Kd of uncharged tRNA to  ligase
 Kd_TAA_star = 3E-5 #const['Kd_TAA_star'] #1E-5
-kappa_max = 0.0001 #const['kappa_max']
+kappa_max = const['kappa_max']
 tau = 1 # const['tau']
 phi_O = 0.55
 

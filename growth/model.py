@@ -372,7 +372,7 @@ def self_replicator_ppGpp(params,
     return out
 
 
-def equilibrate_ppGpp(args, tol=5, max_iter=1, dt=0.0001):
+def equilibrate_ppGpp(args, tol=5, max_iter=1, dt=0.0001, t_return=1):
     M0 = 1
     phi_Rb = 0.2
     phi_Mb = 1 - phi_Rb - args['phi_O']
@@ -399,7 +399,10 @@ def equilibrate_ppGpp(args, tol=5, max_iter=1, dt=0.0001):
           
     # if iterations == max_iter:
         # print(f'Steady state was not reached (diff = {np.round(diff, decimals=tol)}. Returning output anyway.')
-    return out[-1]
+    if t_return != 1:
+        return out[-t_return:]
+    else: 
+        return out[-1]
 
 def nutrient_shift_ppGpp(args,
                          shift_time=2,
@@ -426,7 +429,7 @@ def nutrient_shift_ppGpp(args,
     M0 = 1
     init_params = [M0, 
                    M0 * eq_phiRb_preshift,  
-                   M0 * eq_phiMb_postshift, 
+                   M0 * eq_phiMb_preshift, 
                    eq_TAA_preshift, 
                    eq_TAA_star_preshift]
     init_args = tuple(args[0].values())
