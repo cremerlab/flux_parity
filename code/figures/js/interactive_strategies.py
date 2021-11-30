@@ -14,11 +14,11 @@ bokeh.io.output_file('./interactive_strategies.html')
 # ############################################################################## 
 # PARAMETER DEFINITIONS
 # ############################################################################## 
-phi_O = 0.25
+phi_O = 0.55
 phiRb_range = np.arange(0.001, 1 - phi_O - 0.001, 0.001)
 nu_max= np.arange(0.001, 8, 0.001)
 
-const_phiRb = 0.15
+const_phiRb = 0.2
 gamma_max = const['gamma_max']
 Kd_cpc = const['Kd_cpc']
 
@@ -29,7 +29,7 @@ opt_lam = growth.model.steady_state_growth_rate(gamma_max, opt_phiRb, nu_max, Kd
 const_phiRb = const_phiRb * np.ones_like(nu_max)
 const_gamma = growth.model.steady_state_gamma(gamma_max, const_phiRb, nu_max, Kd_cpc, phi_O)
 const_lam = growth.model.steady_state_growth_rate(gamma_max, const_phiRb, nu_max, Kd_cpc, phi_O)
-trans_phiRb = growth.model.phiRb_constant_translation(gamma_max, nu_max, phi_O)
+trans_phiRb = growth.model.phiRb_constant_translation(gamma_max, nu_max, Kd_cpc, phi_O)
 trans_gamma = growth.model.steady_state_gamma(gamma_max, trans_phiRb, nu_max, Kd_cpc, phi_O)
 trans_lam = growth.model.steady_state_growth_rate(gamma_max, trans_phiRb, nu_max, Kd_cpc, phi_O)
 

@@ -32,7 +32,7 @@ def load_markercolors():
         'Young & Bremer, 1976': {'m':'h', 'c':'#3f426e', 'm_bokeh': 'triangle_pin'},
         'Skjold et al., 1973' : {'m': '*', 'c': '#6c8fb2', 'm_bokeh': 'star'},
         'Dong et al., 1996' : {'m': 'p', 'c':'#556895', 'm_bokeh': 'diamond_dot'},
-        'Erickson et al., 2017': {'m': '.', 'c': '#5f7ba4', 'm_bokeh': 'hex_pin'}
+        'Erickson et al., 2017': {'m': '.', 'c': '#5f7ba4', 'm_bokeh': 'hex_dot'}
         }
     return mapper
 

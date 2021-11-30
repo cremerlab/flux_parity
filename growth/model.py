@@ -2,7 +2,7 @@ import numpy as np
 import scipy
 import pandas as pd
 import numba
-
+# from .integrate import *
 def load_constants(organism='ecoli'):
     """Returns constants frequently used in this work"""
     if organism == 'ecoli':
@@ -15,7 +15,8 @@ def load_constants(organism='ecoli'):
                   'Kd_TAA': 3E-5, # uncharged tRNA dissociation constant in abundance units
                   'Kd_TAA_star': 3E-5, # Charged tRNA dissociation constant in abundance units
                   'kappa_max': (64 * 5 * 3600) / 1E9, # Maximum tRNA synthesis rate  in abundance units per unit time
-                  'tau': 1 # ppGpp threshold parameter for charged/uncharged tRNA balance
+                  'tau': 1, # ppGpp threshold parameter for charged/uncharged tRNA balance
+                  'phi_O': 0.55,
                 } 
     params['gamma_max'] = params['vtl_max'] * 3600 / params['m_Rb']
     return params
@@ -249,31 +250,16 @@ def phiRb_constant_translation(gamma_max, nu_max, cpc_Kd, Kd_cpc, phi_O=0):
     c_pc = cpc_Kd * Kd_cpc
     return (1 - phi_O) * nu_max * (c_pc + Kd_cpc) / (nu_max * (c_pc + Kd_cpc) + gamma_max * c_pc * (c_pc + 1))
 
-
-@numba.jit(nopython=True)
-def self_replicator_ppGpp(params,
-                          time,
-                          gamma_max,
-                          nu_max, 
-                          tau, 
-                          Kd_TAA,
-                          Kd_TAA_star,
-                          kappa_max,
-                          phi_O,
-                          nutrients = False,
-                          dil_approx = False,
-                          dynamic_phiRb = True,
-                          tRNA_regulation = True,
-                          phi_Rb = 0,
-                          Km = 0,
-                          Y = 1):
+def self_replicator_FPM(params,
+                        time,
+                        args):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
     the self-replicator model with ppGpp regulation.
 
     Parameters
     ----------
-    params: list, [M, Mr, Mp, T_AA, T_AA_star]
+    params: list, [M, Mr, Mp, (c_nt), T_AA, T_AA_star]
         A list of the parameters whose dynamics are described by the ODEs.
         M : positive float 
             Total biomass of the system
@@ -281,6 +267,9 @@ def self_replicator_ppGpp(params,
             Ribosomal protein biomass of the system
         M_Mb : positive float, must be < M
             Metabolic protein biomass of the system 
+        c_nt : positive float, optional
+            The nutrient concentration in the environment. This should only 
+            be provided if 'nutrients' is not False in the supplied arguments.
         T_AA_star : positive float
             Concentration of charged tRNAs in the culture. This is normalized to 
             total protein biomass.
@@ -289,173 +278,117 @@ def self_replicator_ppGpp(params,
             total protein biomass.
     time : float
         Evaluated time step of the system.
-    gamma_max: positive float 
-        The maximum translational capacity in units of inverse time.
-    nu_max : positive float
-        The maximum nutritional capacity in units of inverse time. 
-    Kd_TAA : positive float
-        The effective dissociation constant for uncharged tRNA to the metabolic 
-        machinery. In units of abundance.
-    Kd_TAA_star: positive float
-        The effective dissociation constant for charged tRNA to the ribosome complex.
-        In units of abundance
-    kappa_max : positive float
-        The maximum rate of uncharged tRNA synthesis in abundance units per unit time.
-    phi_O : float, [0, 1], optional
-        The fraction of the proteome occupied by 'other' protein mass.
-    phi_Rb : float, [0, 1], optional
-        The prescribed value of phi_Rb to use. This only holds if 'dyanamic_phiRb' is True.
-    dil_approx: bool
-        If True, then the approximation is made that the dilution of charged-tRNAs
-        with growing biomass is negligible.
-    dynamic_phiRb: bool
-        If True, phiRb will dynamically adjusted in reponse to charged/uncharged
-        tRNA balance.
-    tRNA_regulation: bool
-        if True, tRNA abundance will be regulated the same way as dynamic_phiRb. 
+    args: dict 
+        Dictionary of argument terms as follows
+        gamma_max: positive float 
+            The maximum translational capacity in units of inverse time.
+        nu_max : positive float
+            The maximum nutritional capacity in units of inverse time. 
+        Kd_TAA : positive float
+            The effective dissociation constant for uncharged tRNA to the metabolic 
+            machinery. In units of abundance.
+        Kd_TAA_star: positive float
+            The effective dissociation constant for charged tRNA to the ribosome complex.
+            In units of abundance
+        kappa_max : positive float
+            The maximum rate of uncharged tRNA synthesis in abundance units per unit time.
+        phi_O : float, [0, 1], optional
+            The fraction of the proteome occupied by 'other' protein mass.
+        nutrients: bool or dict
+            If False, nutrients will not be explicitly modeled and will be taken to 
+            be saturating. If a dictionary is supplied, nutrients will be modeled 
+            with following parameters
+            Kd_cnc : float [0, inf)
+                The effective dissociation constant of nutrients in the 
+                to the metabolic machinery. 
+            Y : float [0, inf)
+                The yield coefficient of turning nutrients into precursors.
+        
+        dynamic_phiRb: bool or dict
+            If True, phiRb will dynamically adjusted in reponse to charged/uncharged
+            tRNA balance. If a dictionary is provided, seeded phiRb will be used.  
+                phiRb: float [0, 1]
+                    The seeded phiRb to be used.
+        tRNA_regulation: bool
+            if True, tRNA abundance will be regulated the same way as dynamic_phiRb.
+            If False, kappa_max will be used directly. 
+        antibiotic: bool
+            If False, antiboitic presence will not be modeld and the fraction 
+            of active ribosomes will be taken to be unity. If a dictionary is 
+            provided with the following terms, the influence of antibiotics will
+            be explicitly modeled.
+                drug_conc : float [0, inf)
+                    The concentration of the applied antibiotic
+                Kd_drug : float [0, inf)
+                    The effective dissociation constant of the drug to the ribosome.
+        dil_approx: bool
+            If True, then the approximation is made that the dilution of charged-tRNAs
+            with growing biomass is negligible.
+  
     Returns
     -------
-    out: list, [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
+    out: list, [dM_dt, dM_Rb_dt, dM_Mb_dt, (dc_nt_dt), dT_AA_dt, dT_AA_star_dt]
         A list of the evaluated ODEs at the specified time step.
 
         dM_dt : The dynamics of the total protein biomass.
         dM_Rb_dt : The dynamics of the ribosomal protein biomass.
         dM_Mb_dt : the dynamics of the metabolic protein biomass.
+        dc_nt_dt : The dynamics of the nutrients in the environment, if modeled.
         dT_AA_dt : The dynamics of the uncharged tRNA concentration.
         dT_AA_star_dt : The dynamics of the uncharged tRNA concentration.
     """
+
     # Unpack the parameters
-    if nutrients:
+    if 'nutrients' in args.keys():
         M, M_Rb, M_Mb, c_nt, T_AA, T_AA_star = params
     else:
         M, M_Rb, M_Mb, T_AA, T_AA_star = params
 
     # Compute the capacities
-    gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star))
-    if nutrients:
-        pref = c_nt / (c_nt + Km)
+    gamma = args['gamma_max'] * (T_AA_star / (T_AA_star + args['Kd_TAA_star']))
+    if 'nutrients' in args.keys():
+        pref = c_nt / (c_nt + args['nutrients']['Kd_cnt'])
     else:
         pref = 1
-    nu = pref * nu_max * (T_AA / (T_AA + Kd_TAA))
+    nu = pref * args['nu_max'] * (T_AA / (T_AA + args['Kd_TAA']))
 
     # Compute the active fraction
     ratio = T_AA_star / T_AA
 
+    fa = 1
+    if 'antibiotic' in args.keys():
+       fa -= args['antibiotic']['c_drug'] / (args['antibiotic']['c_drug'] + args['antibiotic']['Kd_drug'])
+
     # Biomass accumulation
-    dM_dt = gamma * M_Rb
+    dM_dt = fa * gamma * M_Rb
 
     # Resource allocation
-    allocation = ratio / (ratio + tau)
-    if dynamic_phiRb:
-        phi_Rb = (1 - phi_O) * allocation
+    allocation = ratio / (ratio + args['tau'])
+    if 'phiRb' not in args.keys():
+        phiRb = (1 - args['phi_O']) * allocation
+    else:
+        phiRb = args['phiRb']
 
-    dM_Rb_dt = phi_Rb * dM_dt
-    dM_Mb_dt = (1 - phi_Rb - phi_O) * dM_dt
+    dM_Rb_dt = phiRb * dM_dt
+    dM_Mb_dt = (1 - phiRb - args['phi_O']) * dM_dt
 
     # tRNA dynamics
     dT_AA_star_dt = (nu * M_Mb - dM_dt) / M
     dT_AA_dt = (dM_dt - nu * M_Mb) / M
-    if dil_approx == False:
-        dT_AA_star_dt -= T_AA_star * dM_dt / M
-        if tRNA_regulation:
-            kappa = kappa_max * allocation 
-        else:
-            kappa = kappa_max
-        dT_AA_dt += kappa - (T_AA * dM_dt) / M
+    # if 'dil_approx' not in args.keys():
+    dT_AA_star_dt -= T_AA_star * dM_dt / M
+    kappa = args['kappa_max'] * allocation  
+    dT_AA_dt += kappa - (T_AA * dM_dt) / M
 
-    if nutrients:
-        dcnt_dt = -nu * M_Mb / Y
+    if 'nutrients' in args.keys():
+        dcnt_dt = -nu * M_Mb / args['nutrients']['Y']
         out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dcnt_dt, dT_AA_dt, dT_AA_star_dt]
     else:
-        out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
-        
+        out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]     
     return out
 
 
-def equilibrate_ppGpp(args, tol=5, max_iter=1, dt=0.0001, t_return=1):
-    M0 = 1
-    phi_Rb = 0.2
-    phi_Mb = 1 - phi_Rb - args['phi_O']
-    init_params = [M0, phi_Rb * M0, phi_Mb * M0, 1E-5, 1E-5]
-
-    iterations = 1 
-    converged = True
-    max_time = 200 
-    _args = tuple(args.values())
-    # while (iterations <= max_iter) | (converged == False):
-    time = np.arange(0, max_time, dt)
-    out = scipy.integrate.odeint(self_replicator_ppGpp, 
-                                    init_params, 
-                                    time,
-                                    args=_args) 
-    
-        # Determine if a steady state has been reached
-    # diff = out[-1][-1] - out[-2][-1]
-        # if np.round(diff, decimals=tol) == 0:
-            # converged = True
-        # else:
-            # iterations +=1
-            # max_time += 10
-          
-    # if iterations == max_iter:
-        # print(f'Steady state was not reached (diff = {np.round(diff, decimals=tol)}. Returning output anyway.')
-    if t_return != 1:
-        return out[-t_return:]
-    else: 
-        return out[-1]
-
-def nutrient_shift_ppGpp(args,
-                         shift_time=2,
-                         total_time=10,
-                         dt=0.001,
-                         **kwargs):
-    cols = ['M', 'M_Rb', 'M_Mb', 'TAA', 'TAA_star']
-
-    # Set the timespans
-    preshift_time = np.arange(0, shift_time, dt)
-    postshift_time = np.arange(shift_time - dt, total_time, dt)
-
-    # Equilibrate
-    preshift_out = equilibrate_ppGpp(args[0], **kwargs)
-    postshift_out = equilibrate_ppGpp(args[1], **kwargs)
-    eq_phiRb_preshift = preshift_out[1] / preshift_out[0]
-    eq_phiRb_postshift = postshift_out[1] / postshift_out[0]
-    eq_phiMb_preshift = preshift_out[2] / preshift_out[0]
-    eq_phiMb_postshift = postshift_out[2] / postshift_out[0]
-    eq_TAA_preshift = preshift_out[-2]
-    eq_TAA_star_preshift = preshift_out[-1]
-
-    # Pack the params   
-    M0 = 1
-    init_params = [M0, 
-                   M0 * eq_phiRb_preshift,  
-                   M0 * eq_phiMb_preshift, 
-                   eq_TAA_preshift, 
-                   eq_TAA_star_preshift]
-    init_args = tuple(args[0].values())
-    shift_args = tuple(args[1].values())
-
-    # Integrate the shifts
-    preshift_out = scipy.integrate.odeint(self_replicator_ppGpp,
-                                          init_params, 
-                                          preshift_time, 
-                                          args=init_args)
-    shift_params = preshift_out[-1] 
-    postshift_out = scipy.integrate.odeint(self_replicator_ppGpp,
-                                          shift_params, 
-                                          postshift_time, 
-                                          args=shift_args)
-    postshift_out = postshift_out[1:]
-
-    # Form dataframes
-    preshift_df = pd.DataFrame(preshift_out, columns=cols)
-    preshift_df['time'] = preshift_time
-    postshift_df = pd.DataFrame(postshift_out, columns=cols)
-    postshift_df['time'] = postshift_time[1:]
-    df = pd.concat([preshift_df, postshift_df], sort=False)
-    df['shifted_time'] = df['time'].values - shift_time
-    return df
-   
+  
 def self_replicator_ppGpp_chlor(params,
                           time,
                           gamma_max,

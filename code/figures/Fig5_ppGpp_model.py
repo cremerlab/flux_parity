@@ -24,11 +24,11 @@ lacZ = pd.read_csv('../../data/Scott2010_lacZ_overexpression.csv')
 gamma_max = const['gamma_max']
 Kd_cpc = const['Kd_cpc']
 nu_max = np.linspace(0.1, 50, 30)
-Kd_TAA = 3E-5 #const['Kd_TAA'] #1E-5 #in M, Kd of uncharged tRNA to  ligase
-Kd_TAA_star = 3E-5 #const['Kd_TAA_star'] #1E-5
+Kd_TAA = const['Kd_TAA'] #1E-5 #in M, Kd of uncharged tRNA to  ligase
+Kd_TAA_star = const['Kd_TAA_star'] #1E-5
 kappa_max = const['kappa_max']
-tau = 1 # const['tau']
-phi_O = 0.55
+tau = const['tau']
+phi_O = const['phi_O']
 
 # Compute the optimal scenario
 opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max,  nu_max, Kd_cpc, phi_O)

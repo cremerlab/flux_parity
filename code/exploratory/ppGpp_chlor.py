@@ -15,9 +15,9 @@ elong = pd.read_csv('../../data/Dai2016_chloramphenicol_elongation_rates.csv')
 #%%
 gamma_max = 18 * 3600 / 7459#const['gamma_max']
 Kd_cpc = const['Kd_cpc']
-tau =  1 #const['tau']
-Kd_TAA = 1E-5 #const['Kd_TAA']
-Kd_TAA_star = 1E-5 #const['Kd_TAA_star']
+tau =  const['tau']
+Kd_TAA = const['Kd_TAA']
+Kd_TAA_star = const['Kd_TAA_star']
 kappa_max = const['kappa_max']
 phi_O = 0.55 
 c_ab = np.linspace(0, 15, 100) * 1E-6 # in M
@@ -48,12 +48,12 @@ target_nu = {k: compute_nu(gamma_max, Kd_cpc, target_phiRb[k], v) for k, v in ta
 # Perform the chlor integration
 df = pd.DataFrame([])
 dt = 0.001
-time = np.arange(0, 18, dt)
+time = np.arange(0, 24, dt)
 
 for k, v in tqdm.tqdm(target_nu.items()):
     # Instantiate
-    init_nu = 7.8 
-    opt_phiRb = 0.2
+    init_nu =  10
+    opt_phiRb = 0.3
     M0 = 1E9
     Mrb = opt_phiRb * M0
     Mmb = (1 - opt_phiRb - phi_O) * M0

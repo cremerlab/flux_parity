@@ -1,6 +1,6 @@
 let phi_O = phiO_slider.value;
 let Kd_cpc = Math.pow(10, Kd_cpc_slider.value)
-let gamma_max = gamma_slider.value;
+let gamma_max = gamma_slider.value * 3600 / 7459;
 let const_phiRb = phiRb_slider.value;
 let data = source.data;
 

@@ -13,10 +13,10 @@ bokeh.io.output_file('./interactive_ecoli_data.html')
 
 # Define constants
 gamma_max = const['gamma_max']
-phi_O = 0.25
+phi_O = const['phi_O']
 Kd_cpc = const['Kd_cpc']
-nu_max= np.arange(0.001, 10, 0.001)
-const_phiRb = 0.15
+nu_max= np.arange(0.001, 20, 0.001)
+const_phiRb = 0.2
 
 
 # Load the mass_frac 
@@ -48,7 +48,7 @@ opt_lam = growth.model.steady_state_growth_rate(gamma_max, opt_phiRb, nu_max, Kd
 const_phiRb = const_phiRb * np.ones_like(nu_max)
 const_gamma = growth.model.steady_state_gamma(gamma_max, const_phiRb, nu_max, Kd_cpc, phi_O) * 7459 / 3600
 const_lam = growth.model.steady_state_growth_rate(gamma_max, const_phiRb, nu_max, Kd_cpc, phi_O)
-trans_phiRb = growth.model.phiRb_constant_translation(gamma_max, nu_max, phi_O)
+trans_phiRb = growth.model.phiRb_constant_translation(gamma_max, nu_max, 10, Kd_cpc, phi_O)
 trans_gamma = growth.model.steady_state_gamma(gamma_max, trans_phiRb, nu_max, Kd_cpc, phi_O) * 7459 / 3600
 trans_lam = growth.model.steady_state_growth_rate(gamma_max, trans_phiRb, nu_max, Kd_cpc, phi_O)
 
@@ -70,7 +70,7 @@ source = bokeh.models.ColumnDataSource({'phiRb': [const_phiRb, trans_phiRb, opt_
 # ############################################################################## 
 phiO_slider = bokeh.models.Slider(start=0, end=0.5, step=0.001, value=phi_O,
                     title='allocation to other proteins')
-gamma_slider = bokeh.models.Slider(start=0.001, end=10, step=0.001, value=gamma_max,
+gamma_slider = bokeh.models.Slider(start=1, end=25, step=0.001, value=gamma_max * 7459 / 3600,
                     title='maximum translation rate [inv. hr]')
 Kd_cpc_slider = bokeh.models.Slider(start=-4, end=-0.0001, step=0.001, value=np.log10(Kd_cpc),
                     title='log\u2081\u2080 precursor dissociation constant')
