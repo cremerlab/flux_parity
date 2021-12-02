@@ -167,5 +167,5 @@ for g, d in chlor_df.groupby(['medium']):
     ax[2].plot(d['lam'], d['v_tl'], '--', color=cmap[counter])
     counter +=1
 plt.tight_layout()
-plt.savefig('../../figures/Fig5X_chloramphenicol.pdf', bbox_inches='tight')
+plt.savefig('../../figures/Fig5A_chloramphenicol.pdf', bbox_inches='tight')
 # %%

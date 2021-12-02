@@ -111,7 +111,7 @@ ax[1].set_ylabel('$\lambda_{i}$ [hr$^{-1}$]\n instantaneous growth rate')
 ax[0].set_xlabel('time from upshift [hr]')
 ax[1].set_xlabel('time from upshift [hr]')
 plt.tight_layout()
-plt.savefig('../../figures/Fig5X_nutritional_upshift.pdf', bbox_inches='tight')
+plt.savefig('../../figures/Fig5C1_nutritional_upshift.pdf', bbox_inches='tight')
 
 # %%
 

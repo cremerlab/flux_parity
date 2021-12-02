@@ -165,3 +165,48 @@ growth_rate_hr,mass_fraction,source,organism,method,notes
 0.32,0.078,"Erickson et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio using their conversion factor,Taken from table in FigS1 (panel I). This are different strains than panel H
 0.38,0.086,"Erickson et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio using their conversion factor,Taken from table in FigS1 (panel I). This are different strains than panel H
 0.57,0.105,"Erickson et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio using their conversion factor,Taken from table in FigS1 (panel I). This are different strains than panel H
+0.091,0.0726436860017846,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.3,0.0789628267356524,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.47,0.100846724966711,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.62,0.113372083792723,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.091,0.071924986072423,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.3,0.0876673446465888,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.44,0.099259010591144,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.63,0.117855191815857,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+1.67,0.253610941282292,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+1.1,0.168504155947159,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.93,0.157110064078685,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.6,0.120988643656674,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.56,0.119322884130064,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.44,0.085160400210475,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.2306,0.0781770333490095,"Li et al., 2018",Escherichia coli,"Measurement of RNA to Protein Ratio taken from supplemental table 2, converted to mass fraction using a conversion factor",
+0.06716417910447760,0.05958853211009150,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.19402985074626900,0.05854311926605500,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.12686567164179100,0.06272477064220200,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.14925373134328300,0.06481559633027510,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.19402985074626900,0.07213348623853210,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.25373134328358200,0.07422431192660560,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.2910447761194030,0.07317889908256870,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.32835820895522400,0.07840596330275220,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.3656716417910450,0.08676926605504580,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.3955223880597010,0.0836330275229357,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.4402985074626870,0.08676926605504580,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.4552238805970150,0.08781467889908280,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.5522388059701490,0.10245045871559600,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.5746268656716420,0.10349587155963300,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.6194029850746270,0.0993142201834864,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.6194029850746270,0.09617798165137630,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.716417910447761,0.11290458715596300,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.7985074626865670,0.1285857798165140,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.7910447761194030,0.13172201834862400,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.9029850746268660,0.1379944954128440,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.9253731343283580,0.1379944954128440,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.9104477611940300,0.12440412844036700,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.9850746268656720,0.1379944954128440,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+1.0447761194029800,0.14113073394495400,"Mori et al., 2017",Escherichia coli,Measurement of RNA to Protein Ratio converted to mass fraction using a conversion factor,Data digitized from Fig S2A.
+0.44,0.077486,"You et al., 2013",Escherichia coli,Measurement of RNA to Protein Ratio using their conversion factor,Data taken from Table S10
+0.41,0.077486,"You et al., 2013",Escherichia coli,Measurement of RNA to Protein Ratio using their conversion factor,Data taken from Table S10
+0.62,0.104834,"You et al., 2013",Escherichia coli,Measurement of RNA to Protein Ratio using their conversion factor,Data taken from Table S10
+0.64,0.104834,"You et al., 2013",Escherichia coli,Measurement of RNA to Protein Ratio using their conversion factor,Data taken from Table S10
+0.87,0.127624,"You et al., 2013",Escherichia coli,Measurement of RNA to Protein Ratio using their conversion factor,Data taken from Table S10
+1.00,0.1381298,"You et al., 2013",Escherichia coli,Measurement of RNA to Protein Ratio using their conversion factor,Data taken from Table S10

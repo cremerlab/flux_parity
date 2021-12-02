@@ -32,7 +32,14 @@ def load_markercolors():
         'Young & Bremer, 1976': {'m':'h', 'c':'#3f426e', 'm_bokeh': 'triangle_pin'},
         'Skjold et al., 1973' : {'m': '*', 'c': '#6c8fb2', 'm_bokeh': 'star'},
         'Dong et al., 1996' : {'m': 'p', 'c':'#556895', 'm_bokeh': 'diamond_dot'},
-        'Erickson et al., 2017': {'m': '.', 'c': '#5f7ba4', 'm_bokeh': 'hex_dot'}
+        'Erickson et al., 2017': {'m': 'o', 'c': '#5f7ba4', 'm_bokeh': 'hex_dot'},
+        'Oldewurtle et al., 2021': {'m': 's', 'c':'#add4d9', 'm_bokeh': 'square_pin'},
+        'Mori et al., 2017': {'m': '*', 'c':'#556895', 'm_bokeh': 'hex_dot'},
+        'Sloan and Urban, 1976': {'m': 'h', 'c':'#27231f', 'm_bokeh': 'star'},
+        'Li et al., 2018': {'m':'>', 'c':'#2731f', 'm_bokeh': 'triangle_pin'},
+        'Brunschede et al., 1977':{'m': '<', 'c': '#6c8fb2', 'm_bokeh':'circle_dot'},
+        'Korem Kohanim et al., 2018': {'m':'d', 'c':'#4b5583', 'm_bokeh': 'diamond'},
+        'Panlilio et al., 2021': {'m': 'p', 'c':'#3f26e', 'm_bokeh':'diamond_dot'}
         }
     return mapper
 

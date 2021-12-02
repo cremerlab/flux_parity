@@ -125,10 +125,8 @@ for g, d in df.groupby(['c_nt_max']):
                 color = cmap[counter], lw=1)
     counter += 1
 
-# ax[0].set_ylim([1E-3, 1E-1])
-# ax[0].set_yticks([1E-3, 1E-2,  1E-1])
 plt.tight_layout()
-plt.savefig('../../figures/Fig5X_final_generation.pdf', bbox_inches='tight')
+plt.savefig('../../figures/Fig5D_final_generation.pdf', bbox_inches='tight')
 
 # %%
 a

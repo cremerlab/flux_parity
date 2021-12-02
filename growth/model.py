@@ -366,18 +366,20 @@ def self_replicator_FPM(params,
     allocation = ratio / (ratio + args['tau'])
     if 'phiRb' not in args.keys():
         phiRb = (1 - args['phi_O']) * allocation
+        kappa = args['kappa_max'] * allocation
     else:
         phiRb = args['phiRb']
+        kappa = phiRb * args['kappa_max'] / (1 - args['phi_O'])
 
     dM_Rb_dt = phiRb * dM_dt
     dM_Mb_dt = (1 - phiRb - args['phi_O']) * dM_dt
 
-    # tRNA dynamics
+    # Core tRNA dynamics
     dT_AA_star_dt = (nu * M_Mb - dM_dt) / M
     dT_AA_dt = (dM_dt - nu * M_Mb) / M
-    # if 'dil_approx' not in args.keys():
+
+    # Dilution terms
     dT_AA_star_dt -= T_AA_star * dM_dt / M
-    kappa = args['kappa_max'] * allocation  
     dT_AA_dt += kappa - (T_AA * dM_dt) / M
 
     if 'nutrients' in args.keys():

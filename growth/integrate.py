@@ -70,8 +70,8 @@ def equilibrate_FPM(args,
             iterations +=1
             max_time += 10
        
-        # if iterations == max_iter:
-            # print(f'Steady state was not reached (ratio of Mrb_M / phiRb= {np.round(ribo_ratio, decimals=tol)}. Returning output anyway.')
+        if iterations == max_iter:
+            print(f'Steady state was not reached (ratio of Mrb_M / phiRb= {np.round(ribo_ratio, decimals=tol)}. Returning output anyway.')
     if t_return != 1:
         return out[-t_return:]
     else: 
@@ -143,7 +143,7 @@ def estimate_nu_FPM(phiRb,
         iterator = enumerate(tqdm.tqdm(nu_range))
     else:
         iterator = enumerate(nu_range)
-    for i, n in iterator:
+    for _, n in iterator:
        args = {'gamma_max': const['gamma_max'],
                'nu_max': n,
                'tau': const['tau'],
@@ -158,7 +158,6 @@ def estimate_nu_FPM(phiRb,
        diffs.append(diff)
 
        if diff == 1: 
-          ind = i 
           converged = True
           break
     if converged:
@@ -173,8 +172,7 @@ def estimate_nu_FPM(phiRb,
 def nutrient_shift_FPM(args,
                        shift_time=2,
                        total_time=10,
-                       dt=0.001,
-                       **kwargs):
+                       dt=0.001):
     cols = ['M', 'M_Rb', 'M_Mb', 'TAA', 'TAA_star']
 
     # Set the timespans
@@ -182,12 +180,9 @@ def nutrient_shift_FPM(args,
     postshift_time = np.arange(shift_time - dt, total_time, dt)
 
     # Equilibrate
-    preshift_out = equilibrate_FPM(args[0], **kwargs)
-    postshift_out = equilibrate_FPM(args[1], **kwargs)
+    preshift_out = equilibrate_FPM(args[0])
     eq_phiRb_preshift = preshift_out[1] / preshift_out[0]
-    eq_phiRb_postshift = postshift_out[1] / postshift_out[0]
     eq_phiMb_preshift = preshift_out[2] / preshift_out[0]
-    eq_phiMb_postshift = postshift_out[2] / postshift_out[0]
     eq_TAA_preshift = preshift_out[-2]
     eq_TAA_star_preshift = preshift_out[-1]
 

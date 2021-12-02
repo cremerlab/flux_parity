@@ -254,7 +254,7 @@ for g, d in dynamic_df.groupby(['shift_type']):
 
 plt.tight_layout()
 plt.subplots_adjust(hspace=0.05)
-plt.savefig('../../figures/Fig6C_ppGpp_shift_plots.pdf', bbox_inches='tight')
+plt.savefig('../../figures/Fig6_ppGpp_shift_plots.pdf', bbox_inches='tight')
 # %%
 
 

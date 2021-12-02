@@ -131,5 +131,5 @@ for g, d in other_data.groupby(['protein']):
 ax[2].plot(relative_theory['phiX'], relative_theory['lamX_lam0'], '--', 
             color=colors['primary_black'], lw=1)
 plt.tight_layout()
-plt.savefig('../../figures/Fig5X_overexpression.pdf', bbox_inches='tight')
+plt.savefig('../../figures/Fig5B_overexpression.pdf', bbox_inches='tight')
 # %%
