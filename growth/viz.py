@@ -1,14 +1,12 @@
 import matplotlib.pyplot 
 import matplotlib
-import altair as alt
+import seaborn as sns
 import bokeh.plotting 
 import bokeh.io 
 import bokeh.palettes
 import bokeh.themes
 from bokeh.models import * 
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from matplotlib.path import Path
-from matplotlib.patches import BoxStyle
 from matplotlib.offsetbox import AnchoredText
 import seaborn as sns
 
@@ -18,9 +16,10 @@ def load_markercolors():
     Returns a dictionary mapping sources of the E. coli data with standard colors 
     and glyphs. This ensures constant marking of data across plots.
     """
+    colors, _ = get_colors()
     mapper = {
         'Bremer & Dennis, 2008': {'m':'X', 'c':'#556895', 'm_bokeh':'circle_dot'},
-        'Brunshede et al., 1977': {'m':'s', 'c':'#343158', 'm_bokeh':'square'},
+        'Brunschede et al., 1977': {'m':'s', 'c':'#343158', 'm_bokeh':'square'},
         'Dai et al., 2016': {'m':'o',  'c':'#4b5583', 'm_bokeh': 'circle'},
         'Forchhammer & Lindahl, 1971': {'m': 'v', 'c':'#9ac5d0', 'm_bokeh': 'inverted_triangle'},
         'Li et al., 2014': {'m':'d', 'c':'#27231f', 'm_bokeh':'diamond'},
@@ -32,15 +31,25 @@ def load_markercolors():
         'Young & Bremer, 1976': {'m':'h', 'c':'#3f426e', 'm_bokeh': 'triangle_pin'},
         'Skjold et al., 1973' : {'m': '*', 'c': '#6c8fb2', 'm_bokeh': 'star'},
         'Dong et al., 1996' : {'m': 'p', 'c':'#556895', 'm_bokeh': 'diamond_dot'},
+        'Dong et al., 1995' : {'m':'v', 'c':'#add4d9', 'm_bokeh': 'triangle_pin'},
+        'Bentley et al., 1990': {'m': 'X', 'c': '#3f426e', 'm_bokeh': 'star'},
         'Erickson et al., 2017': {'m': 'o', 'c': '#5f7ba4', 'm_bokeh': 'hex_dot'},
         'Oldewurtle et al., 2021': {'m': 's', 'c':'#add4d9', 'm_bokeh': 'square_pin'},
         'Mori et al., 2017': {'m': '*', 'c':'#556895', 'm_bokeh': 'hex_dot'},
         'Sloan and Urban, 1976': {'m': 'h', 'c':'#27231f', 'm_bokeh': 'star'},
-        'Li et al., 2018': {'m':'>', 'c':'#2731f', 'm_bokeh': 'triangle_pin'},
-        'Brunschede et al., 1977':{'m': '<', 'c': '#6c8fb2', 'm_bokeh':'circle_dot'},
+        'Li et al., 2018': {'m':'>', 'c':'#27231f', 'm_bokeh': 'triangle_pin'},
         'Korem Kohanim et al., 2018': {'m':'d', 'c':'#4b5583', 'm_bokeh': 'diamond'},
-        'Panlilio et al., 2021': {'m': 'p', 'c':'#3f26e', 'm_bokeh':'diamond_dot'}
+        'Panlilio et al., 2021': {'m': 'p', 'c':'#3f426e', 'm_bokeh':'diamond_dot'},
+        'Basan et al., 2015' : {'m': '8', 'c':'#27231f', 'm_bokeh': 'circle'},
+        'You et al., 2013' : {'m': 'h', 'c':'#556895', 'm_bokeh':'hex_dot'}
         }
+    # Set colors rooted in blue
+    cmap = sns.color_palette(f"light:{colors['primary_black']}", n_colors=len(mapper))
+    cmap.reverse()
+    counter = 0
+    for k, _ in mapper.items():
+        mapper[k]['c'] = cmap[counter]
+        counter += 1
     return mapper
 
 def get_colors(all_palettes=False):
@@ -233,131 +242,6 @@ def titlebox(
         cax.set_facecolor("white")
     at = AnchoredText(text, loc=loc, frameon=False, prop=dict(size=size, color=color))
     cax.add_artist(at)
-
-
-def altair_style(return_colors=True, return_palette=True, pub=False, **kwargs):
-    """
-    Assigns the plotting style for matplotlib generated figures. 
-    
-    Parameters
-    ----------
-    return_colors : bool
-        If True, a dictionary of the colors is returned. Default is True.
-    return_palette: bool
-        If True, a sequential color palette is returned. Default is True.
-    pub: bool    
-        If True, sizes and scales will be adjusted for print formatting
-    """
-    colors, palette = get_colors(**kwargs)
-    if len(palette) == 3:
-        primary_palette = palette[2]
-    else:
-        primary_palette = palette
-    if pub:
-        fontsize_primary = 8
-        fontsize_secondary = 6
-        width_primary = 360
-        height_primary = 240
-        ps = 15
-        lw = 0.5
-        ew = 0.25
-    else:
-        fontsize_primary = 14
-        fontsize_secondary = 10 
-        width_primary = 600
-        height_primary = 400
-        ps=80
-        lw=2
-        ew=0.75
-
-    def _theme():
-        return {
-            'config': {
-                'background': 'white',
-                    'group': { 
-                    'fill': 'white', 
-                    },
-                'view': {
-                    'strokeWidth': 0,
-                    'height': height_primary,
-                    'width': width_primary,
-                    'fill': '#f0f3f7', #ebeef2', #f8f8fa'
-                    },
-                'point': {
-                    'size': ps,
-                    'filled': True,
-                    'opacity': 1,
-                    'strokeWidth': ew,
-                    'stroke': '#FFFFFF'
-                    },    
-                'square': {
-                    'size': ps,
-                    'filled': True,
-                    'opacity': 1,
-                    'strokeWidth': ew,
-                    'stroke': '#FFFFFF'
-                    },      
-                'circle': {
-                    'size': ps,
-                    'filled': True,
-                    'opacity': 0.75,
-                    'strokeWidth': ew,
-                    'stroke': '#f0f3f7'
-                    },  
-                'line': {
-                    'size': lw,
-                },
-                'axis': {
-                    'domainColor': '#ffffff', #5b5b5b',
-                    'domainWidth': 0.5,
-                    'labelColor': '#5b5b5b',
-                    'labelFontSize': fontsize_secondary,
-                    'labelFont': 'Arial',
-                    'titleFont': 'Arial',
-                    'titleFontWeight': 700,
-                    'titleFontSize':fontsize_primary,
-                    'titleColor': '#4b4b4b',
-                    # 'titleAnchorX': 'end',
-                    'grid': True,
-                    'gridColor': '#ffffff', #c1c1c1',
-                    'gridWidth': 0.5,
-                    'ticks': False,
-                },
-                'range': {
-                    'category': primary_palette
-                },
-                'legend': {
-                    'labelFontSize': fontsize_secondary,
-                    'labelFont': 'Arial',
-                    'titleFont': 'Arial',
-                    'titleFontSize': fontsize_primary,
-                    'titleFontWeight': 700,
-                    'titleFontColor': '#44b4b4b',
-                    'symbolSize': ps,
-                },
-                'title' : { 
-                    'font': 'Arial',
-                    'fontWeight': 700,
-                    'fontSize': fontsize_primary,
-                    'fontColor': '#4b4b4b',
-                    # 'anchor': 'start',
-                }
-                  }
-                }
-
-    alt.themes.register('personal', _theme)# enable the newly registered theme
-    alt.themes.enable('personal')
-    # Determine what, if anything should be returned
-    out = []
-    if return_colors == True:
-        out.append(colors)
-    if return_palette == True:
-        out.append(palette)
-    
-    if len(out) == 1:
-        return out[0]
-    else:
-        return out
 
 
 def bokeh_style(return_colors=True, return_palette=True):

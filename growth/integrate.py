@@ -96,6 +96,7 @@ def estimate_nu_FPM(phiRb,
                     nu_buffer=1, 
                     dt=0.0001, 
                     tol=2, 
+                    guess=False,
                     verbose=False):
     """
     Integrates the FPM model to find the metabolic rate which yields a given 
@@ -120,6 +121,9 @@ def estimate_nu_FPM(phiRb,
     tol : 2
         The decimal tolerance in difference between desired and realized growth 
         rate.
+    guess : float [0, inf)
+        Your best guess at finding nu. If not provided, the optimal allocation 
+        will be used to estimate it.
     verbose: bool
         If True, progess will be pushed to console.
 
@@ -130,7 +134,10 @@ def estimate_nu_FPM(phiRb,
         tolerance. If the tolerance is not met, the closest value will be
         returned.
     """
-    nu = compute_nu(const['gamma_max'], const['Kd_cpc'], phiRb, lam, phi_O)
+    if guess == False:
+        nu = compute_nu(const['gamma_max'], const['Kd_cpc'], phiRb, lam, phi_O)
+    else:
+        nu = guess
     lower = nu - nu_buffer
     if lower <= 0:
         lower = 0.001

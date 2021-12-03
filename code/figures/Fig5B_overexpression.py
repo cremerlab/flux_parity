@@ -34,7 +34,7 @@ for g, d in scott_data[scott_data['phi_X']==0].groupby(['medium', 'growth_rate_h
 
 #%%
 # Define the range of phiX over which to compute
-phiX_range = np.linspace(0, 1 - phi_O - 0.05, 100)
+phiX_range = np.linspace(0, 1 - phi_O - 0.01, 100)
 dt = 0.0001
 
 # Compute the Scott case
@@ -49,7 +49,7 @@ for medium, nu in nu_mapper.items():
                 'tau': tau,
                 'kappa_max':kappa_max,
                 'phi_O': phi_O + phiX}
-        out = growth.integrate.equilibrate_FPM(args, t_return=2, dt=dt)
+        out = growth.integrate.equilibrate_FPM(args, t_return=2, dt=dt, tol=2, max_iter=10)
         gr = np.log(out[-1][0] / out[-2][0]) / dt
 
         # Report the data
@@ -68,7 +68,7 @@ args = {'gamma_max':gamma_max,
                 'tau': tau,
                 'kappa_max':kappa_max,
                 'phi_O': phi_O}
-out = growth.integrate.equilibrate_FPM(args, t_return=2, dt=dt)
+out = growth.integrate.equilibrate_FPM(args, t_return=2, dt=dt, tol=2, max_iter=10)
 lam_0 = np.log(out[-1][0] / out[-2][0]) / dt
 for i, phiX in enumerate(phiX_range):
         args = {'gamma_max':gamma_max,
@@ -89,16 +89,16 @@ for i, phiX in enumerate(phiX_range):
 # %%
 fig, ax = plt.subplots(1, 3, figsize=(6.5, 2))
 ax[0].axis('off')
-ax[1].set(xlabel='allocation towards\nuseless protein $\phi_X$',
+ax[1].set(xlabel='allocation towards\n' + r'$\beta$-galactosidase',
           ylabel='$\lambda$ [hr$^{-1}$]\ngrowth rate',
           xlim=[-0.01, 0.4],
           ylim=[0, 2])
-ax[2].set(xlabel='allocation towards\nuseless protein $\phi_X$',
+ax[2].set(xlabel='allocation towards\nexcess protein',
           ylabel='$\lambda_X / \lambda$ \nrelative growth rate',
-          ylim=[0, 1.5],
-          xlim=[-0.01, 0.4])
+          ylim=[0, 1.1],
+          xlim=[-0.01, 0.45])
 
-cmap = sns.color_palette(f"dark:{colors['primary_red']}", n_colors=3)
+cmap = sns.color_palette(f"dark:{colors['primary_red']}", n_colors=len(scott_data['medium'].unique()))
 counter = 0
 for g, d in scott_data.groupby(['medium']):
     ax[1].plot(d['phi_X'], d['growth_rate_hr'], 's', ms=4, markeredgecolor='k',
@@ -110,6 +110,9 @@ for g, d in scott_theory.groupby(['medium']):
     ax[1].plot(d['phiX'], d['lam'], '--', color=cmap[counter], lw=1)
     counter += 1
 
+n_colors = len(other_data.groupby(['medium', 'source']).count())
+cmap = sns.color_palette(f"dark:{colors['primary_red']}", n_colors=n_colors + 1)
+counter = 0
 for g, d in other_data.groupby(['protein']):
     if 'galactosidase' in g:
         marker = 's'
@@ -117,19 +120,17 @@ for g, d in other_data.groupby(['protein']):
         marker = 'v'
     elif 'EF-Tu' == g:
         marker = 'D'
-    for _g, _d in d.groupby(['source']):
-        if _g == 'Scott et al., 2010':
-            color = colors['dark_red']
-        if _g == 'Dong et al., 1995':
-            color=colors['primary_red']
-        if _g == 'Bentley et al., 1990':
-            color = colors['pale_red']
-    ax[2].plot(_d['phi_X'], _d['relative_growth_rate'], linestyle='none',
-                marker=marker, color=color, markeredgecolor='k',
-                markeredgewidth=0.5, alpha=0.75, ms=4)
+    for _g, _d in d.groupby(['medium', 'source']):
+        ax[2].plot(_d['phi_X'], _d['relative_growth_rate'], linestyle='none',
+                marker=marker, color=cmap[counter], markeredgecolor='k',
+                markeredgewidth=0.5, alpha=0.75, ms=4,
+                label=f'{g}-{_g[1]}')
+        counter += 1
+    
 
 ax[2].plot(relative_theory['phiX'], relative_theory['lamX_lam0'], '--', 
             color=colors['primary_black'], lw=1)
+ax[2].legend()
 plt.tight_layout()
 plt.savefig('../../figures/Fig5B_overexpression.pdf', bbox_inches='tight')
 # %%

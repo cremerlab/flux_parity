@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd 
 import matplotlib.pyplot as plt
 import growth.model 
+import growth.integrate
 import growth.viz 
 import tqdm
 colors, _ = growth.viz.matplotlib_style()
@@ -16,10 +17,10 @@ elong_rate = pd.read_csv('../../data/peptide_elongation_rates.csv')
 elong_rate = elong_rate[elong_rate['organism']=='Escherichia coli']
 
 # Define the organism specific constants
-gamma_max = 18 * 3600 / 7459 #const['gamma_max']
-Kd_cpc =  0.01#const['Kd_cpc']
-nu_max = np.linspace(0.0001, 25, 300)
-phi_O = 0.55
+gamma_max = const['gamma_max']
+Kd_cpc =  const['Kd_cpc']
+nu_max = np.linspace(0.0001, 20, 500)
+phi_O = const['phi_O']
 
 # Compute the theory curves
 # Scenario I
@@ -37,11 +38,8 @@ opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max,  nu_max, Kd_cpc, ph
 opt_lam = growth.model.steady_state_growth_rate(gamma_max,  opt_phiRb, nu_max, Kd_cpc, phi_O)
 opt_gamma = growth.model.steady_state_gamma(gamma_max, opt_phiRb,  nu_max, Kd_cpc, phi_O) * 7459/3600
 
-
-#%%
-
 # Set up the figure canvas
-fig, ax = plt.subplots(1, 3, figsize=(6.5, 2.5))
+fig, ax = plt.subplots(1, 3, figsize=(6.5, 2.5), sharex=True)
 ax[0].axis('off')
 
 # Add labels
@@ -52,36 +50,40 @@ ax[2].set(ylabel='$v_{tl}$ [AA / s]\ntranslation speed',
              xlabel='growth rate\n$\lambda$ [hr$^{-1}$]')
 
 # Set ranges
-ax[1].set(ylim=[0, 0.3], xlim=[-0.05, 2.5])
-ax[2].set(ylim=[5, 20], xlim=[-0.05, 2.5])
+ax[1].set(ylim=[0, 0.3], xlim=[-0.05, 2])
+ax[2].set(ylim=[5, 20], xlim=[-0.05, 2])
 
 # Plot mass fraction
+counter = 100
 for g, d in mass_frac.groupby(['source']): 
-    if g!= 'Wu et al., 2021':
-        ax[1].plot(d['growth_rate_hr'], d['mass_fraction'], ms=4,  marker=mapper[g]['m'],
+    ax[1].plot(d['growth_rate_hr'], d['mass_fraction'], ms=4,  marker=mapper[g]['m'],
                 label='__nolegend__', alpha=0.75, linestyle='none',
-                markeredgecolor='k', markeredgewidth=0.25, color=mapper[g]['c'])
+                markeredgecolor='k', markeredgewidth=0.25, color=mapper[g]['c'],
+                zorder=counter)
+    counter += 1
 
-
-for g, d in elong_rate.groupby(['source']):
-    if g!='Wu et al., 2021':
+for g, d in elong_rate.groupby(['source']): 
         ax[2].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'].values, marker=mapper[g]['m'],
                  ms=4,  linestyle='none',  label='__nolegend__', color=mapper[g]['c'],
                  markeredgewidth=0.25, markeredgecolor='k', alpha=0.75)
 
 # Theory curves for E. coli
-ax[1].plot(const_lam, const_phiRb, '-', color=colors['primary_black'], label='(I) constant $\phi_{Rb}$', lw=1)
-ax[1].plot(cpc_lam, cpc_phiRb, '-', color=colors['primary_green'], label='(II) constant $\gamma$', lw=1)
-ax[1].plot(opt_lam, opt_phiRb, '-', color=colors['primary_blue'], label='(III) optimal $\phi_{Rb}$', lw=1)
-ax[2].plot(const_lam, const_gamma, '-', color=colors['primary_black'], label='(I) constant $\phi_{Rb}$', lw=1)
-ax[2].plot(cpc_lam, cpc_gamma, '-', color=colors['primary_green'], label='(II) constant $\gamma$', lw=1)
-ax[2].plot(opt_lam, opt_gamma, '-', color=colors['primary_blue'], label='(III) optimal $\phi_{Rb}$', lw=1)
+ax[1].plot(const_lam, const_phiRb, '-', color=colors['primary_black'], 
+           label='(I) constant $\phi_{Rb}$', lw=1.5, zorder=1000)
+ax[1].plot(cpc_lam, cpc_phiRb, '-', color=colors['primary_green'], label='(II) constant $\gamma$', lw=1.5,
+            zorder=1000)
+ax[1].plot(opt_lam, opt_phiRb, '-', color=colors['primary_blue'], label='(III) optimal $\phi_{Rb}$', lw=1.5,
+            zorder=1000)
+ax[2].plot(const_lam, const_gamma, '-', color=colors['primary_black'], label='(I) constant $\phi_{Rb}$', lw=1.5,
+            zorder=1000)
+ax[2].plot(cpc_lam, cpc_gamma, '-', color=colors['primary_green'], label='(II) constant $\gamma$', lw=1.5,
+            zorder=1000)
+ax[2].plot(opt_lam, opt_gamma, '-', color=colors['primary_blue'], label='(III) optimal $\phi_{Rb}$', lw=1.5,
+            zorder=1000)
 
-
-for k, v in mapper.items():
-    if (k != 'Skjold et al., 1973') & (k != 'Dong et al., 1996') & (k != 'Wu et al., 2021'):
-        ax[0].plot([], [], ms=4, marker=v['m'], color=v['c'], markeredgecolor='k',  
-                markeredgewidth=0.25, linestyle='none', label=k)
+for g, d in mass_frac.groupby(['source']):
+    ax[0].plot([], [], ms=4, marker=mapper[g]['m'], color=mapper[g]['c'], markeredgecolor='k',  
+                markeredgewidth=0.25, linestyle='none', label=g)
 ax[0].legend()
 plt.tight_layout()
 plt.savefig('../../figures/Fig4_simple_model_comparison.pdf', bbox_inches='tight')
@@ -89,9 +91,9 @@ plt.savefig('../../figures/Fig4_simple_model_comparison.pdf', bbox_inches='tight
 #%%
 # Generate the plots for the ppGpp model
 # Define the parameters
-nu_max = np.linspace(0.1, 50, 200)
-Kd_TAA = const['Kd_TAA'] #1E-5 #in M, Kd of uncharged tRNA to  ligase
-Kd_TAA_star = const['Kd_TAA_star'] #1E-5
+nu_max = np.linspace(0.01, 20, 400)
+Kd_TAA = const['Kd_TAA'] 
+Kd_TAA_star = const['Kd_TAA_star'] 
 kappa_max = const['kappa_max']
 tau = const['tau']
 phi_O = const['phi_O']
@@ -122,7 +124,7 @@ for i, nu in enumerate(tqdm.tqdm(nu_max)):
             'phi_O': phi_O}
 
     # Integrate
-    _out = growth.model.equilibrate_ppGpp(args)
+    _out = growth.integrate.equilibrate_FPM(args, tol=3, max_iter=100)
 
     # Compute the final props
     ratio = _out[-1] / _out[-2]
@@ -149,8 +151,8 @@ ax[2].set(ylabel='$v_{tl}$ [AA / s]\ntranslation speed',
 ax[0].axis('off')
 
 # Set ranges
-ax[1].set(ylim=[0, 0.3], xlim=[-0.05, 2.5])
-ax[2].set(ylim=[5, 20], xlim=[-0.05, 2.5])
+ax[1].set(ylim=[0, 0.3], xlim=[-0.05, 2])
+ax[2].set(ylim=[5, 20], xlim=[-0.05, 2])
 
 # Plot mass fraction
 for g, d in mass_frac.groupby(['source']): 
@@ -167,16 +169,11 @@ for g, d in elong_rate.groupby(['source']):
                  markeredgewidth=0.25, markeredgecolor='k', alpha=0.75)
 
 
-ax[1].plot(opt_lam, opt_phiRb, '-', color=colors['primary_blue'], lw=1)
-ax[1].plot(ss_df['lam'], ss_df['phi_Rb'], '--', color=colors['primary_red'], zorder=1000, lw=1)
-ax[2].plot(opt_lam, opt_gamma, '-', color=colors['primary_blue'], lw=1)
-ax[2].plot(ss_df['lam'], ss_df['gamma'], '--', color=colors['primary_red'], zorder=1000, lw=1)
+ax[1].plot(opt_lam, opt_phiRb, '-', color=colors['primary_blue'], lw=1.5)
+ax[1].plot(ss_df['lam'], ss_df['phi_Rb'], '--', color=colors['primary_red'], zorder=1000, lw=1.5)
+ax[2].plot(opt_lam, opt_gamma, '-', color=colors['primary_blue'], lw=1.5)
+ax[2].plot(ss_df['lam'], ss_df['gamma'], '--', color=colors['primary_red'], zorder=1000, lw=1.5)
 plt.tight_layout()
 plt.savefig('../../Fig4_flux-parity_plots.pdf', bbox_inches='tight')
-# %%
-
-# %%
-
-# %%
 
 # %%
