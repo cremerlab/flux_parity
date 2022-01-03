@@ -3,12 +3,11 @@ import scipy
 import pandas as pd
 import numba
 # from .integrate import *
-def load_constants(organism='ecoli'):
+def load_constants():
     """Returns constants frequently used in this work"""
-    if organism == 'ecoli':
-       params =  {'vtl_max': 20 ,  #Max translation speed in AA/s
+    params =  {'vtl_max': 20 ,  #Max translation speed in AA/s
                   'm_Rb': 7459, # Proteinaceous mass of ribosome  in AA
-                  'Kd_cpc': 0.03, # 0.015, # precursor dissociation constant in abundance units 
+                  'Kd_cpc': 0.03, # precursor dissociation constant in abundance units 
                   'Kd_cnt': 5E-4, # Nutrient monod constant in M
                   'Y': 2.95E19, # Yield coefficient in  precursor mass per nutrient mass nutrient per L 
                   'OD_conv': 1.5E17, # Conversion factor from OD to AA mass.

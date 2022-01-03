@@ -80,8 +80,9 @@ function optimalAllocation(gamma_max, nu_max, Kd_cpc, phi_O) {
     return (1 - phi_O) * prefix * bracket
 }
 
-function constTranslation(gamma_max, nu_max, phi_O) { 
-    return (1 - phi_O) * (nu_max / (nu_max + gamma_max))
+function constTranslation(gamma_max, nu_max, cpc_Kd, Kd_cpc, phi_O) { 
+    let _cpc = cpc_Kd * Kd_cpc
+    return (1 - phi_O) * nu_max * (_cpc + Kd_cpc) / (nu_max  * (_cpc + Kd_cpc) + gamma_max * _cpc * (_cpc + 1));
 }
 
 // /////////////////////////////////////////////////////////////////////////////

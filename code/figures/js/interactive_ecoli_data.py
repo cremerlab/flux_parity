@@ -15,8 +15,8 @@ bokeh.io.output_file('./interactive_ecoli_data.html')
 gamma_max = const['gamma_max']
 phi_O = const['phi_O']
 Kd_cpc = const['Kd_cpc']
-nu_max= np.arange(0.001, 20, 0.001)
-const_phiRb = 0.2
+nu_max= np.arange(0.001, 50, 0.001)
+const_phiRb = 0.25
 
 
 # Load the mass_frac 
@@ -38,8 +38,6 @@ elong['color'] = _colors
 
 mass_frac = bokeh.models.ColumnDataSource(mass_frac)
 elong = bokeh.models.ColumnDataSource(elong)
-
-
 
 # Set up the initial scenarios
 opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O)
@@ -68,16 +66,20 @@ source = bokeh.models.ColumnDataSource({'phiRb': [const_phiRb, trans_phiRb, opt_
 # ############################################################################## 
 # WIDGET DEFINITIONS
 # ############################################################################## 
-phiO_slider = bokeh.models.Slider(start=0, end=0.5, step=0.001, value=phi_O,
+phiO_slider = bokeh.models.Slider(start=0, end=0.55, step=0.001, value=phi_O,
                     title='allocation to other proteins')
 gamma_slider = bokeh.models.Slider(start=1, end=25, step=0.001, value=gamma_max * 7459 / 3600,
-                    title='maximum translation rate [inv. hr]')
+                    title='maximum translation speed [AA / s]')
 Kd_cpc_slider = bokeh.models.Slider(start=-4, end=-0.0001, step=0.001, value=np.log10(Kd_cpc),
-                    title='log\u2081\u2080 precursor dissociation constant')
+                    title='log\u2081\u2080 precursor Michaelis-Menten constant')
 phiRb_slider = bokeh.models.Slider(start=0.001, end=0.45, step=0.001,
-                    value = 0.15,
+                    value = 0.25,
                     title='scenario I: constant ribosomal allocation parameter',
                     bar_color=colors['primary_black'])
+sc2_cpc_slider = bokeh.models.Slider(start=0.5, end=20, step=0.01,
+                    value = 10,
+                    title='scenario II: precursor concentration / Michaelis-Menten constant',
+                    bar_color=colors['primary_green'])
 
 # ############################################################################## 
 # CANVAS DEFINITION
@@ -103,7 +105,7 @@ allocation_axis = bokeh.plotting.figure(width=450, height=400,
                                         )
 
 elongation_axis = bokeh.plotting.figure(width=450, height=400,
-                                        y_axis_label='translation rate γ [AA / s]',
+                                        y_axis_label='translation speed [AA / s]',
                                         x_axis_label = 'growth rate λ [inv. hr]',
                                         y_range=[5, 20],
                                         x_range = [0, 2],
@@ -143,11 +145,12 @@ args = {'gamma_slider': gamma_slider,
         'phiO_slider': phiO_slider,
         'phiRb_slider': phiRb_slider,
         'source': source,
-        'nu_max': nu_max} 
+        'nu_max': nu_max,
+        'sc2_cpc_slider': sc2_cpc_slider} 
 
 callback = growth.viz.load_js(['./interactive_ecoli_data.js', './functions.js'],
                         args=args)
-for s in [gamma_slider, Kd_cpc_slider, phiO_slider,  phiRb_slider]:
+for s in [gamma_slider, Kd_cpc_slider, phiO_slider,  phiRb_slider, sc2_cpc_slider]:
     s.js_on_change('value', callback)
 
 
@@ -155,7 +158,7 @@ for s in [gamma_slider, Kd_cpc_slider, phiO_slider,  phiRb_slider]:
 # LAYOUT
 # ##############################################################################
 col1 = bokeh.layouts.Column(gamma_slider, phiO_slider)
-col2 = bokeh.layouts.Column(Kd_cpc_slider, phiRb_slider)
+col2 = bokeh.layouts.Column(Kd_cpc_slider, phiRb_slider, sc2_cpc_slider)
 sliders = bokeh.layouts.Row(col1, col2, legend_axis)
 row1 = bokeh.layouts.Row(allocation_axis, elongation_axis)
 layout = bokeh.layouts.Column(sliders, row1)

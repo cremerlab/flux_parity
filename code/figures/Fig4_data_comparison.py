@@ -55,15 +55,19 @@ ax[2].set(ylim=[5, 20], xlim=[-0.05, 2])
 
 # Plot mass fraction
 counter = 100
+sources = []
 for g, d in mass_frac.groupby(['source']): 
+    if g not in sources:
+        sources.append(g)
     ax[1].plot(d['growth_rate_hr'], d['mass_fraction'], ms=4,  marker=mapper[g]['m'],
                 label='__nolegend__', alpha=0.75, linestyle='none',
                 markeredgecolor='k', markeredgewidth=0.25, color=mapper[g]['c'],
                 zorder=counter)
     counter += 1
-
 for g, d in elong_rate.groupby(['source']): 
-        ax[2].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'].values, marker=mapper[g]['m'],
+    if g not in sources:
+        sources.append(g)
+    ax[2].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'].values, marker=mapper[g]['m'],
                  ms=4,  linestyle='none',  label='__nolegend__', color=mapper[g]['c'],
                  markeredgewidth=0.25, markeredgecolor='k', alpha=0.75)
 
@@ -81,10 +85,10 @@ ax[2].plot(cpc_lam, cpc_gamma, '-', color=colors['primary_green'], label='(II) c
 ax[2].plot(opt_lam, opt_gamma, '-', color=colors['primary_blue'], label='(III) optimal $\phi_{Rb}$', lw=1.5,
             zorder=1000)
 
-for g, d in mass_frac.groupby(['source']):
+for g in sources:
     ax[0].plot([], [], ms=4, marker=mapper[g]['m'], color=mapper[g]['c'], markeredgecolor='k',  
                 markeredgewidth=0.25, linestyle='none', label=g)
-ax[0].legend()
+# ax[0].legend()
 plt.tight_layout()
 plt.savefig('../../figures/Fig4_simple_model_comparison.pdf', bbox_inches='tight')
 
@@ -155,15 +159,14 @@ ax[1].set(ylim=[0, 0.3], xlim=[-0.05, 2])
 ax[2].set(ylim=[5, 20], xlim=[-0.05, 2])
 
 # Plot mass fraction
+sources = []
 for g, d in mass_frac.groupby(['source']): 
-    if g!= 'Wu et al., 2021':
-        ax[1].plot(d['growth_rate_hr'], d['mass_fraction'], ms=4,  marker=mapper[g]['m'],
+    ax[1].plot(d['growth_rate_hr'], d['mass_fraction'], ms=4,  marker=mapper[g]['m'],
                 label='__nolegend__', alpha=0.75, linestyle='none',
                 markeredgecolor='k', markeredgewidth=0.25, color=mapper[g]['c'])
 
 
 for g, d in elong_rate.groupby(['source']):
-    if g!='Wu et al., 2021':
         ax[2].plot(d['growth_rate_hr'], d['elongation_rate_aa_s'].values, marker=mapper[g]['m'],
                  ms=4,  linestyle='none',  label='__nolegend__', color=mapper[g]['c'],
                  markeredgewidth=0.25, markeredgecolor='k', alpha=0.75)

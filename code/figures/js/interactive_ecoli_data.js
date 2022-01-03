@@ -1,5 +1,6 @@
 let phi_O = phiO_slider.value;
 let Kd_cpc = Math.pow(10, Kd_cpc_slider.value)
+let sc2_cpc = sc2_cpc_slider.value;
 let gamma_max = gamma_slider.value * 3600 / 7459;
 let const_phiRb = phiRb_slider.value;
 let data = source.data;
@@ -14,7 +15,7 @@ for (var i=0 ; i < nu_max.length; i++) {
     phiRbs[0].push(const_phiRb);
     gammas[0].push(steadyStateGamma(gamma_max, const_phiRb, nu_max[i], Kd_cpc, phi_O) * 7459 / 3600);
     lams[0].push(steadyStateGrowthRate(gamma_max, const_phiRb, nu_max[i], Kd_cpc, phi_O))
-    let sc2_phiRb = (1 - phi_O) * (nu_max[i] / (nu_max[i] + gamma_max));
+    let sc2_phiRb = constTranslation(gamma_max, nu_max[i], sc2_cpc, Kd_cpc, phi_O);
     phiRbs[1].push(sc2_phiRb);
     gammas[1].push(steadyStateGamma(gamma_max, sc2_phiRb, nu_max[i], Kd_cpc, phi_O) * 7459 / 3600);
     lams[1].push(steadyStateGrowthRate(gamma_max, sc2_phiRb, nu_max[i], Kd_cpc, phi_O))
