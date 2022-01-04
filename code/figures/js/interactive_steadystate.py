@@ -57,7 +57,7 @@ Kd_cpc_slider = bokeh.models.Slider(start=-4, end=-0.0001, step=0.001, value=np.
 
 growth_axis = bokeh.plotting.figure(width=300, height=300, 
                                     x_axis_label='allocation towards ribosomes',
-                                    y_axis_label='$\lambda / \lambda_{max}$',
+                                    y_axis_label=r"$$\lambda / \lambda_{max}$$",
                                     title='relative steady state growth rate',
                                     x_range=[0, 1],
                                     y_range= [0, 1.1])
