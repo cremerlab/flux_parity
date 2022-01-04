@@ -16,9 +16,9 @@ bokeh.io.output_file('./interactive_strategies.html')
 # ############################################################################## 
 phi_O = 0.55
 phiRb_range = np.arange(0.001, 1 - phi_O - 0.001, 0.001)
-nu_max= np.arange(0.001, 8, 0.001)
+nu_max= np.arange(0.001, 20, 0.1)
 
-const_phiRb = 0.2
+const_phiRb = 0.25
 gamma_max = const['gamma_max']
 Kd_cpc = const['Kd_cpc']
 
@@ -29,15 +29,16 @@ opt_lam = growth.model.steady_state_growth_rate(gamma_max, opt_phiRb, nu_max, Kd
 const_phiRb = const_phiRb * np.ones_like(nu_max)
 const_gamma = growth.model.steady_state_gamma(gamma_max, const_phiRb, nu_max, Kd_cpc, phi_O)
 const_lam = growth.model.steady_state_growth_rate(gamma_max, const_phiRb, nu_max, Kd_cpc, phi_O)
-trans_phiRb = growth.model.phiRb_constant_translation(gamma_max, nu_max, Kd_cpc, phi_O)
+trans_phiRb = growth.model.phiRb_constant_translation(gamma_max, nu_max, 10, Kd_cpc, phi_O)
 trans_gamma = growth.model.steady_state_gamma(gamma_max, trans_phiRb, nu_max, Kd_cpc, phi_O)
 trans_lam = growth.model.steady_state_growth_rate(gamma_max, trans_phiRb, nu_max, Kd_cpc, phi_O)
+
 
 # Set up the source
 source = bokeh.models.ColumnDataSource({
                         'nu_max': [nu_max, nu_max, nu_max],
                         'phiRb':  [const_phiRb, trans_phiRb, opt_phiRb],
-                        'gamma': [const_gamma, trans_gamma, opt_gamma],
+                        'gamma': list(np.array([const_gamma, trans_gamma, opt_gamma]) * 7459 / 3600),
                         'lam': [const_lam, trans_lam, opt_lam],
                         'color': [colors['primary_black'], colors['primary_green'], colors['primary_blue']],
                         'label': ['scenario I: constant allocation', 'scenario II: constant translation rate', 'scenario III: optimal allocation'],
@@ -49,16 +50,22 @@ source = bokeh.models.ColumnDataSource({
 # ############################################################################## 
 # WIDGET DEFINITIONS
 # ############################################################################## 
-phiO_slider = bokeh.models.Slider(start=0, end=0.5, step=0.001, value=phi_O,
+phiO_slider = bokeh.models.Slider(start=0, end=0.75, step=0.001, value=phi_O,
                     title='allocation to other proteins')
-gamma_slider = bokeh.models.Slider(start=0.001, end=10, step=0.001, value=gamma_max,
-                    title='maximum translation rate [inv. hr]')
+gamma_slider = bokeh.models.Slider(start=0.001, end=25, step=0.001, value=gamma_max * 7459 / 3600,
+                    title='maximum translation speed [AA / s]')
+sc2_slider = bokeh.models.Slider(start=0.001, end=0.999, step=0.001, value=0.9,
+                    title='scenario II: target translation speed (of maximum)',
+                    default_size=350,
+                    bar_color=colors['primary_green'])
 Kd_cpc_slider = bokeh.models.Slider(start=-4, end=-0.0001, step=0.001, value=np.log10(Kd_cpc),
-                    title='log\u2081\u2080 precursor dissociation constant')
-phiRb_slider = bokeh.models.Slider(start=0.001, end=0.45, step=0.001,
-                    value = phi_O,
+                    title='log\u2081\u2080 precursor Michaelis-Menten constant',
+                    default_size=350)
+phiRb_slider = bokeh.models.Slider(start=0.001, end=1 - phi_O, step=0.001,
+                    value = 0.25,
                     title='scenario I: constant ribosomal allocation parameter',
-                    bar_color=colors['primary_black'])
+                    bar_color=colors['primary_black'],
+                    default_size=350)
 
 # ############################################################################## 
 # AXES DEFINITION
@@ -73,7 +80,7 @@ gamma_axis = bokeh.plotting.figure(width=300, height=300,
                                     x_axis_label='maximum metabolic rate ν',
                                     y_axis_label="γ [inv. hr]",
                                     title='steady-state translation rate',
-                                    y_range = [0, 10])
+                                    y_range = [0, 28])
 lam_axis = bokeh.plotting.figure(width=300, height=300,
                                     x_axis_label='maximum metabolic rate ν',
                                     y_axis_label="λ [inv. hr]",
@@ -105,20 +112,21 @@ legend_axis.multi_line(xs='filler_xs', ys='filler_ys', line_width=2.5,
 # CALLBACK DEFINITION 
 # ##############################################################################
 args = {'gamma_slider': gamma_slider,
+        'sc2_gamma_slider': sc2_slider,
         'Kd_cpc_slider': Kd_cpc_slider,
         'phiO_slider': phiO_slider,
         'phiRb_slider': phiRb_slider,
         'source': source} 
 callback = growth.viz.load_js(['./interactive_scenarios.js', './functions.js'],
                         args=args)
-for s in [gamma_slider, Kd_cpc_slider, phiO_slider,  phiRb_slider]:
+for s in [gamma_slider, Kd_cpc_slider, phiO_slider,  phiRb_slider, sc2_slider]:
     s.js_on_change('value', callback)
 
 # ##############################################################################
 # LAYOUT AND SAVING
 # ##############################################################################
 sliders1 = bokeh.layouts.Column(gamma_slider,  Kd_cpc_slider)
-sliders2 = bokeh.layouts.Column(phiO_slider, phiRb_slider)
+sliders2 = bokeh.layouts.Column(phiO_slider, phiRb_slider, sc2_slider)
 row1 = bokeh.layouts.Row(sliders1, sliders2, legend_axis)
 row2 = bokeh.layouts.Row(phiRb_axis, gamma_axis, lam_axis)
 layout = bokeh.layouts.Column(row1, row2)

@@ -21,14 +21,14 @@ where $\mathsf{N}$  is the maxium metabolic output, $\mathsf{N} = \nu_{max}(1 - 
 With knowledge of the precursor concentration, we can then easily calculate the 
 steady-state translation rate 
 $$
-\gamma(c_{pc}^*) = \gamma_{max}\frac{c_{pc}^*}{c_{pc}^* + K_D^{c_{pc}}} \tag{2}.
+\gamma(c_{pc}^*) = \gamma_{max}\frac{c_{pc}^*}{c_{pc}^* + K_M^{c_{pc}}} \tag{2}.
 $$
 
 With these in hand, we can then calculate an expression for the steady-state 
 growth rate, which is a quadratic equation with only one physically meaningful root 
 of 
 $$
-\lambda = \frac{\mathsf{N} + \Gamma - \sqrt{(\mathsf{N} + \Gamma)^2 - 4\mathsf{N}\Gamma(1 - K_D^{c_{pc}})}}{2(1 - K_D^{c_{pc}})}, \tag{3}
+\lambda = \frac{\mathsf{N} + \Gamma - \sqrt{(\mathsf{N} + \Gamma)^2 - 4\mathsf{N}\Gamma(1 - K_M^{c_{pc}})}}{2(1 - K_M^{c_{pc}})}, \tag{3}
 $$
 were we have introduce the notation of $\Gamma = \gamma_{max}\phi_{Rb}$, which 
 is the maximum translational output. 

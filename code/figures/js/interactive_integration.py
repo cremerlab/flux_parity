@@ -16,20 +16,23 @@ const = growth.model.load_constants()
 
 # Set starting values for params
 gamma_max = const['gamma_max']
-nu_max = 5 
+nu_max = 4.5 
 Y = const['Y']
 Kd_cpc = const['Kd_cpc']
 Kd_cnt = const['Kd_cnt']
-phi_Rb = 0.2
-phi_O = 0.25
+phi_Rb = opt_phiRb = growth.model.phiRb_optimal_allocation(const['gamma_max'],
+                                                          nu_max,
+                                                          const['Kd_cpc'],
+                                                          const['phi_O'])
+phi_O = const['phi_O']
 phi_Mb = 1 - phi_Rb - phi_O
 
 # Set initial conditions
 OD_CONV = 1.5E17
-M0 = 0.01 * OD_CONV
+M0 = 0.001 * OD_CONV
 MR_0 = phi_Rb * M0
 MP_0 = (1 - phi_Rb - phi_O) * M0
-cpc_0 = 1E-3 
+cpc_0 = 0.010
 cnt_0 = 0.010
 
 # Perform the integration and instantiate data source
@@ -64,26 +67,26 @@ source = bokeh.models.ColumnDataSource(df)
 # WIDGET DEFINITIONS
 # ############################################################################## 
     
-phiRb_slider = bokeh.models.Slider(start=0, end=0.7, step=0.001, value=phi_Rb,
+phiRb_slider = bokeh.models.Slider(start=0, end=1 - phi_O, step=0.001, value=phi_Rb,
                                   title=r"ribosomal allocation",
                                   bar_color=colors['primary_gold'])
-phiO_slider = bokeh.models.Slider(start=0, end=0.5, step=0.001, value=phi_O, 
+phiO_slider = bokeh.models.Slider(start=0, end=0.75, step=0.001, value=phi_O, 
                                   title=r"allocation to other proteins",
                                   bar_color=colors['light_black'])
-gamma_slider = bokeh.models.Slider(start=0, end=10, step=0.01, value=gamma_max,
-                                  title=r"max translation rate [inv. hr]",
+gamma_slider = bokeh.models.Slider(start=0, end=25, step=0.01, value=20,
+                                  title=r"max translation speed [AA / s]",
                                   bar_color=colors['primary_green'])
-nu_slider = bokeh.models.Slider(start=0, end=10, step=0.01, value=nu_max,
+nu_slider = bokeh.models.Slider(start=0, end=20, step=0.01, value=nu_max,
                                   title=r"max metabolic rate [inv. hr]",
                                   bar_color=colors['primary_green'])
 Kd_cpc_slider = bokeh.models.Slider(start=-3, end=0, step=0.01, value=np.log10(Kd_cpc),
-                                    title=u"log\u2081\u2080 precursor dissociation constant",
+                                    title=u"log\u2081\u2080 precursor Michaelis-Menten constant",
                                     bar_color=colors['pale_black'])
 Kd_cnt_slider = bokeh.models.Slider(start=-6, end=-3, step=0.01, value=np.log10(Kd_cnt),
                                     title=u"log\u2081\u2080 Monod constant [M]",
                                     bar_color=colors['pale_black'])
 Y_slider = bokeh.models.Slider(start=16, end=25, value=np.log10(Y), 
-                                    step=0.01, title=u"log\u2081\u2080 yield coefficient [AA / mol nutrient / vol.]",
+                                    step=0.01, title=u"log\u2081\u2080 yield coefficient [(AA / mol nutrient) • vol]",
                                     bar_color=colors['pale_black'])
 cnt_slider = bokeh.models.Slider(start=-6, end=0, value=np.log10(cnt_0), step=0.01, 
                                     title=u"log\u2081\u2080 nutrient concentration [M]",
@@ -104,19 +107,20 @@ composition_axis.axis.visible = False
 composition_axis.grid.grid_line_color = None
 composition_axis.background_fill_color = None
 composition_axis.outline_line_color = None
+
 biomass_axis = bokeh.plotting.figure(width=300, height=300, 
                                      x_axis_label='time [hr]',
                                      y_axis_label='relative biomass',
                                      y_axis_type='log',
                                      title='biomass dynamics'
                                      )
+
 precursor_axis = bokeh.plotting.figure(width=300, height=300, 
                                      x_axis_label='time [hr]',
-                                     y_axis_label=r"$$c_{pc} / K_D^{(c_{pc})}$$",
+                                     y_axis_label=r"$$c_{pc} / K_M^{(c_{pc})}$$",
                                      title='precursor dynamics', 
-                                #      y_axis_type='log',
-
                                      )
+
 nutrient_axis = bokeh.plotting.figure(width=300, height=300, 
                                      x_axis_label='time [hr]',
                                      y_axis_label=r"relative nutrient concentration",
@@ -125,15 +129,15 @@ nutrient_axis = bokeh.plotting.figure(width=300, height=300,
                                      )
 gamma_axis = bokeh.plotting.figure(width=300, height=300, 
                                      x_axis_label='time [hr]',
-                                     y_axis_label=r"$$\gamma / \gamma_{max}$$",
-                                     title='translation rate',
+                                     y_axis_label=r"$$v_{tl}/ v_{tl}^{max}$$",
+                                     title='translation speed',
                                      y_range=[0, 1.1]
                                      )
 nu_axis = bokeh.plotting.figure(width=300, height=300, 
                                      x_axis_label='time [hr]',
                                      y_axis_label=r"$$\nu / \nu_{max}$$",
                                      title='metabolic rate',
-                                     y_range=[0,  1.5],
+                                     y_range=[0,  1.1],
                                      toolbar_location=None
                                      )
 

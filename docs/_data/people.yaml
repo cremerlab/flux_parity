@@ -12,7 +12,7 @@
   name: Griffin Chure
   link: "https://gchure.github.io"
   title: NSF Postdoctoral Research Fellow
-  # img: dr_osophila.jpg
+  img: griffin.png
   institute: Stanford Univeristy
   other_info:
      Email Address: "gchure@stanford.edu"
@@ -20,7 +20,7 @@
   name: Jonas Cremer
   link: "https://cremerlab.com"
   title: Assistant Professor of Biology
-  # img: melanogaster.jpg
+  img: jonas.png
   institute: Stanford University
   other_info:
     Email Address: jonas.cremer@stanford.edu 

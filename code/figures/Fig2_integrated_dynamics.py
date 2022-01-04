@@ -25,7 +25,7 @@ phi_Mb = 1 - phi_Rb - phi_O
 
 # Define starting masses
 M0 = 0.001 * const['OD_conv']
-MR_0 = 0.2 * M0
+MR_0 = phi_Rb[0] * M0
 MP_0 = (1 - phi_O - opt_phiRb) * M0
 
 # Define starting concentrations

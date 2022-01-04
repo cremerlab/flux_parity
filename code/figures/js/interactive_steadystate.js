@@ -1,7 +1,7 @@
 
 
 // Variable definition
-let gamma_max = gamma_slider.value;
+let gamma_max = gamma_slider.value * 3600 / 7459;
 let nu_max = nu_slider.value;
 let Kd_cpc = Math.pow(10, Kd_cpc_slider.value);
 let phi_O = phiO_slider.value;
@@ -23,11 +23,21 @@ let phiRb = [];
 let lam = [];
 let cpc = [];
 let gamma = [];
+let max_lam = 0
 for (let i = 0; i < phiRb_range.length; i++) {
     phiRb.push(phiRb_range[i]);
-    lam.push(steadyStateGrowthRate(gamma_max, phiRb_range[i], nu_max, Kd_cpc, phi_O));
+    let lam_ = steadyStateGrowthRate(gamma_max, phiRb_range[i], nu_max, Kd_cpc, phi_O); 
+    if (lam_ > max_lam) { 
+        max_lam = lam_;
+    }
+    lam.push(lam_)
     cpc.push(steadyStatePrecursorConc(gamma_max, phiRb_range[i], nu_max, Kd_cpc, phi_O) / Kd_cpc);
-    gamma.push(steadyStateGamma(gamma_max, phiRb_range[i], nu_max, Kd_cpc, phi_O));
+    let gamma_ = steadyStateGamma(gamma_max, phiRb_range[i], nu_max, Kd_cpc, phi_O)
+    gamma.push(gamma_ / gamma_max);
+}
+
+for (let i =0 ; i < lam.length; i++) {
+    lam[i] = lam[i] / max_lam;
 }
 data['phiRb'] = [phiRb];
 data['cpc'] = [cpc];

@@ -18,7 +18,7 @@ tau = const['tau']
 kappa_max = const['kappa_max']
 phi_O = const['phi_O']
 nu_max = 4
-phiRb_range = np.linspace(0, 1 - phi_O - 0.001, 100)
+phiRb_range = np.linspace(0.001, 1 - phi_O - 0.001, 100)
 Kd_sweep_df = pd.DataFrame([])
 for Kd, Kd_star in zip(Kd_TAA_range, Kd_TAA_star_range):
     for i, phiRb in enumerate(tqdm.tqdm(phiRb_range)):
@@ -49,8 +49,10 @@ for Kd, Kd_star in zip(Kd_TAA_range, Kd_TAA_star_range):
                                           ignore_index=True)
 # %%
 fig, ax = plt.subplots(1, 2, figsize=(4, 2))
-
 for g, d in Kd_sweep_df.groupby(['Kd_TAA']):
     ax[0].plot(d['phiRb'], d['lam'], lw=1, label=g)
 ax[0].legend()
+
+
+
 # %%

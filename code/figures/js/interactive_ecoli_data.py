@@ -75,11 +75,13 @@ Kd_cpc_slider = bokeh.models.Slider(start=-4, end=-0.0001, step=0.001, value=np.
 phiRb_slider = bokeh.models.Slider(start=0.001, end=0.45, step=0.001,
                     value = 0.25,
                     title='scenario I: constant ribosomal allocation parameter',
-                    bar_color=colors['primary_black'])
-sc2_cpc_slider = bokeh.models.Slider(start=0.5, end=20, step=0.01,
-                    value = 10,
-                    title='scenario II: precursor concentration / Michaelis-Menten constant',
-                    bar_color=colors['primary_green'])
+                    bar_color=colors['primary_black'],
+                    default_size=350)
+sc2_cpc_slider = bokeh.models.Slider(start=0, end=0.999, step=0.01,
+                    value = 0.9,
+                    title='scenario II: target translation speed (relative to max)',
+                    bar_color=colors['primary_green'],
+                    default_size=350)
 
 # ############################################################################## 
 # CANVAS DEFINITION

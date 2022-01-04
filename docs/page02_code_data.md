@@ -8,9 +8,17 @@ sidebar: true
 
 ---
 
-{% if site.data.code %}
+<!-- {% if site.data.code %} -->
 ## Code
-{% for script in site.data.code %}
+
+All code used to perform the analysis and generate the figures used in this work
+will be made public upon submission of the paper to the bioRxiv preprint server. 
+
+## Data
+All data shown this work will be hosted here upon submission of the paper to a 
+preprint server.
+
+<!-- {% for script in site.data.code %}
 * [**{{script.name}}**]({{site.url}}/{{site.baseurl}}/software/{{script.name}})
   \| {{script.desc}}
 {% endfor %}
@@ -51,4 +59,4 @@ sidebar: true
 </div>
 </article>
 {%endfor%}
-{% endif %}
+{% endif %} -->
