@@ -1,14 +1,11 @@
 ---
 layout: page
 title: Code and Data
-img: code.png # Add image post (optional)
 permalink: code
 sidebar: true
 ---
 
 ---
-
-<!-- {% if site.data.code %} -->
 ## Code
 
 All code used to perform the analysis and generate the figures used in this work
@@ -17,6 +14,8 @@ will be made public upon submission of the paper to the bioRxiv preprint server.
 ## Data
 All data shown this work will be hosted here upon submission of the paper to a 
 preprint server.
+
+<!-- {% if site.data.code %} -->
 
 <!-- {% for script in site.data.code %}
 * [**{{script.name}}**]({{site.url}}/{{site.baseurl}}/software/{{script.name}})
