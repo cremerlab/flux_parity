@@ -1,16 +1,14 @@
-# `modelling_growth`
-This repository contains all  of my notes and research into understanding quantitative 
-aspects of bacterial growth from steady-state growth to diauxic transitions and 
-lag times. Much of it is based off of the notes of others and therefore holds the 
-licensing of the original creator. For that reason, all creative work is copyrighted 
-with all rights reserved.
+# `flux_parity`
+This repository houses all data and code used in the manuscript "A Mechanistic
+View of Protein Synthesis and Its Regulation Predicts Microbial Growth In and Out of Steady State". More information will be provided here upon submission to a 
+preprint server
 
-The software herein is licensed under a standard MIT license, which reads as follows:
+All creative work (e.g. prose, artwork) is licensed under a CC-BY 4.0 license. The software herein is licensed under a standard MIT license, which reads as follows:
 
 ```
 MIT License
 
-Copyright (c) The Authors 
+Copyright (c) 2022 Griffin Chure & Jonas Cremer
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
