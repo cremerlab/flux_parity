@@ -1,0 +1,6 @@
+growth_rate_hr,elongation_rate_aa_s,source,notes
+0.5,9.3,"Bonven & Gulløv, 1979",Taken from Table 1
+0.17,5.5,"Bonven & Gulløv, 1979",Taken from Table 1
+0.35,6,"Lacroute, 1973",Recalculated value assuming all ribosomes are active.
+0.27,2.63,"Riba et al., 2019",Inferred value from data. See caption for Fig 3 B in source
+0.46,5,"Siwiak & Zielenkiewicz, 2010","Value computed from model which is in good agreement with other data sets, though not for translation rates. "

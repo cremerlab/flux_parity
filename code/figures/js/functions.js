@@ -26,28 +26,29 @@ function selfReplicator(params,args, dt) {
     return [dM_dt * dt, dM_Rb_dt * dt, dM_Mb_dt * dt, dcpc_dt * dt, dcnt_dt * dt]
 }
 
-function ppGppSelfReplicator(params, args, dt) {
+function fpmSelfReplicator(params, args, dt) {
     // Unpack params
-    var [M, M_Rb, M_Mb, T_AA, T_AA_star] = params;
-    var [gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max, phi_O] = args;
+    let [M, M_Rb, M_Mb, T_AA, T_AA_star] = params;
+ 
+    let [gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max, phi_O] = args;
 
     // Compute the rates
-    var nu = nu_max * (T_AA / (T_AA + Kd_TAA));
-    var gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star));
+    let nu = nu_max * (T_AA / (T_AA + Kd_TAA));
+    let gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star));
 
     // Compute the allocation
-    var ratio = (T_AA_star / T_AA);
-    var phi_Rb = ratio / (ratio + tau); 
-    var kappa = phi_Rb * kappa_max;
+    let ratio = (T_AA_star / T_AA);
+    let phi_Rb = (1 - phi_O) * ratio / (ratio + tau); 
+    let kappa = kappa_max * ratio / (ratio + tau);
 
     // Compute dynamics
-    var dM_dt = gamma * M_Rb
-    var dTAA_star_dt = (nu * M_Mb - dM_dt * (1 + T_AA_star)) / M
-    var dTAA_dt = kappa + ((dM_dt * (1 - T_AA) - nu * M_Mb) / M)
-    var dM_Rb_dt = phi_Rb * dM_dt
-    var dM_Mb_dt = (1 - phi_Rb - phi_O) * dM_dt
+    let dM_dt = gamma * M_Rb
+    let dTAA_star_dt = (nu * M_Mb - dM_dt - dM_dt * T_AA_star) / M
+    let dTAA_dt = kappa + ((dM_dt - dM_dt * T_AA - nu * M_Mb) / M)
+    let dM_Rb_dt = phi_Rb * dM_dt
+    let dM_Mb_dt = (1 - phi_Rb - phi_O) * dM_dt
 
-    return [dM_dt * dt, dM_Rb_dt * dt, dM_Mb_dt * dt, dTAA_dt * dt, dTAA_star_dt * dt]
+    return [M + (dM_dt * dt), M_Rb + (dM_Rb_dt * dt), M_Mb + (dM_Mb_dt * dt), T_AA + (dTAA_dt * dt), T_AA_star + (dTAA_star_dt * dt)]
 }
 
 // /////////////////////////////////////////////////////////////////////////////
@@ -93,7 +94,7 @@ function odeintForwardEuler(fun, params, args, dt, nSteps) {
     for (let i=1; i < nSteps ; i++) { 
         let deriv = fun(out[i-1], args, dt)
         for (let j=0; j < deriv.length; j++) {
-            deriv[j] = out[i-1][j] + deriv[j];
+            deriv[j] += out[i-1][j];
         }
         out.push(deriv);
     }
@@ -120,7 +121,7 @@ function ppGppEquilibrate(gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max
     let args = [gamma_max, nu_max, tau, Kd_TAA, Kd_TAA_star, kappa_max, phi_O];
 
     // Perform integration
-    let out = odeintForwardEuler(ppGppSelfReplicator, params, args, dt, nSteps)
+    let out = odeintForwardEuler(fpmSelfReplicator, params, args, dt, nSteps)
 
     // Identify output
     let eq = out.slice(-1)[0]   
