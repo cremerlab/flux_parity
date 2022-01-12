@@ -9,6 +9,7 @@ import bokeh.layouts
 import growth.viz 
 import growth.integrate
 import growth.model
+import scipy.integrate
 import tqdm
 colors, palette = growth.viz.bokeh_style()
 const = growth.model.load_constants()
@@ -40,7 +41,8 @@ gamma = gamma_max * TAA_star / (TAA_star + Kd_TAA_star)
 nu = nu_max * TAA / (TAA + Kd_TAA)
 phiRb = (1 - phi_O) * ratio / (ratio + tau)
 kappa = kappa_max * ratio / (ratio + tau)
-phiRb_range = np.arange(0.01, 1 - phi_O - 0.01, 0.01)
+phiRb_range = np.arange(0, 1 - phi_O, 0.001)
+
 #%%
 dt = 0.00001
 df = pd.DataFrame({})
@@ -76,6 +78,52 @@ for i, phi in enumerate(tqdm.tqdm(phiRb_range)):
                'metabolic_flux': nu * (1 - phi_O - phi) + kappa_max * phi,
                'translational_flux': gamma * phi * (1 - out[-1] - out[-2])}
     df = df.append(results, ignore_index=True)
+#%%
+# Precalculate the equilibration trajectories
+args = {'gamma_max':gamma_max,
+        'nu_max':nu_max,
+        'tau': tau,
+        'kappa_max': kappa_max,
+        'phi_O': phi_O,
+        'Kd_TAA': Kd_TAA,
+        'Kd_TAA_star': Kd_TAA_star}
+
+dt = 0.001
+time_range = np.arange(0, 5, dt)
+data_dict = {'init_phiRb': [],
+             'phiRb': [],
+             'nu': [],
+             'gamma': [],
+             'TAA': [],
+             'TAA_star': [],
+             'metab_flux': [],
+             'trans_flux': [],
+             'time': [time_range[::10]]}
+for i, phi in enumerate(phiRb_range):
+        TAA = df['TAA'].values[i]
+        TAA_star = df['TAA_star'].values[i]
+        params = [1, phi, 1 - phi_O - phi, TAA, TAA_star]
+        out = scipy.integrate.odeint(growth.model.self_replicator_FPM,
+                                     params, time_range, (args,))
+        out = out.T 
+        TAA_ = out[:][-2]
+        TAA_star_ = out[:][-1]
+        gamma_ = gamma_max * TAA_star_ / (TAA_star_ + Kd_TAA_star)
+        nu_ = nu_max * TAA_ / (TAA_ + Kd_TAA)
+        ratio_ =  TAA_star_ / TAA_
+        phiRb_ = (1 - phi_O) * (ratio_ / (ratio_ + tau)) 
+        kappa_ = kappa_max * (ratio_ / (ratio_ + tau))
+        metab_flux_ = nu * (1 - phi_O - phiRb_) + kappa_
+        trans_flux_ = gamma * phiRb_ * (1 - TAA_ - TAA_star_)
+        data_dict['init_phiRb'].append(phi)
+        data_dict['phiRb'].append(phiRb_[::10])
+        data_dict['nu'].append(nu_[::10])
+        data_dict['gamma'].append(gamma_[::10])
+        data_dict['TAA'].append(TAA_[::10])
+        data_dict['TAA_star'].append(TAA_star_[::10])
+        data_dict['metab_flux'].append(metab_flux_[::10])
+        data_dict['trans_flux'].append(trans_flux_[::10])
+        
 
 #%%
 bokeh.io.output_file('./interactive_equilibration.html')
@@ -87,11 +135,11 @@ time_range = np.arange(0, 10, dt)
 perturbed_point = bokeh.models.ColumnDataSource({'phiRb':[phiRb],
                                                  'MRb_M':[phiRb],
                                                  'growth_rate': [gamma * phiRb]})
-traces = bokeh.models.ColumnDataSource({'phi_Rb':[],
+trace_display = bokeh.models.ColumnDataSource({'phi_Rb':[],
                                         'time': time_range,
                                         'metab_flux':[],
                                         'trans_flux':[]})
-
+trace_source = bokeh.models.ColumnDataSource(data_dict)
 fluxes = bokeh.models.ColumnDataSource({'phiRb_range': list(phiRb_range),
                                         'metab_flux':list(nu * (1 - phiRb_range - phi_O) + kappa),
                                         'trans_flux': list(gamma * phiRb_range * (1 - TAA - TAA_star))})
@@ -108,24 +156,22 @@ tent_ax = bokeh.plotting.figure(width=500,
                                 height=500, 
                                 x_axis_label = 'allocation towards ribosomes',
                                 y_axis_label = 'rate [per hr]',
-                                y_range=[0, 1.5])
+                                y_range=[0, 1.75])
+
 phiRb_ax = bokeh.plotting.figure(width=300,
                                  height=150,
                                  x_axis_label = 'time [hr]',
-                                 y_axis_label = 'allocation towards ribosomes',
-                                 y_range=[0, 1]) 
+                                 y_axis_label = 'allocation towards ribosomes')
                                  
 metab_flux_ax = bokeh.plotting.figure(width=300,
                                 height=150,
                                 x_axis_label = 'time [hr]',
-                                y_axis_label = 'metabolic flux [per hr]',
-                                y_range=[0.9, 1.2]) 
+                                y_axis_label = 'metabolic flux [per hr]')
 
 trans_flux_ax = bokeh.plotting.figure(width=300,
                                 height=150,
                                 x_axis_label = 'time [hr]',
-                                y_axis_label = 'translational flux [per hr]',
-                                y_range = [0.9, 1.2]) 
+                                y_axis_label = 'translational flux [per hr]')
 
 # ##############################################################################
 # GLYPH DEFINITION
@@ -141,11 +187,11 @@ tent_ax.circle(x='phiRb', y='growth_rate', size=10, color=colors['primary_black'
              source=perturbed_point)
 
 phiRb_ax.line(x='time', y='phi_Rb', color=colors['primary_gold'],
-              line_width=3, source=traces)
+              line_width=3, source=trace_display)
 metab_flux_ax.line(x='time', y='metab_flux', color=colors['primary_purple'],
-              line_width=3, source=traces, line_dash='dashed')
+              line_width=3, source=trace_display, line_dash='dashed')
 trans_flux_ax.line(x='time', y='trans_flux', color=colors['primary_gold'],
-              line_width=3, source=traces, line_dash='dashed')
+              line_width=3, source=trace_display, line_dash='dashed')
 
 # ##############################################################################
 # CALLBACK DEFINITION
@@ -160,6 +206,8 @@ init_args = {'phiRb_range': phiRb_range,
              'point_source': perturbed_point,
              'phiRb_slider': phiRb_slider,
              'phi_O': phi_O,
+             'trace_source': trace_source,
+             'trace_display': trace_display,
             } 
 
 equil_args  = {
@@ -187,7 +235,7 @@ equil_args  = {
         # Sources
         'point_source': perturbed_point,
         'flux_source': fluxes,
-        'trace_source': traces,
+        'trace_source': trace_source,
          
         'step': dt,
 }
@@ -208,5 +256,13 @@ widgets = bokeh.layouts.Row(phiRb_slider, equilibrate)
 layout = bokeh.layouts.Column(widgets, row)
 bokeh.io.save(layout)
 
+
+# %%
+
+# %%
+
+# %%
+
+# %%
 
 # %%
