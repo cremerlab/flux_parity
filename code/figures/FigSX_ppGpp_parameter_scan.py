@@ -60,6 +60,10 @@ for i, tau in enumerate(tqdm.tqdm(tau_range)):
 #%%
 np.save('../../figures/Kd_parameter_sweep.pkl', Kd_sweep_out)
 np.save('../../figures/tau_kappa_parameter_sweep.pkl', tau_kappa_sweep_out)
+
+#%%
+Kd_sweep_out = np.load('../../figures/Kd_parameter_sweep.pkl')
+tau_kappa_sweep_out = np.load('../../figures/tau_kappa_parameter_sweep.pkl')
 # %%
 fig, ax = plt.subplots(1, 2)
 Kd_sweep_scaled = np.log10(np.abs(Kd_sweep_out))
@@ -100,8 +104,8 @@ ax[1].set_yticklabels(tau_labels)
 # ax.set_yticks([0, 10, 20, 30, 40])
 # ax.set_xticklabels(['$10^{-6}$', '$10^{-5}$', '$10^{-4}$', '$10^{-2}$', '$10^{0}$'])
 # a.set_yticklabels(['$10^{-6}$', '$10^{-5}$', '$10^{-4}$', '$10^{-2}$', '$10^{0}$'])
-ax[0].set_xlabel('charged-tRNA dissociation constant\n$K_D^{tRNA^*}}$ [abundance units]')
-ax[0].set_ylabel('$K_D^{tRNA}$ [abundance units] \nuncharged-tRNA dissociation constant')
+ax[0].set_xlabel('tRNA uncharging Michaelis-Menten constant\n$K_D^{tRNA^*}}$ [abundance units]')
+ax[0].set_ylabel('$K_M^{tRNA}$ [abundance units] \ntRNA charging Michaelis-Menten constant')
 
 ax[1].set_ylabel(r'$\tau$' + '\ncharged-to-uncharged tRNA\nsensitivity parameter')
 ax[1].set_xlabel('uncharged-tRNA transcription rate\n$\kappa_{max}$ [abundance units $\cdot$ hr$^{-1}$]')
@@ -110,5 +114,7 @@ plt.tight_layout()
 cbar = fig.colorbar(kd_out, ax=ax[:], label='absolute difference from optimal allocation',
             location='bottom', shrink=0.8, ticks=[-3, -2, -1], )
 cbar.ax.set_xticklabels(['$10^{-3}$', '$10^{-2}$', '$10^{-1}$'])  # vertically oriented colorbar
-plt.savefig('../../figures/FPM_Kd_parameter_scan.pdf', bbox_inches='tight')
+fig.text(0, 0.91, '(A)', fontsize=8, fontweight='bold')
+fig.text(0.5, 0.91, '(B)', fontsize=8, fontweight='bold')
+plt.savefig('../../figures/FigSX_FPM_parameter_sweep.pdf', bbox_inches='tight')
 # %%

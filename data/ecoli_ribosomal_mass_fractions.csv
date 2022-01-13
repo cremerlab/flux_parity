@@ -176,17 +176,9 @@ growth_rate_hr,mass_fraction,source,method,notes
 0.7,0.107080901408451,"Basan et al., 2015",Measurement of RNA to Protein Ratio using their conversion factor,Data taken from Table S4
 0.45,0.0777753968253968,"Basan et al., 2015",Measurement of RNA to Protein Ratio using their conversion factor,Data taken from Table S4
 0.42,0.0770546803069054,"Basan et al., 2015",Measurement of RNA to Protein Ratio using their conversion factor,Data taken from Table S4
-0.445757479243421,0.18734878240377100,"Potrykus et al., 2011",Measurement of RNA to Protein ratio,Data digitized from Fig 1
-0.4491776133552630,0.239283189316575,"Potrykus et al., 2011",Measurement of RNA to Protein ratio,Data digitized from Fig 1
-0.671486330625,0.3553181461115480,"Potrykus et al., 2011",Measurement of RNA to Protein ratio,Data digitized from Fig 1
-0.671486330625,0.3463629222309510,"Potrykus et al., 2011",Measurement of RNA to Protein ratio,Data digitized from Fig 1
-0.832232633881579,0.31026512175962300,"Potrykus et al., 2011",Measurement of RNA to Protein ratio,Data digitized from Fig 1
-0.8253923656578950,0.33893362136685000,"Potrykus et al., 2011",Measurement of RNA to Protein ratio,Data digitized from Fig 1
-1.25632926375,0.48505695208169700,"Potrykus et al., 2011",Measurement of RNA to Protein ratio,Data digitized from Fig 1
-1.259749397861840,0.5710212097407700,"Potrykus et al., 2011",Measurement of RNA to Protein ratio,Data digitized from Fig 1
-0.4197633609961770,0.17081583141630100,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
-0.4608100999473960,0.17697755305534400,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
-0.690806880903217,0.22466337434343300,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
-0.9742869032009860,0.29231355060573,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
-1.3643565444738400,0.3631105388365900,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
-1.828589823109600,0.4722785336861200,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
+0.4197633609961770,0.07785785595955,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
+0.4608100999473960,0.0806663686826258,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
+0.690806880903217,0.102401566025737,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
+0.9742869032009860,0.133236516366092,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
+1.3643565444738400,0.165505783601718,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
+1.828589823109600,0.215264555654133,"Zhu & Dai, 2019",Measurement of RNA to Protein ratio,Data digitized from Fig 2D
