@@ -66,7 +66,7 @@ source = bokeh.models.ColumnDataSource({'phiRb': [const_phiRb, trans_phiRb, opt_
 # ############################################################################## 
 # WIDGET DEFINITIONS
 # ############################################################################## 
-phiO_slider = bokeh.models.Slider(start=0, end=0.55, step=0.001, value=phi_O,
+phiO_slider = bokeh.models.Slider(start=0, end=0.95, step=0.001, value=phi_O,
                     title='allocation to other proteins')
 gamma_slider = bokeh.models.Slider(start=1, end=25, step=0.001, value=gamma_max * 7459 / 3600,
                     title='maximum translation speed [AA / s]')
