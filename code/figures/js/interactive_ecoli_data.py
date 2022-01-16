@@ -20,8 +20,8 @@ const_phiRb = 0.25
 
 
 # Load the mass_frac 
-mass_frac = pd.read_csv('../../../data/ribosomal_mass_fractions.csv')
-mass_frac  = mass_frac[mass_frac['organism']=='Escherichia coli'] 
+mass_frac = pd.read_csv('../../../data/ecoli_ribosomal_mass_fractions.csv')
+# mass_frac  = mass_frac[mass_frac['organism']=='Escherichia coli'] 
 elong = pd.read_csv('../../../data/peptide_elongation_rates.csv')
 elong = elong[elong['organism']=='Escherichia coli']
 

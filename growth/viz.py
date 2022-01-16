@@ -56,7 +56,7 @@ def load_markercolors():
         'Hernandez & Bremer, 1993': {'m': 'v', 'm_bokeh':'star'},
         'Pedersen, 1984': {'m':'X', 'm_bokeh':'triangle_pin'},
         'Zhu & Dai, 2019': {'m': 'p', 'm_bokeh': 'circle_cross'},
-        'Potrykus et al., 2011': {'m': '8', 'm_bokeh':'triangle_pin'}
+        'Si et al., 2017': {'m': 'v', 'm_bokeh': 'hex_dot'}
         }
     # Set colors rooted in blue
     cmap = sns.color_palette(f"light:{colors['primary_black']}", 

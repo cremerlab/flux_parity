@@ -11,8 +11,7 @@ const = growth.model.load_constants()
 mapper = growth.viz.load_markercolors()
 
 # Load the data sets
-mass_frac = pd.read_csv('../../data/ribosomal_mass_fractions.csv')
-mass_frac = mass_frac[mass_frac['organism']=='Escherichia coli']
+mass_frac = pd.read_csv('../../data/ecoli_ribosomal_mass_fractions.csv')
 elong_rate = pd.read_csv('../../data/peptide_elongation_rates.csv')
 elong_rate = elong_rate[elong_rate['organism']=='Escherichia coli']
 
@@ -88,7 +87,7 @@ ax[2].plot(opt_lam, opt_gamma, '-', color=colors['primary_blue'], label='(III) o
 for g in sources:
     ax[0].plot([], [], ms=4, marker=mapper[g]['m'], color=mapper[g]['c'], markeredgecolor='k',  
                 markeredgewidth=0.25, linestyle='none', label=g)
-# ax[0].legend()
+# ax[0].legend(ncol=2)
 plt.tight_layout()
 plt.savefig('../../figures/Fig4_simple_model_comparison.pdf', bbox_inches='tight')
 
