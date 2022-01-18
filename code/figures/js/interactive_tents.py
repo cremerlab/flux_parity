@@ -41,7 +41,7 @@ gamma = gamma_max * TAA_star / (TAA_star + Kd_TAA_star)
 nu = nu_max * TAA / (TAA + Kd_TAA)
 phiRb = (1 - phi_O) * ratio / (ratio + tau)
 kappa = kappa_max * ratio / (ratio + tau)
-phiRb_range = np.arange(0, 1 - phi_O, 0.001)
+phiRb_range = np.arange(0, 1 - phi_O, 0.01)
 
 #%%
 dt = 0.00001
@@ -73,9 +73,9 @@ for i, phi in enumerate(tqdm.tqdm(phiRb_range)):
                'TAA_star':out[-1],
                'ratio': out[-1]/out[-2],
                'tot_tRNA': out[-1] + out[-2],
-               'kappa': kappa_max * phi,
+               'kappa': kappa_max * ratio / (ratio + tau),
                'phi_Rb': phi,
-               'metabolic_flux': nu * (1 - phi_O - phi) + kappa_max * phi,
+               'metabolic_flux': kappa_max * (ratio / (ratio + tau)) + nu * (1 - phi_O - phi),
                'translational_flux': gamma * phi * (1 - out[-1] - out[-2])}
     df = df.append(results, ignore_index=True)
 #%%
@@ -201,6 +201,7 @@ init_args = {'phiRb_range': phiRb_range,
              'kappa': df['kappa'].values,
              'gamma': df['gamma'].values,
              'nu': df['nu'].values,
+             'kappa': df['kappa'].values,
              'tot_tRNA': df['tot_tRNA'].values,
              'flux_source':fluxes,
              'point_source': perturbed_point,
