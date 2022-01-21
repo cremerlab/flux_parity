@@ -102,6 +102,6 @@ ax[1, 2].plot(nu_max, phiRb_const_lam, lw=1, color=colors['primary_black'])
 
 # Tighten and save
 plt.tight_layout()
-# plt.savefig('../../figures/Fig3_steady_state_plots.pdf', bbox_inches='tight')
+plt.savefig('../../figures/Fig3_steady_state_plots.pdf', bbox_inches='tight')
 
 # %%

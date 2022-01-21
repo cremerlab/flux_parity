@@ -11,7 +11,7 @@ const = growth.model.load_constants()
 # %%
 # Define the constants 
 gamma_max = const['gamma_max']
-nu_max = 4.5
+nu_max = 10 * gamma_max 
 Kd_TAA = const['Kd_TAA']
 Kd_TAA_star = const['Kd_TAA_star']
 tau = const['tau']
@@ -19,7 +19,7 @@ kappa_max = const['kappa_max']
 phi_O = const['phi_O']
 # %%
 # Set the range of phiR
-phi_Rb = np.arange(0.001, 1 - phi_O - 0.001, 0.001)
+phi_Rb = np.arange(0.001, 1 - phi_O - 0.001, 0.01)
 dt = 0.001
 df = pd.DataFrame({})
 for i, phi in enumerate(tqdm.tqdm(phi_Rb)):
@@ -44,12 +44,14 @@ for i, phi in enumerate(tqdm.tqdm(phi_Rb)):
 
     results = {'gamma': gamma,
                'nu': nu, 
+               'TAA': out[-2],
+               'TAA_star': out[-1],
                'lam': gamma * phi, 
                'tot_tRNA': out[-1] + out[-2],
                'kappa': kappa_max * phi,
                'phi_Rb': phi,
-               'metabolic_flux': nu * (1 - phi_O - phi) + kappa_max * phi,
-               'translational_flux': gamma * phi * (1 - out[-1] - out[-2])}
+               'metabolic_flux': nu * (1 - phi_O - phi),
+               'translational_flux': gamma * phi}
     df = df.append(results, ignore_index=True)
 
 #%% 
@@ -92,7 +94,6 @@ high_translational_flux = high_gamma * phi_Rb * (1 - tot_tRNA)
 fig, ax = plt.subplots(1, 3, sharex=True, sharey=True, figsize=(6.5, 2))
 # Add labels
 ax[0].set_ylabel('rate [hr$^{-1}$]')
-
 for i in range(3):
     ax[i].plot(df['phi_Rb'], df['gamma'] * df['phi_Rb'], '-', lw=2, color=colors['primary_black'],
                 label='steady-state growth')
@@ -111,11 +112,9 @@ ax[2].plot(phi_Rb, high_metabolic_flux, '--', color=colors['primary_purple'], lw
             label='metabolic flux')
 
 
-# ax.plot(df['phi_Rb'], df['translational_flux'])
-# ax.plot(df['phi_Rb'], df['gamma'])
-# ax.plot(opt_phiRb, opt_lam, 'o')
+ax.plot(df['phi_Rb'], df['translational_flux'])
+ax.plot(df['phi_Rb'], df['gamma'])
+ax.plot(opt_phiRb, opt_lam, 'o')
 ax[1].set_ylim([0, 1.5])
 plt.tight_layout()
 plt.savefig('../../figures/FigSX_FPM_tents.pdf')
-
-# %%

@@ -28,7 +28,7 @@ Kd_TAA = const['Kd_TAA']
 Kd_TAA_star = const['Kd_TAA_star']
 tau = const['tau']
 kappa_max = const['kappa_max']
-phi_O = 0.55
+phi_O = const['phi_O']
 
 # Define parameter ranges for non-chlor case
 nu_range = np.linspace(0.1, 20, 200)
@@ -90,7 +90,7 @@ for medium, nu in nu_mapper.items():
             'phi_O': phi_O,
             'antibiotic': {
                 'c_drug': c,
-                'Kd_drug': 5E-10
+                'Kd_drug': 5E-10,
             }}
 
         # Equilibrate the model and print out progress
@@ -167,5 +167,9 @@ for g, d in chlor_df.groupby(['medium']):
     ax[2].plot(d['lam'], d['v_tl'], '--', color=cmap[counter])
     counter +=1
 plt.tight_layout()
-plt.savefig('../../figures/Fig5A_chloramphenicol.pdf', bbox_inches='tight')
+# plt.savefig('../../figures/Fig5A_chloramphenicol.pdf', bbox_inches='tight')
+# %%
+
+# %%
+
 # %%
