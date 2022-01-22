@@ -17,10 +17,6 @@ ribo_chlor_data = pd.read_csv('../../data/Dai2016_chloramphenicol_ribosome_conte
 elong_chlor_data = pd.read_csv('../../data/Dai2016_chloramphenicol_elongation_rates.csv')
 
 # Load the comparison data
-ribo_data = pd.read_csv('../../data/ribosomal_mass_fractions.csv')
-ribo_data = ribo_data[ribo_data['organism']=='Escherichia coli']
-elong_data = pd.read_csv('../../data/peptide_elongation_rates.csv')
-elong_data = elong_data[elong_data['organism']=='Escherichia coli']
 
 # Define constant parameters
 gamma_max = const['gamma_max']
@@ -113,11 +109,8 @@ for medium, nu in nu_mapper.items():
                                     'chlor_conc': c}, 
                                     ignore_index=True)
 
-
 #%%
-
 # Instantiate canvases
-
 fig, ax = plt.subplots(1, 3, figsize=(6.5, 2))
 ax[0].axis('off')
 
@@ -130,12 +123,6 @@ ax[2].set(xlabel='growth rate\n$\lambda$ [hr$^{-1}$]',
           ylabel='$v_{tl}$ [AA/s]\ntranslation speed',
           xlim=[0, 2.5],
           ylim=[5, 22])
-
-# Plot the nochlor data
-ax[1].plot(ribo_data['growth_rate_hr'], ribo_data['mass_fraction'], 'o', ms=4, 
-            markeredgewidth=0, color=colors['pale_black'], alpha=0.5)
-ax[2].plot(elong_data['growth_rate_hr'], elong_data['elongation_rate_aa_s'], 'o',
-            ms=4, markeredgewidth=0, color=colors['pale_black'], alpha=0.5)
 
 # Manually define color series
 cmap = sns.color_palette(f"dark:{colors['primary_red']}", n_colors=6) 
@@ -157,8 +144,10 @@ for g, d in elong_chlor_data.groupby(['medium']):
 
 
 # Plot the nochlor theory
-ax[1].plot(nochlor_df['lam'], nochlor_df['phiRb'], '--', lw=1, color=colors['primary_black'])
-ax[2].plot(nochlor_df['lam'], nochlor_df['v_tl'], '--', lw=1, color=colors['primary_black'])
+ax[1].plot(nochlor_df['lam'], nochlor_df['phiRb'], '--', lw=1, 
+                                                  color=colors['primary_black'])
+ax[2].plot(nochlor_df['lam'], nochlor_df['v_tl'], '--', lw=1, 
+                                                  color=colors['primary_black'])
 
 # Plot the chlor theory
 counter = 0
@@ -167,9 +156,4 @@ for g, d in chlor_df.groupby(['medium']):
     ax[2].plot(d['lam'], d['v_tl'], '--', color=cmap[counter])
     counter +=1
 plt.tight_layout()
-# plt.savefig('../../figures/Fig5A_chloramphenicol.pdf', bbox_inches='tight')
-# %%
-
-# %%
-
-# %%
+plt.savefig('../../figures/Fig5A_chloramphenicol.pdf', bbox_inches='tight')

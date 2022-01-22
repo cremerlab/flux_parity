@@ -12,8 +12,7 @@ mapper = growth.viz.load_markercolors()
 
 # Load the data sets
 mass_frac = pd.read_csv('../../data/ecoli_ribosomal_mass_fractions.csv')
-elong_rate = pd.read_csv('../../data/peptide_elongation_rates.csv')
-elong_rate = elong_rate[elong_rate['organism']=='Escherichia coli']
+elong_rate = pd.read_csv('../../data/ecoli_peptide_elongation_rates.csv')
 
 # Define the organism specific constants
 gamma_max = const['gamma_max']
