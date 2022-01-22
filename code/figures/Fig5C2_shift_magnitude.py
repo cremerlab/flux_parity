@@ -24,7 +24,7 @@ phiO_preshift = np.linspace(0.9, 0.55, len(nu_init))
 total_time = 15
 shift_time = 1 
 dt = 0.0001
-shift_magnitudes = pd.read_csv('../../data/shift_magnitudes.csv')
+shift_magnitudes = pd.read_csv('../../data/main_figure_data/Fig5C_shift_magnitudes.csv')
 #%%
 # Iterate through shifts 
 shift_df = []

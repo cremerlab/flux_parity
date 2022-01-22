@@ -18,12 +18,9 @@ Kd_cpc = const['Kd_cpc']
 nu_max= np.arange(0.001, 50, 0.001)
 const_phiRb = 0.25
 
-
 # Load the mass_frac 
 mass_frac = pd.read_csv('../../../data/ecoli_ribosomal_mass_fractions.csv')
-# mass_frac  = mass_frac[mass_frac['organism']=='Escherichia coli'] 
-elong = pd.read_csv('../../../data/peptide_elongation_rates.csv')
-elong = elong[elong['organism']=='Escherichia coli']
+elong = pd.read_csv('../../../data/ecoli_peptide_elongation_rates.csv')
 
 # Add markers and colors to maintain consistency.
 markers = [mapper[g]['m_bokeh'] for g in mass_frac['source'].values]
@@ -165,4 +162,3 @@ sliders = bokeh.layouts.Row(col1, col2, legend_axis)
 row1 = bokeh.layouts.Row(allocation_axis, elongation_axis)
 layout = bokeh.layouts.Column(sliders, row1)
 bokeh.io.save(layout)
-# %%

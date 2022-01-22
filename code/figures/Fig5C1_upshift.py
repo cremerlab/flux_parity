@@ -11,10 +11,10 @@ colors, palette = growth.viz.matplotlib_style()
 const = growth.model.load_constants()
 mapper = growth.viz.load_markercolors()
 # Load the erickson data
-sectors = pd.read_csv('../../data/Erickson2017_sector_dynamics.csv')
-mass_fraction = pd.read_csv('../../data/Erickson2017_shift_mass_fraction.csv')
+sectors = pd.read_csv('../../data/main_figure_data/Fig5C_Erickson2017_sector_dynamics.csv')
+mass_fraction = pd.read_csv('../../data/main_figure_data/Fig5C_Erickson2017_shift_mass_fraction.csv')
 
-gr_data = pd.read_csv('../../data/Erickson2017_upshifts.csv')
+gr_data = pd.read_csv('../../data/main_figure_data/Fig5C_Erickson2017_upshifts.csv')
 gr_data = gr_data[(gr_data['preshift_medium']=='succinate') &
                   (gr_data['postshift_medium'].isin(['arabinose', 'glycerol', 'gluconate']))]
 #%%

@@ -10,8 +10,8 @@ const = growth.model.load_constants()
 colors, palette = growth.viz.matplotlib_style()
 
 # Load the datasets
-scott_data = pd.read_csv('../../data/Scott2010_lacZ_overexpression.csv')
-other_data = pd.read_csv('../../data/overexpression_growth_rates.csv')
+scott_data = pd.read_csv('../../data/main_figure_data/Fig5B_Scott2010_lacZ_overexpression.csv')
+other_data = pd.read_csv('../../data/main_figure_data/Fig5B_overexpression_growth_rates.csv')
 
 # Define constants
 gamma_max = const['gamma_max']

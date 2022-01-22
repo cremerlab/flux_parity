@@ -8,8 +8,8 @@ import growth.viz
 colors, palette = growth.viz.matplotlib_style()
 
 # Load the data 
-mass_fracs = pd.read_csv('../../data/yeast_ribosomal_mass_fractions.csv')
-elong = pd.read_csv('../../data/yeast_peptide_elongation_rates.csv')
+mass_fracs = pd.read_csv('../../data/supplement_data/yeast_ribosomal_mass_fractions.csv')
+elong = pd.read_csv('../../data/supplement_data/yeast_peptide_elongation_rates.csv')
 
 # Define the mapper
 marker_mapper = {'Paulo et al., 2016': 's',

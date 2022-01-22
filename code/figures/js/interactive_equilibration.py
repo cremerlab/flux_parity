@@ -135,7 +135,7 @@ init_args = {'phiRb_range': phiRb_range,
              'phiRb_slider': phiRb_slider,
              'phi_O': phi_O} 
 
-init_cb = growth.viz.load_js('./interactive_equilibration_init.js', init_args)
+init_cb = growth.viz.load_js('./interactive_equilibration.js', init_args)
 phiRb_slider.js_on_change('value', init_cb)
 
 

@@ -117,7 +117,7 @@ args = {'gamma_slider': gamma_slider,
         'phiO_slider': phiO_slider,
         'phiRb_slider': phiRb_slider,
         'source': source} 
-callback = growth.viz.load_js(['./interactive_scenarios.js', './functions.js'],
+callback = growth.viz.load_js(['./interactive_strategies.js', './functions.js'],
                         args=args)
 for s in [gamma_slider, Kd_cpc_slider, phiO_slider,  phiRb_slider, sc2_slider]:
     s.js_on_change('value', callback)

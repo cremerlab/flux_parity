@@ -10,7 +10,7 @@ import seaborn as sns
 colors, palette = growth.viz.matplotlib_style()
 const = growth.model.load_constants()
 mapper = growth.viz.load_markercolors()
-data = pd.read_csv('../../data/ecoli_ribosomal_mass_fractions.csv')
+data = pd.read_csv('../../data/main_figure_data/Fig4_ecoli_ribosomal_mass_fractions.csv')
 
 gamma_max = const['gamma_max']
 Kd_TAA = const['Kd_TAA']

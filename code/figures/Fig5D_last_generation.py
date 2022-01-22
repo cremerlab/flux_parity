@@ -9,8 +9,8 @@ import growth.integrate
 import growth.viz
 colors, palette = growth.viz.matplotlib_style()
 const = growth.model.load_constants()
-peak_data = pd.read_csv('../../data/Bren2013_FigS3A.csv')
-od_data = pd.read_csv('../../data/Bren2013_FigS3B.csv')
+peak_data = pd.read_csv('../../data/main_figure_data/Fig5D_Bren2013_FigS3A.csv')
+od_data = pd.read_csv('../../data/main_figure_data/Fig5D_Bren2013_FigS3B.csv')
 
 #%%
 # Define constants

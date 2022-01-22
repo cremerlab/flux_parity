@@ -15,7 +15,7 @@ lin_nu_max = np.linspace(2, 10, 200)
 nu_max = np.linspace(0.01, 20, 300)
 
 # Load the E. coli data 
-data = pd.read_csv('../../data/ecoli_ribosomal_mass_fractions.csv')
+data = pd.read_csv('../../data/main_figure_data/Fig4_ecoli_ribosomal_mass_fractions.csv')
 data.head()
 fast_data = data[data['growth_rate_hr'] >= 0.5]
 
