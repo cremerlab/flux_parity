@@ -236,30 +236,6 @@ def matplotlib_style(return_colors=True, return_palette=True, **kwargs):
     else:
         return out
 
-
-def titlebox(
-    ax, text, color, bgcolor=None, size=8, boxsize=0.1, pad=0.05, loc=10, **kwargs
-):
-    """Sets a colored box about the title with the width of the plot"""
-    boxsize=str(boxsize * 100)  + '%'
-    divider = make_axes_locatable(ax)
-    cax = divider.append_axes("top", size=boxsize, pad=pad)
-    cax.get_xaxis().set_visible(False)
-    cax.get_yaxis().set_visible(False)
-    cax.spines["top"].set_visible(False)
-    cax.spines["right"].set_visible(False)
-    cax.spines["bottom"].set_visible(False)
-    cax.spines["left"].set_visible(False)
-
-    matplotlib.pyplot.setp(cax.spines.values(), color=color)
-    if bgcolor != None:
-        cax.set_facecolor(bgcolor)
-    else:
-        cax.set_facecolor("white")
-    at = AnchoredText(text, loc=loc, frameon=False, prop=dict(size=size, color=color))
-    cax.add_artist(at)
-
-
 def bokeh_style(return_colors=True, return_palette=True):
     theme_json = {
         "attrs": {

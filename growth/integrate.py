@@ -180,6 +180,31 @@ def nutrient_shift_FPM(args,
                        shift_time=2,
                        total_time=10,
                        dt=0.001):
+    """
+    Performs a simple nutrient upshift under flux-parity allocation given 
+    arguments for integration. 
+
+    Parameters 
+    -----------
+    args: list of dictionaries
+        A list of dictionaries that are passed to the `self_replicator_FPM`
+        function in the `model` submodule. 
+    shift_time : float
+        Time at which the shift whould be applied.
+    total_time : float
+        The total time the integration should be run
+    dt : float
+        The time step for the integration.
+
+    Returns
+    -------
+    df : pandas DataFrame
+        A pandas DataFrame of teh shift with columns corresponding to 
+        the total biomass `M`, total ribosomal biomass `M_Rb`, 
+        total metabolic biomass `M_Mb`, uncharged-tRNA concentration `TAA`,
+        and the charged-tRNA concentration `TAA_star`. Details of the 
+        shift and time are also provided as columns.
+    """
     cols = ['M', 'M_Rb', 'M_Mb', 'TAA', 'TAA_star']
 
     # Set the timespans

@@ -2,7 +2,8 @@ import numpy as np
 import scipy
 import pandas as pd
 import numba
-# from .integrate import *
+
+
 def load_constants():
     """Returns constants frequently used in this work"""
     params =  {'vtl_max': 20 ,  #Max translation speed in AA/s
@@ -15,7 +16,7 @@ def load_constants():
                   'Kd_TAA_star': 3E-5, # Charged tRNA dissociation constant in abundance units
                   'kappa_max': (64 * 5 * 3600) / 1E9, # Maximum tRNA synthesis rate  in abundance units per unit time
                   'tau': 1, # ppGpp threshold parameter for charged/uncharged tRNA balance
-                  'phi_O': 0.55,
+                  'phi_O': 0.55, # Fraction of proteome deoveted to `other` proteins for E. coli.
                 } 
     params['gamma_max'] = params['vtl_max'] * 3600 / params['m_Rb']
     return params
@@ -111,7 +112,11 @@ def self_replicator(params,
     return out
 
 
-def steady_state_precursors(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
+def steady_state_precursors(gamma_max, 
+                            phi_Rb, 
+                            nu_max, 
+                            Kd_cpc, 
+                            phi_O):
     """
     Computes the steady state value of the charged-tRNA abundance.
 
@@ -125,7 +130,8 @@ def steady_state_precursors(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
         The maximum nutritional capacity in units of inverse time. 
     Kd_cpc : positive float
         The effective dissociation constant of the precursors to the ribosome. 
-
+    phi_O : float [0, 1]
+        Allocation towards other proteins.
     Returns
     -------
     c_pc : float
@@ -142,7 +148,11 @@ def steady_state_precursors(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
     cpc = (nu_max * (1 - phi_Rb - phi_O) / ss_lam) - 1
     return cpc
 
-def steady_state_growth_rate(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
+def steady_state_growth_rate(gamma_max, 
+                             phi_Rb, 
+                             nu_max, 
+                             Kd_cpc, 
+                             phi_O):
     """
     Computes the steady-state growth rate of the self-replicator model. 
 
@@ -157,6 +167,8 @@ def steady_state_growth_rate(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
     Kd_cpc :  positive float
         The effective dissociation constant of charged tRNA to the elongating
         ribosome.
+    phi_O : float [0, 1]
+        Allocation towards other proteins.
 
     Returns
     -------
@@ -176,7 +188,11 @@ def steady_state_growth_rate(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
     lam = numer / denom
     return lam
 
-def steady_state_gamma(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
+def steady_state_gamma(gamma_max, 
+                       phi_Rb, 
+                       nu_max, 
+                       Kd_cpc, 
+                       phi_O=0):
     """
     Computes the steady-state translational efficiency, gamma.
 
@@ -191,6 +207,8 @@ def steady_state_gamma(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
     Kd_cpc : positive float 
         The effective dissociation constant of charged tRNA to the elongating
         ribosome.
+    phi_O : float [0, 1]
+        Allocation towards other proteins
 
     Returns
     -------
@@ -202,7 +220,10 @@ def steady_state_gamma(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=0):
     return gamma_max * (c_pc / (c_pc + Kd_cpc))
 
 
-def phiRb_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O=0):
+def phiRb_optimal_allocation(gamma_max, 
+                             nu_max, 
+                             Kd_cpc, 
+                             phi_O):
     """
     Computes the optimal fraction of proteome that is occupied by ribosomal 
     proteins which maximizes the growth rate. 
@@ -216,7 +237,8 @@ def phiRb_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O=0):
     Kd_cpc: positive float 
         The effective dissociation constant of charged tRNA to the elongating 
         ribosome.
-
+    phi_O : float [0, 1]
+        Allocation towards other proteins.
     Returns
     -------
     phi_Rb_opt : positive float [0, 1]
@@ -228,7 +250,11 @@ def phiRb_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O=0):
     phi_Rb_opt = (1 - phi_O) * numer / denom
     return phi_Rb_opt
 
-def phiRb_constant_translation(gamma_max, nu_max, cpc_Kd, Kd_cpc, phi_O=0):
+def phiRb_constant_translation(gamma_max, 
+                               nu_max, 
+                               cpc_Kd, 
+                               Kd_cpc, 
+                               phi_O):
     """
     Computes the ribosomal allocation which maintains a high translation rate. 
 
@@ -238,8 +264,8 @@ def phiRb_constant_translation(gamma_max, nu_max, cpc_Kd, Kd_cpc, phi_O=0):
         The maximum translational efficiency in units of inverse time.
     nu_max : positive float
         The maximum nutritional capacity in units of inverse time.
-    phi_O : positive float
-        The allocation of resources to 'other' proteins.
+    phi_O : float [0, 1]
+        Allocation towards other proteins. 
 
     Returns
     -------
@@ -387,101 +413,3 @@ def self_replicator_FPM(params,
     else:
         out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]     
     return out
-
-
-  
-def self_replicator_ppGpp_chlor(params,
-                          time,
-                          gamma_max,
-                          nu_max, 
-                          tau, 
-                          Kd_TAA,
-                          Kd_TAA_star,
-                          kappa_max,
-                          phi_O,
-                          c_ab,
-                          Kd_cab):
-    """
-    Defines the system of ordinary differenetial equations (ODEs) which describe 
-    the self-replicator model with ppGpp regulation.
-
-    Parameters
-    ----------
-    params: list, [M, Mr, Mp, T_AA, T_AA_star]
-        A list of the parameters whose dynamics are described by the ODEs.
-        M : positive float 
-            Total biomass of the system
-        M_Rb : positive float, must be < M 
-            Ribosomal protein biomass of the system
-        M_Mb : positive float, must be < M
-            Metabolic protein biomass of the system 
-        T_AA_star : positive float
-            Concentration of charged tRNAs in the culture. This is normalized to 
-            total protein biomass.
-        T_AA : positive float
-            Concentration of uncharged tRNAs in the culture. This is normalized to 
-            total protein biomass.
-    time : float
-        Evaluated time step of the system.
-    gamma_max: positive float 
-        The maximum translational capacity in units of inverse time.
-    nu_max : positive float
-        The maximum nutritional capacity in units of inverse time. 
-    Kd_TAA : positive float
-        The effective dissociation constant for uncharged tRNA to the metabolic 
-        machinery. In units of abundance.
-    Kd_TAA_star: positive float
-        The effective dissociation constant for charged tRNA to the ribosome complex.
-        In units of abundance
-    kappa_max : positive float
-        The maximum rate of uncharged tRNA synthesis in abundance units per unit time.
-    phi_O : float, [0, 1], optional
-        The fraction of the proteome occupied by 'other' protein mass.
-    phi_Rb : float, [0, 1], optional
-        The prescribed value of phi_Rb to use. This only holds if 'dyanamic_phiRb' is True.
-    dil_approx: bool
-        If True, then the approximation is made that the dilution of charged-tRNAs
-        with growing biomass is negligible.
-    dynamic_phiRb: bool
-        If True, phiRb will dynamically adjusted in reponse to charged/uncharged
-        tRNA balance.
-    tRNA_regulation: bool
-        if True, tRNA abundance will be regulated the same way as dynamic_phiRb. 
-    Returns
-    -------
-    out: list, [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
-        A list of the evaluated ODEs at the specified time step.
-
-        dM_dt : The dynamics of the total protein biomass.
-        dM_Rb_dt : The dynamics of the ribosomal protein biomass.
-        dM_Mb_dt : the dynamics of the metabolic protein biomass.
-        dT_AA_dt : The dynamics of the uncharged tRNA concentration.
-        dT_AA_star_dt : The dynamics of the uncharged tRNA concentration.
-    """
-    # Unpack the parameters 
-    M, M_Rb, M_Mb, T_AA, T_AA_star = params
-
-    # Compute the capacities
-    gamma = gamma_max * (T_AA_star / (T_AA_star + Kd_TAA_star)) 
-    nu = nu_max * (T_AA / (T_AA + Kd_TAA))
-    fa = 1 - (c_ab / (c_ab + Kd_cab))
-
-    # Compute the active fraction
-    ratio = T_AA_star / T_AA
-
-    # Biomass accumulation
-    dM_dt = gamma * fa * M_Rb
-
-    # Resource allocation
-    phi_Rb = (1 - phi_O) * ratio / (ratio + tau)
-    kappa = kappa_max * phi_Rb / (1 - phi_O)
-    dM_Rb_dt = phi_Rb * dM_dt
-    dM_Mb_dt = (1 - phi_Rb - phi_O) * dM_dt
-
-    # tRNA dynamics
-    dT_AA_star_dt = (nu * M_Mb - dM_dt * (1 + T_AA_star)) / M
-    dT_AA_dt = kappa + (dM_dt * (1 - T_AA) - nu * M_Mb) / M
-    out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
-     
-    return out
-
