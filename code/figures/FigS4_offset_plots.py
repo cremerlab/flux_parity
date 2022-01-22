@@ -57,5 +57,5 @@ ax[0].plot([], [], '--', color=colors['primary_blue'], lw=2,
         label=f'slope = {model_slope:0.3f} per hr\nintercept = {model_intercept:0.03f}') 
 leg = ax[0].legend(bbox_to_anchor=(0.75, 0.12), title='estimated parameters')
 leg.get_title().set_fontsize(6)
-plt.savefig('../../figures/FigSX_offset_plots.pdf', bbox_inches='tight') 
+plt.savefig('../../figures/FigS4_offset_plots.pdf', bbox_inches='tight') 
 # %%

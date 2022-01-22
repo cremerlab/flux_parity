@@ -90,5 +90,5 @@ ax[1].legend()
 plt.tight_layout()
 fig.text(0.01, 0.92, '(A)', fontsize=8, fontweight='bold')
 fig.text(0.01, 0.48, '(B)', fontsize=8, fontweight='bold')
-plt.savefig('../../figures/FigSX_dilution_effect.pdf', bbox_inches='tight')
+plt.savefig('../../figures/FigS1_dilution_effect.pdf', bbox_inches='tight')
 # %%

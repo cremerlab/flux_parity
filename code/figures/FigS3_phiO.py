@@ -88,9 +88,8 @@ for a in ax[:2]:
           xlim = [0, 2],
           ylabel='mass fraction of proteome')
 
-# ax[2].pie(composition_grouped['frac'].values, colors=[colors['primary_purple'], colors['primary_black'], colors['primary_gold']])
 plt.tight_layout()
-plt.savefig('../../figures/FigSX_phiO_composition_plots.pdf', bbox_inches='tight')
+plt.savefig('../../figures/FigS3_phiO_composition_plots.pdf', bbox_inches='tight')
 # %%
 # Plot the pies.
 # Select one condition and show the composition of the 'no correlation' factor 
@@ -111,5 +110,5 @@ fig, ax = plt.subplots(1, 3, figsize=(6, 2))
 ax[0].pie(others_grouped['frac'].values, colors=[colors['primary_purple'], colors['primary_black'], colors['primary_gold']])
 ax[1].pie(negative_grouped['frac'].values, colors=[colors['primary_purple'], colors['primary_black'], colors['primary_gold']])
 ax[2].pie(positive_grouped['frac'].values, colors=[colors['primary_purple'], colors['primary_black'], colors['primary_gold']])
-plt.savefig('../../figures/FigSX_phiO_composition_pies.pdf', bbox_inches='tight')
+plt.savefig('../../figures/FigS3_phiO_composition_pies.pdf', bbox_inches='tight')
 # %%

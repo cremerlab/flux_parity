@@ -101,9 +101,7 @@ ax[1].set_xticks(kappa_inds)
 ax[1].set_yticks(tau_inds)
 ax[1].set_xticklabels(kappa_labels)
 ax[1].set_yticklabels(tau_labels)
-# ax.set_yticks([0, 10, 20, 30, 40])
-# ax.set_xticklabels(['$10^{-6}$', '$10^{-5}$', '$10^{-4}$', '$10^{-2}$', '$10^{0}$'])
-# a.set_yticklabels(['$10^{-6}$', '$10^{-5}$', '$10^{-4}$', '$10^{-2}$', '$10^{0}$'])
+
 ax[0].set_xlabel('tRNA uncharging Michaelis-Menten constant\n$K_D^{tRNA^*}}$ [abundance units]')
 ax[0].set_ylabel('$K_M^{tRNA}$ [abundance units] \ntRNA charging Michaelis-Menten constant')
 
@@ -116,5 +114,5 @@ cbar = fig.colorbar(kd_out, ax=ax[:], label='absolute difference from optimal al
 cbar.ax.set_xticklabels(['$10^{-3}$', '$10^{-2}$', '$10^{-1}$'])  # vertically oriented colorbar
 fig.text(0, 0.91, '(A)', fontsize=8, fontweight='bold')
 fig.text(0.5, 0.91, '(B)', fontsize=8, fontweight='bold')
-plt.savefig('../../figures/FigSX_FPM_parameter_sweep.pdf', bbox_inches='tight')
+plt.savefig('../../figures/FigS7_FPM_parameter_sweep.pdf', bbox_inches='tight')
 # %%

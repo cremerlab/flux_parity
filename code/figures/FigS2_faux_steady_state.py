@@ -78,10 +78,6 @@ ax[0].set(ylabel='$M_{Rb} / M$\nribosome content',
 ax[1].set(ylabel='difference from\n steady-state ribosome content',
           xlabel='time from inoculation [hr]',
           yscale='log')
-# ax[2].set(ylabel='$\lambda$ [hr$^{-1}$]]\ninstantaneous growth rate',
-        #   xlabel='time from inoculation [hr]')
-# ax[3].set(ylabel='difference from\nsteady-state growth rate',
-        #   xlabel='time from inoculation [hr]') 
 
 gen_ticks = np.array([0, 2, 4, 6, 8, 10])
 for a in ax:
@@ -93,10 +89,8 @@ for a in ax:
 
 ax[0].plot(preculture_df['time'], preculture_df['MRb_M'], lw=2)
 ax[1].plot(preculture_df['time'], preculture_df['phiRb_err'], lw=2)
-# ax[2].plot(preculture_df['time'], preculture_df['inst_lam'], lw=2)
-# ax[3].plot(preculture_df['time'], preculture_df['lam_err'], lw=2)
 plt.tight_layout()
-plt.savefig('../../figures/FigSX_preculture_dynamics_plots.pdf', bbox_inches='tight')
+plt.savefig('../../figures/FigS2_preculture_dynamics_plots.pdf', bbox_inches='tight')
 
 # %% 
 # # Estimate nu for very slow growth
@@ -145,5 +139,5 @@ leg.get_title().set_fontsize(6)
 ax.set_xlabel('growth rate\n$\lambda$ [hr$^{-1}$]')
 ax.set_ylabel('$M_{Rb} / M$\nribosomal content')
 plt.tight_layout()
-plt.savefig('../../figures/FigSX_preculture_ribosome_content_data.pdf', bbox_inches='tight')
+plt.savefig('../../figures/FigS2_preculture_ribosome_content_data.pdf', bbox_inches='tight')
 # %%

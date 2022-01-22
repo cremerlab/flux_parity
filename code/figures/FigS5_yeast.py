@@ -82,6 +82,6 @@ plt.tight_layout()
 fig.text(0, 0.95, '(A)', fontsize=8, fontweight='bold')
 fig.text(0.33, 0.95, '(B)', fontsize=8, fontweight='bold')
 fig.text(0.66, 0.95, '(C)', fontsize=8, fontweight='bold')
-plt.savefig('../../figures/FigSX_yeast_plots.pdf')
+plt.savefig('../../figures/FigS5_yeast_plots.pdf')
 
 # %%
