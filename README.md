@@ -58,7 +58,9 @@ pip install -e ./
 ```
 
 ## License
-All creative work (e.g. prose, artwork) is licensed under a CC-BY 4.0 license. The software herein is licensed under a standard MIT license, which reads as follows:
+All creative work (e.g. prose, artwork) is licensed under a [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+The software herein is licensed under a standard MIT license, which reads as
+follows:
 
 ```
 MIT License
