@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/332829576.svg)](https://zenodo.org/badge/latestdoi/332829576)
+[![License: CC BY 4.0](https://licensebuttons.net/l/by/4.0/80x15.png)](https://creativecommons.org/licenses/by/4.0/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # `flux_parity`
 This repository houses all data and code used in the manuscript "An Optimal Regulation 
 of Fluxes Dictates Microbial Growth In and Out of Steady-State".
