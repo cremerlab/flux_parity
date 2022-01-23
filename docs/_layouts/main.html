@@ -12,7 +12,7 @@ layout: default
       <div class="sidebar-links">
       <hr>
       {% for page in site.pages %}
-      {% if page.sidebar %} <p><a href="{{site.url}}{{site.baseurl}}/{{page.permalink}}">{{page.title}}</a></p>
+      {% if page.sidebar %} <p><a href="{{site.baseurl}}/{{page.permalink}}">{{page.title}}</a></p>
       <hr>
       {%endif%}
       {% endfor %}
@@ -36,7 +36,7 @@ layout: default
       </ul> 
     </section> 
     <div class="copyright">
-      <p>{{site.time | date: '%Y'}} &copy; {{site.author}}
+      <p>{{site.time | date: '%Y'}} &copy; Griffin Chure & Jonas Cremer</p> 
     </div>
     <center>
     </center>
