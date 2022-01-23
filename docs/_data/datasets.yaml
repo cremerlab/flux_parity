@@ -1,20 +1,71 @@
-# - dataset:
-#   storage: local
-#   name: Sampling statistics from some fancy experiment
-#   filetype: ".csv"
-#   link: dataset1.csv
-#   filesize: "24 MB"
+- dataset:
+  storage: local
+  name: "Figure 4: Collated measurements of *E. coli* ribosomal protein mass fractions"
+  filetype: ".csv"
+  link: Fig4_ecoli_ribosomal_mass_fractions.csv
 
-# - dataset:
-#   storage: local
-#   name: Table of measurements from an old-school study for comparison
-#   filetype: ".csv"
-#   link: dataset2.csv
+- dataset:
+  storage: local
+  name: "Figure 4: Collated measurements of *E. coli* translation speed"
+  filetype: ".csv"
+  link: Fig4_ecoli_peptide_elongation_rates.csv
 
-# - dataset:
-#   storage: remote 
-#   link: "https://data.caltech.edu"
-#   DOI:  "10.1.1./journal.0000"
-#   name: "Anonymized data from web scraping"
-#   filetype: .zip 
-#   filesize: 2 gb
+- dataset:
+  storage: local
+  name: "Figure 5A: *E. coli* ribosomal mass fractions under chloramphenicol stress"
+  filetype: ".csv"
+  link: Fig5A_Dai2016_chloramphenicol_ribosome_content.csv
+
+- dataset:
+  storage: local
+  name: "Figure 5A: *E. coli* translation speeds under chloramphenicol stress"
+  filetype: ".csv"
+  link: Fig5A_Dai2016_chloramphenicol_elongation_rates.csv
+
+- dataset:
+  storage: local
+  name: "Figure 5B: Overexpression of β-galactosidase in *E. coli* in different media"
+  filetype: ".csv"
+  link: Fig5B_overexpression_growth_rates.csv
+
+- dataset:
+  storage: local
+  name: "Figure 5B: Relative growth rates of *E. coli* under excess protein stress"
+  filetype: ".csv"
+  link: Fig5B_overexpression_growth_rates.csv
+
+- dataset:
+  storage: local
+  name: "Figure 5C: Instantaneous growth rates of *E. coli* during nutrient upshifts from succinate"
+  filetype: ".csv"
+  link: Fig5C_Erickson2017_upshifts.csv
+
+- dataset:
+  storage: local
+  name: "Figure 5C: Collated intial and total shift magnitudes for *E. coli*"
+  filetype: ".csv"
+  link: Fig5C_shift_magnitudes.csv
+
+- dataset:
+  storage: local
+  name: "Figure 5D: Growth curves of *E. coli* on different glucose concentrations"
+  filetype: ".csv"
+  link: Fig5D_Bren2013_FigS3A.csv
+
+- dataset:
+  storage: local
+  name: "Figure 5D: Expression from an *E. coli* *ptsG* promoter upon nutrient exhaustion"
+  filetype: ".csv"
+  link: Fig5D_Bren2013_FigS3B.csv
+
+- dataset:
+  storage: local
+  name: "Figure S5: Collated measurements of *S. cerevisiae* ribosomal mass fractions"
+  filetype: ".csv"
+  link: yeast_ribosomal_mass_fractions.csv
+
+- dataset:
+  storage: local
+  name: "Figure S5: Collated measurements of *S. cerevisiae* elongation rates"
+  filetype: ".csv"
+  link: yeast_ribosomal_mass_fractions.csv

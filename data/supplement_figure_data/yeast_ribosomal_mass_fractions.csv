@@ -1,33 +1,33 @@
-growth_rate_hr,mass_fraction,source,notes,
-0.161,0.151,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.198,0.142,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.229,0.151,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.219,0.171,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.249,0.169,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.331,0.189,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.352,0.176,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.664,0.300,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.664,0.312,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.664,0.318,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.473,0.240,"Paulo et al., 2015",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.486,0.270,"Paulo et al., 2015",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.353,0.209,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.384,0.234,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.527,0.268,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.529,0.280,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.601,0.293,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017,
-0.027,0.138,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021,
-0.044,0.142,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021,
-0.102,0.166,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021,
-0.152,0.182,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021,
-0.213,0.201,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021,
-0.254,0.216,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021,
-0.284,0.225,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021,
-0.334,0.248,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021,
-0.378,0.260,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021,
-0.620,0.241,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA",
-0.460,0.193,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA",
-0.410,0.238,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA",
-0.250,0.206,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA",
-0.076,0.121,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA",
-0.056,0.165,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA",
+growth_rate_hr,mass_fraction,source,notes
+0.161,0.151,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.198,0.142,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.229,0.151,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.219,0.171,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.249,0.169,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.331,0.189,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.352,0.176,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.664,0.300,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.664,0.312,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.664,0.318,"Paulo et al., 2016",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.473,0.240,"Paulo et al., 2015",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.486,0.270,"Paulo et al., 2015",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.353,0.209,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.384,0.234,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.527,0.268,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.529,0.280,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.601,0.293,"Metzl-Raz et al., 2017",Data digitized from Figure 1A of Metzl-Raz et al. 2017
+0.027,0.138,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021
+0.044,0.142,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021
+0.102,0.166,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021
+0.152,0.182,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021
+0.213,0.201,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021
+0.254,0.216,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021
+0.284,0.225,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021
+0.334,0.248,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021
+0.378,0.260,"Xia et al., 2021",Data digitized from Figure 1 C of Xia et al. 2021
+0.620,0.241,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.460,0.193,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.410,0.238,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.250,0.206,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.076,0.121,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"
+0.056,0.165,"Waldron & Lacroute, 1975","Data recorded from Tables 1 and 2, and mass of ribosome being 11984 AA"

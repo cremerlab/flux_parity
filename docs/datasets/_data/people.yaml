@@ -1,0 +1,26 @@
+# ##############################################################################
+# Authors List
+# ------------------------------------------------------------------------------
+# This YAML data file contains entry for each author involved in the work
+# This YAML data file contains information for each author of the work. The 
+# author list will be generated in the order in which they are listed below. 
+# You can  add additional fields to each person, but these will not show up
+# automatically and must then be included manually in the Liquid template code 
+# of the `page01_people.md` file.
+# ##############################################################################
+- author:
+  name: Griffin Chure
+  link: "https://gchure.github.io"
+  title: NSF Postdoctoral Research Fellow
+  img: griffin.png
+  institute: Stanford Univeristy
+  other_info:
+     Email Address: "gchure@stanford.edu"
+- author:
+  name: Jonas Cremer
+  link: "https://cremerlab.com"
+  title: Assistant Professor of Biology
+  img: jonas.png
+  institute: Stanford University
+  other_info:
+    Email Address: jonas.cremer@stanford.edu 

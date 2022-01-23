@@ -10,30 +10,22 @@
 # The content below will appear 
 
 title: >
-  A Mechanistic View of Protein Synthesis and Its Regulation PredictsMicrobial
-  Growth In and Out of Steady State
+  An Optimal Regulation of Fluxes Dictates Microbial Growth In and Out of Steady-State
 authors: >
   Griffin Chure and Jonas Cremer
 Abstract: >
   Effective coordination of cellular processes is critical to ensure the
   competitive growth of microbial organisms. Pivotal to this coordination is the
-  appropriate partitioning of cellular resources between protein synthesis and
-  the metabolism needed to sustain it. Here, we present a coarse-grained and
-  organism-agnostic model of microbial growth centered on the dynamic regulation
-  of resource partitioning. At the core of this regulation is the perception of
-  charged- and uncharged-tRNA turnover via a global regulator which ensures
-  optimal partitioning and thus efficient growth. An extensive comparison with
-  50 data sets from <i>Escherichia coli</i> establishes the model and shows
-  that it can predict a remarkable wide range of growth phenomena in and out of
-  steady-state with quantitative accuracy. This strong predictive power,
-  achieved with a common set of only a few biological parameters, demonstrates
-  that protein synthesis is the arbiter of microbial growth and makes the model
-  an ideal physiological framework to interrogate the dynamics of microbial
-  growth, competition, and adaptation in ever-changing environments.
-Note:
-  This is a website dedicated to our upcoming publication on the fundamentals 
-  of protein-mediated growth. This page will be updated and changed dramatically
-  as the paper is developed.
-
-
-
+  appropriate partitioning of cellular resources between protein synthesis via
+  translation and the metabolism needed to sustain it. Here, we present a
+  coarse-grained and organism-agnostic theory of microbial growth centered on the
+  dynamic regulation of this resource partitioning. At the core of this regulation
+  is an optimization of metabolic and translational fluxes, mechanistically
+  achieved via the perception of charged- and uncharged-tRNA turnover. An
+  extensive comparison with ≈ 50 data sets from Escherichia coli establishes the
+  theory’s veracity and shows that it can predict a remarkably wide range of
+  growth phenomena in and out of steady-state with quantitative accuracy. This
+  predictive power, achieved with only a few biological parameters, cements the
+  preeminent importance of protein synthesis in microbial growth and establishes
+  the theory as an ideal physiological framework to interrogate the dynamics of
+  growth, competition, and adaptation in complex and ever-changing environments. 
