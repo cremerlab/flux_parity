@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Interactive Flux-Parity
-permalink: data_comparison
+permalink: tents
 sidebar: true
 interactive: interactive_equilibration.html
 ---
