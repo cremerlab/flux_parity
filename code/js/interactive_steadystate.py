@@ -9,7 +9,7 @@ import growth.model
 import growth.viz 
 colors, palette = growth.viz.bokeh_style()
 const = growth.model.load_constants()
-bokeh.io.output_file('../../figures/interactives/interactive_steadystate.html')
+bokeh.io.output_file('../../figures/interactive/interactive_steadystate.html')
 
 # ############################################################################## 
 # CONSTANT DEFINITIONS

@@ -10,7 +10,7 @@ import bokeh.transform
 import bokeh.io 
 import growth.model
 import growth.viz
-bokeh.io.output_file('../../figures/interactives/interactive_integration.html')
+bokeh.io.output_file('../../figures/interactive/interactive_integration.html')
 colors, palette = growth.viz.bokeh_style() 
 const = growth.model.load_constants()
 

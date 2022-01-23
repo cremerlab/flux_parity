@@ -9,7 +9,7 @@ import growth.model
 import seaborn as sns 
 colors, palette = growth.viz.bokeh_style()
 const = growth.model.load_constants()
-bokeh.io.output_file('../../figures/interactives/interactive_strategies.html')
+bokeh.io.output_file('../../figures/interactive/interactive_strategies.html')
 
 # ############################################################################## 
 # PARAMETER DEFINITIONS

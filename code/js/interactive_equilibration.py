@@ -80,7 +80,7 @@ for i, phi in enumerate(tqdm.tqdm(phiRb_range)):
     df = df.append(results, ignore_index=True)
 
 #%%
-bokeh.io.output_file('../../figures/interactives/interactive_equilibration.html')
+bokeh.io.output_file('../../figures/interactive/interactive_equilibration.html')
 dt = 0.00001
 time_range = np.arange(0, 10, dt)
 # ##############################################################################

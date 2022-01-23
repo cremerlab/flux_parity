@@ -9,7 +9,7 @@ import growth.viz
 const = growth.model.load_constants()
 colors, palette = growth.viz.bokeh_style()
 mapper = growth.viz.load_markercolors()
-bokeh.io.output_file('../../figures/interactives/interactive_ecoli_data.html')
+bokeh.io.output_file('../../figures/interactive/interactive_ecoli_data.html')
 
 # Define constants
 gamma_max = const['gamma_max']
@@ -19,8 +19,8 @@ nu_max= np.arange(0.001, 50, 0.001)
 const_phiRb = 0.25
 
 # Load the mass_frac 
-mass_frac = pd.read_csv('../../data/Fig4_ecoli_ribosomal_mass_fractions.csv')
-elong = pd.read_csv('../../data/Fig4_ecoli_peptide_elongation_rates.csv')
+mass_frac = pd.read_csv('../../data/main_figure_data/Fig4_ecoli_ribosomal_mass_fractions.csv')
+elong = pd.read_csv('../../data/main_figure_data/Fig4_ecoli_peptide_elongation_rates.csv')
 
 # Add markers and colors to maintain consistency.
 markers = [mapper[g]['m_bokeh'] for g in mass_frac['source'].values]
