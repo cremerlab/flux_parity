@@ -7,7 +7,7 @@ interactive: interactive_equilibration.html
 ---
 ---
 
-## Comparing Allocation Scenarios to *E. coli* Data 
+## Exploring the Flux-Parity Model
 In the supplemental text, we explore how at an intuitive level how flux-parity 
 regulation results in an optimal allocation of ribosomes. Here, we provide an 
 interactive version of Fig. S7. 
