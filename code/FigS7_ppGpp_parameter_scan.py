@@ -19,7 +19,7 @@ Kd_TAA = const['Kd_TAA']
 Kd_TAA_star = const['Kd_TAA_star']
 Kd_cpc = const['Kd_cpc']
 nu_max = 4
-
+data = pd.read_csv('../data/flux_parity_parameter_sweep.csv')
 # Compute the optimium
 opt_phiRb = growth.model.phiRb_optimal_allocation(gamma_max, nu_max, Kd_cpc, phi_O)
 

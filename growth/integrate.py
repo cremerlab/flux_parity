@@ -6,7 +6,7 @@ from .model import self_replicator_FPM
 
 def equilibrate_FPM(args, 
                     tol=3, 
-                    max_iter=10, 
+                    max_iter=50, 
                     dt=0.0001, 
                     t_return=1):
     """
@@ -67,8 +67,9 @@ def equilibrate_FPM(args,
         if np.round(ribo_ratio, decimals=tol) == 1:
             converged = True
         else:
+            init_params = out[-1]
+            init_params[:-2] *= 0.01
             iterations +=1
-            max_time += 10
        
         if iterations == max_iter:
             print(f'Steady state was not reached (ratio of Mrb_M / phiRb= {np.round(ribo_ratio, decimals=tol)}. Returning output anyway.')

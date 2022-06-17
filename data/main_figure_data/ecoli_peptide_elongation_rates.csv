@@ -1,0 +1,67 @@
+growth_rate_hr,elongation_rate_aa_s,source,notes
+1.80,16.7,"Dai et al., 2016",Table S1
+1.28,16.3,"Dai et al., 2016",Table S1
+1.12,16.1,"Dai et al., 2016",Table S1
+0.98,15.9,"Dai et al., 2016",Table S1
+0.75,14.9,"Dai et al., 2016",Table S1
+0.69,15.0,"Dai et al., 2016",Table S1
+0.69,14.7,"Dai et al., 2016",Table S1
+0.55,13.7,"Dai et al., 2016",Table S1
+0.50,13.1,"Dai et al., 2016",Table S1
+0.46,12.6,"Dai et al., 2016",Table S1
+0.41,13.0,"Dai et al., 2016",Table S1
+0.34,12.4,"Dai et al., 2016",Table S1
+0.33,12.0,"Dai et al., 2016",Table S1
+0.29,12.1,"Dai et al., 2016",Table S1
+0.23,12.3,"Dai et al., 2016",Table S1
+0.20,11.6,"Dai et al., 2016",Table S1
+0.13,10.7,"Dai et al., 2016",Table S1
+0.04,9.4,"Dai et al., 2016",Table S1
+1.52,16.2,"Dalbow & Young, 1975",Table 2
+1.43,16.1,"Dalbow & Young, 1975",Table 2
+0.90,15.15,"Dalbow & Young, 1975",Table 2
+0.97,16.5,"Dalbow & Young, 1975",Table 2
+0.44,13.35,"Dalbow & Young, 1975",Table 2
+0.43,13.25,"Dalbow & Young, 1975",Table 2
+1.46,17,"Young & Bremer, 1976",Table 1
+0.97,17,"Young & Bremer, 1976",Table 1
+0.49,12,"Young & Bremer, 1976",Table 1
+1.73,15.9262212268574,"Forchhammer & Lindahl, 1971","Value recalculated from data in Table 1, assuming 100% of ribosomes are active"
+1.46,14.8795594760202,"Forchhammer & Lindahl, 1971","Value recalculated from data in Table 1, assuming 100% of ribosomes are active"
+1.04,15.2005960649111,"Forchhammer & Lindahl, 1971","Value recalculated from data in Table 1, assuming 100% of ribosomes are active"
+0.60,11.6140660920489,"Forchhammer & Lindahl, 1971","Value recalculated from data in Table 1, assuming 100% of ribosomes are active"
+0.38,8.68902448565174,"Forchhammer & Lindahl, 1971","Value recalculated from data in Table 1, assuming 100% of ribosomes are active"
+0.42,9.6,"Bremer & Dennis, 2008",Value recalculated from Table 3 assuming all ribosomes are active
+0.69,12.8,"Bremer & Dennis, 2008",Value recalculated from Table 3 assuming all ribosomes are active
+1.04,14.4,"Bremer & Dennis, 2008",Value recalculated from Table 3 assuming all ribosomes are active
+1.39,16,"Bremer & Dennis, 2008",Value recalculated from Table 3 assuming all ribosomes are active
+1.73,16.8,"Bremer & Dennis, 2008",Value recalculated from Table 3 assuming all ribosomes are active
+0.12,12.264591439688700,"Wu et al., 2021",Data digitized from Fig. 3E
+0.32,12.871595330739300,"Wu et al., 2021",Data digitized from Fig. 3E
+0.34,13.525291828793800,"Wu et al., 2021",Data digitized from Fig. 3E
+0.35,13.665369649805400,"Wu et al., 2021",Data digitized from Fig. 3E
+0.37,14.412451361867700,"Wu et al., 2021",Data digitized from Fig. 3E
+0.46,13.618677042801600,"Wu et al., 2021",Data digitized from Fig. 3E
+0.58,15.439688715953300,"Wu et al., 2021",Data digitized from Fig. 3E
+0.65,15.95330739299610,"Wu et al., 2021",Data digitized from Fig. 3E
+0.68,15.626459143968900,"Wu et al., 2021",Data digitized from Fig. 3E
+0.69,15.626459143968900,"Wu et al., 2021",Data digitized from Fig. 3E
+0.96,16.140077821011700,"Wu et al., 2021",Data digitized from Fig. 3E
+0.55,15,"Kepes & Beguin, 1966","Data taken from Table 1 in Young & Bremer, 1976"
+0.62,14,"Coffman et al., 1971","Data taken from Table 1 in Young & Bremer, 1976"
+1.52,17,"Morris & Hansen, 1973","Data taken from Table 1 in Young & Bremer, 1976"
+0.48,13,"Schleif et al., 1973","Data taken from Table 1 in Young & Bremer, 1976"
+0.52,14.3,"Lacroute & Stent, 1968","Data taken from Table 1 in Young & Bremer, 1976"
+0.82,14.1,"Albertson & Nyström, 1994",Data taken from paragraph 1 on pg 185. Exponential growth rate inferred from data digitized from Fig. 1A
+0.83,16,"Dennis & Bremer, 1974",Data taken from first paragraph on pg. 418. Values taken as average of reported bounds.
+0.46,10.5,"Dennis & Bremer, 1974",Data taken from first paragraph on pg. 418. Values taken as average of reported bounds.
+0.83,17,"Gausing, 1972","Taken from text, pg.539, paragraph 4"
+0.86,13,"Schleif, 1967",Taken from middle of page 53
+1.97,15.7,"Hernandez & Bremer, 1993",Taken from Table 2.
+1.60,15.1,"Hernandez & Bremer, 1993",Taken from Table 2.
+1.35,15.7,"Hernandez & Bremer, 1993",Taken from Table 2.
+0.91,15.4,"Hernandez & Bremer, 1993",Taken from Table 2.
+0.41,12,"Hernandez & Bremer, 1993",Taken from text on pg 10859
+0.33,11.5,"Pedersen, 1984",Taken from values in parentheses in Table 1
+0.69,13.6,"Pedersen, 1984",Taken from values in parentheses in Table 1
+0.99,17,"Pedersen, 1984",Taken from values in parentheses in Table 1

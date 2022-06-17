@@ -7,20 +7,19 @@ import seaborn as sns
 colors, _  = growth.viz.matplotlib_style()
 const = growth.model.load_constants()
 # Define the parameter ranges
-nu_max = np.array([0, 0.462, 0.925, 1.39, 1.85, 2.48, 3.11, 3.74, 4.37, 5]) 
-nu_max *= (4.5 / 1.85) # Adjusting for the change in phi_O from previous version
+nu_max = np.linspace(0.2, 12.25, 10)
 phi_O = 0.55
 phiRb_range = np.linspace(0.001, 1 - phi_O - 0.001, 300)
-
 palette = sns.color_palette('bone', len(nu_max) + 2)
 
 # generate the figure
-fig, ax = plt.subplots(2, 3, figsize=(7, 4.25))
-for i in range(3):
-    ax[0, i].set_xlabel('allocation towards ribosomes\n' + ' $\phi_{Rb}$', fontsize=8)
-    ax[1, i].set_xlabel('metabolic rate\n' +  r' $\nu_{max}$ [hr$^{-1}$]', fontsize=8)
-    ax[0, i].set_xlim([0, 0.45])
+fig, ax = plt.subplots(2, 3, figsize=(6, 4))
+for i in range(2):
+    ax[i, 0].set_xlabel('allocation towards ribosomes\n' + ' $\phi_{Rb}$', fontsize=8) 
+    # ax[1, i].set_xlabel('metabolic rate\n' +  r' $\nu_{max}$ [hr$^{-1}$]', fontsize=8)
+    # ax[0, i].set_xlim([0, 0.45])
 
+#%%
 # Add axis labels
 ax[0, 0].set(ylabel=r'$c_{pc}^* / K_D^{c_{pc}}$' + '\nprecursor concentration', yscale='log')
 ax[1, 0].set_ylabel('$\phi_{Rb}$' + '\nallocation towards ribosomes')
@@ -102,5 +101,9 @@ ax[1, 2].plot(nu_max, phiRb_const_lam, lw=1, color=colors['primary_black'])
 # Tighten and save
 plt.tight_layout()
 plt.savefig('../figures/main_text/plots/Fig3_steady_state_plots.pdf', bbox_inches='tight')
+
+# %%
+
+# %%
 
 # %%
