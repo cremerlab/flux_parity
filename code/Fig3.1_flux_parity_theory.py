@@ -21,7 +21,7 @@ mass_fractions = pd.read_csv('../data/main_figure_data/ecoli_ribosomal_mass_frac
 elongation_rate = pd.read_csv('../data/main_figure_data/ecoli_peptide_elongation_rates.csv')
 
 # %% Generate the heat maps
-phiRb_map = np.zeros((len(sweep['tau'].unique()), len(sweep['kappa'].unique())))
+phiRb_map = np.zeros((len(sweep['tau'].unique()), len(sweep['kappa_max'].unique())))
 i = 0
 for g, d in sweep.groupby(['tau']): 
     phiRb_map[i, :] = d['phiRb'].values
@@ -32,12 +32,12 @@ opt_phiRb = growth.model.phiRb_optimal_allocation(const['gamma_max'],
                                                   sweep['nu_max'].values[0], 
                                                   const['Kd_cpc'], 
                                                   const['phi_O'])
-norm_phiRb = opt_phiRb / opt_phiRb
+norm_phiRb = phiRb_map / opt_phiRb
 
 # Create the mesh for positioning of contours and labels
-ind = np.arange(0, len(sweep['kappa'].unique()), 1)
-X, Y = np.meshgrid(ind, ind)
-
+kappa_ind = np.arange(0, len(sweep['kappa_max'].unique()), 1)
+tau_ind = np.arange(0, len(sweep['tau'].unique()), 1)
+X, Y = np.meshgrid(kappa_ind, tau_ind)
 
 #%%
 # Evaluate the flux parity model over the metabolic rates
@@ -60,8 +60,6 @@ for i, nu in enumerate(tqdm.tqdm(nu_range)):
     _df['nu_max'] = nu
     df = pd.concat([df, _df])
 
-
-
 # %%
 # Instantiate the figure and format the axes.
 fig, ax = plt.subplots(1, 3, figsize=(7, 2.3))
@@ -77,18 +75,20 @@ ax[0].set_ylim([0, 100])
 ax[1].set_ylim([0, 0.3])
 ax[2].set_ylim([5.5, 20])
 
-# # Add appropriate heatmap ticks and labels.
-# inds = [[], []]
-# labs = [[], []]
-# for i, vals in enumerate(sweep['kappa'].unique(), sweep['tau'].unique()):
-#     for j in range(np.log10(vals.min()).astype(int), np.log10(vals.max()).astype(int)+1):
-#         _ind =  np.where(np.round(np.log10(vals), decimals=1) == j)
-#         inds[i].append(_ind[0][0])
-#         labs[i].append('10$^{%s}$' %int(j))
-# ax[0].set_xticks(inds[0])
-# ax[0].set_xticklabels(labs[0])
-# ax[0].set_yticks(inds[1])
-# ax[0].set_yticklabels(labs[1])
+# Add appropriate heatmap ticks and labels.
+inds = [[], []]
+labs = [[], []]
+for i, vals in enumerate([sweep['kappa_max'].unique(), sweep['tau'].unique()]):
+    for j in range(np.log10(vals.min()).astype(int), np.log10(vals.max()).astype(int)+1):
+        _ind =  np.where(np.round(np.log10(vals), decimals=1) == j)
+        inds[i].append(_ind[0][0])  
+        _exp = int(j)
+        labs[i].append('10$^{%s}$' %_exp)
+
+ax[0].set_xticks(inds[0])
+ax[0].set_xticklabels(labs[0])
+ax[0].set_yticks(inds[1])
+ax[0].set_yticklabels(labs[1])
 
 # Compute the optimal solution
 nu_range = np.linspace(0.05, 20, 200)
@@ -108,7 +108,7 @@ locations = [(20, 90), (30, 75), (50, 70), (40, 60), (30, 45)]
 conts = ax[0].contour(X, Y, norm_phiRb, levels=[0.3, 0.7, 1, 1.5, 2], 
                       colors=cont_color)
 ax[0].clabel(conts, conts.levels, inline=True, colors=cont_color, fontsize=6,
-            manual=locations)
+            manual=locations, fmt=lambda x: f'{x}' + r' $\times$ $\phi_{Rb}^{(III)}$')
 
 # Plot the data
 for g, d in mass_fractions.groupby(['source']):    
