@@ -91,21 +91,25 @@ shift_df = pd.concat(shift_df)
 shift_rate['lam1_lam0'] = shift_rate['lam_1'].values / shift_rate['lam_0'].values
 shift_rate['lam0_lamsat'] = shift_rate['lam_0'].values  / shift_rate['lam_sat'].values
 # %%
-fig, ax = plt.subplots(1, 1, figsize=(2.4, 1.9))
+fig, ax = plt.subplots(1, 3, figsize=(6, 2))
+ax[1].axis(False)
+ax[2].axis(False)
+ax[0].set_yticks([0.5, 1.5, 2.5, 3.5])
 cmap = sns.color_palette(f"dark:{colors['primary_red']}", n_colors=len(shift_magnitudes['source'].unique()))
 counter = 0
 for g, d in shift_magnitudes.groupby(['source']):
-        ax.plot(d['total_shift_magnitude'], d['initial_shift_magnitude'], 
+        ax[0].plot(d['total_shift_magnitude'], d['initial_shift_magnitude'], 
                 marker=mapper[g]['m'], linestyle='none', ms=4.5, alpha=0.75,
                 color=cmap[counter], markeredgecolor='k', markeredgewidth=0.5,
                 label=g)
         counter += 1
 
-ax.plot(shift_rate['lam0_lamsat'], shift_rate['lam1_lam0'], '--', color=colors['primary_black'], lw=1, zorder=1000)
-ax.set_ylim([0.5, 4])
-ax.set_xlim([0, 1.05])
-ax.set_xlabel('total shift magnitude\n$\lambda_i^{(preshift)} / \lambda_i^{(postshift)}$')
-ax.set_ylabel(r'$\lambda_i^{\dagger}  / \lambda_i^{(preshift)}$' + '\ninitial shift magnitude')
-ax.legend()
+ax[0].plot(shift_rate['lam0_lamsat'], shift_rate['lam1_lam0'], '--', color=colors['primary_black'], lw=1, zorder=1000)
+ax[0].set_ylim([0.5, 4])
+ax[0].set_xlim([0, 1.05])
+ax[0].set_xlabel('total shift magnitude\n$\lambda_i^{(preshift)} / \lambda_i^{(postshift)}$', fontsize=6)
+ax[0].set_ylabel(r'$\lambda_i^{\dagger}  / \lambda_i^{(preshift)}$' + '\ninitial shift magnitude', fontsize=6)
+# ax.legend()
 plt.tight_layout()
-plt.savefig('../figures/main_text/plots/Fig5C2_spare_capacity.pdf', bbox_inches='tight')
+plt.savefig('../figures/main_text/plots/Fig4_spare_capacity.pdf', bbox_inches='tight')
+# %%

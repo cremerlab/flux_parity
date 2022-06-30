@@ -20,7 +20,15 @@ def load_markercolors():
     mapper = {
         'Bremer & Dennis, 2008': {'m':'X', 'm_bokeh':'circle_dot'},
         'Brunschede et al., 1977': {'m':'s', 'm_bokeh':'square'},
+        'Büke et al., 2022': {'m':'X', 'm_bokeh':'hex'},
+        'Lazzarini et al., 1971' : {'m': 'd'},
+        'Sokawa et al., 1975' : {'m':'D'},
+        'Ryals et al., 1981': {'m':'>'},
+        'Baracchini et al., 1988' : {'m': 'h'},
+        'Buckstein et al., 2008' : {'m': 's'},
+        'Imholz et al., 2020' : {'m':'o'},
         'Dai et al., 2016': {'m':'o',  'm_bokeh': 'circle'},
+        'Dong et al., 1996': {'m': 's', 'm_bokeh': 'circle_dot'},
         'Forchhammer & Lindahl, 1971': {'m': 'v', 'm_bokeh': 'inverted_triangle'},
         'Li et al., 2014': {'m':'d', 'm_bokeh':'diamond'},
         'Schmidt et al., 2016': {'m':'8', 'm_bokeh':'hex'},
@@ -43,6 +51,7 @@ def load_markercolors():
         'Basan et al., 2015' : {'m': '8', 'm_bokeh': 'circle'},
         'You et al., 2013' : {'m': 'h', 'm_bokeh':'hex_dot'},
         'Hernandez & Bremer, 1993' : {'m':'X', 'm_bokeh': 'diamond_dot'},
+        'Hernandez & Bremer, 1990' : {'m':'v', 'm_bokeh': 'diamond_dot'},
         'Farewell & Neidhart, 1998' : {'m': 'h', 'm_bokeh': 'circle_cross'},
         'Kepes & Beguin, 1966' : {'m':'o', 'm_bokeh': 'circle'},
         'Coffman et al., 1971' :  {'m':'s', 'm_bokeh': 'square'},
@@ -56,7 +65,8 @@ def load_markercolors():
         'Hernandez & Bremer, 1993': {'m': 'v', 'm_bokeh':'star'},
         'Pedersen, 1984': {'m':'X', 'm_bokeh':'triangle_pin'},
         'Zhu & Dai, 2019': {'m': 'p', 'm_bokeh': 'circle_cross'},
-        'Si et al., 2017': {'m': 'v', 'm_bokeh': 'hex_dot'}
+        'Si et al., 2017': {'m': 'v', 'm_bokeh': 'hex_dot'},
+        'Sarubbi et al., 1988': {'m': '^', 'm_bokeh':'triangle'}
         }
     # Set colors rooted in blue
     cmap = sns.color_palette(f"light:{colors['primary_black']}", 

@@ -82,24 +82,24 @@ fig, ax = plt.subplots(1, 2, figsize=(4.25, 2))
 
 # Format and label axes
 for a in ax:
-    a.set_xlabel('time from upshift [hr]')
-ax[0].set_ylabel('$\phi_{Rb}$\nallocation towards ribosomes')
-ax[1].set_ylabel('$\lambda_i$ [hr$^{-1}$]\ninstantaneous growth rate')
+    a.set_xlabel('time from upshift [hr]', fontsize=6)
+ax[0].set_ylabel('$\phi_{Rb}$\nallocation towards ribosomes', fontsize=6)
+ax[1].set_ylabel('$\lambda_i$\ninstantaneous growth rate [hr$^{-1}$]', fontsize=6)
 ax[0].set_ylim([0, 0.5])
 ax[1].set_ylim([0.1, 1])
 
 # Plot the instantaneous reallocation
-ax[0].plot(inst_shift['shifted_time'], inst_shift['phiRb'], '-', lw=1,
+ax[0].plot(inst_shift['shifted_time'], inst_shift['phiRb'], '-', lw=1.5,
            color=colors['primary_blue'])
-ax[1].plot(inst_shift['shifted_time'], inst_shift['lam'], '-', lw=1,
+ax[1].plot(inst_shift['shifted_time'], inst_shift['lam'], '-', lw=1.5,
            color=colors['primary_blue'])
 
 # Plot the flux-parity solution
-ax[0].plot(dynamic_shift['shifted_time'], dynamic_shift['phiRb'], '--', lw=1,
+ax[0].plot(dynamic_shift['shifted_time'], dynamic_shift['phiRb'], '--', lw=1.5,
            color=colors['primary_red'])
-ax[1].plot(dynamic_shift['shifted_time'], dynamic_shift['lam'], '--', lw=1,
+ax[1].plot(dynamic_shift['shifted_time'], dynamic_shift['lam'], '--', lw=1.5,
            color=colors['primary_red'])
            
 plt.tight_layout()
-plt.savefig('../figures/main_text/Fig6_upshift_plots.pdf', bbox_inches='tight')
+plt.savefig('../figures/main_text/Fig5_upshift_plots.pdf', bbox_inches='tight')
 #%%

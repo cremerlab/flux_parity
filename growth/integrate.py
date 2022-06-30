@@ -48,7 +48,7 @@ def equilibrate_FPM(args,
 
     iterations = 1 
     converged = False
-    max_time = 200 
+    max_time = 200
     while (iterations <= max_iter) & (converged == False):
         time = np.arange(0, max_time, dt)
         out = scipy.integrate.odeint(self_replicator_FPM, 
@@ -67,9 +67,12 @@ def equilibrate_FPM(args,
         if np.round(ribo_ratio, decimals=tol) == 1:
             converged = True
         else:
-            init_params = out[-1]
-            init_params[:-2] *= 0.01
+            MRb_M = out[-1][1]/out[-1][0]
+            MMb_M = out[-1][2]/out[-1][0]
+            init_params = [M0, MRb_M * M0, MMb_M * M0, out[-1][-2], out[-1][-1]]
+            # max_time += 10 
             iterations +=1
+
        
         if iterations == max_iter:
             print(f'Steady state was not reached (ratio of Mrb_M / phiRb= {np.round(ribo_ratio, decimals=tol)}. Returning output anyway.')

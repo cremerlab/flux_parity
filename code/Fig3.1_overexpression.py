@@ -87,16 +87,15 @@ for i, phiX in enumerate(phiX_range):
                                                   ignore_index=True)
 
 # %%
-fig, ax = plt.subplots(1, 3, figsize=(6.5, 2))
+fig, ax = plt.subplots(1, 3, figsize=(6, 2))
 ax[0].axis('off')
-ax[1].set(xlabel='allocation towards\n' + r'$\beta$-galactosidase',
-          ylabel='$\lambda$ [hr$^{-1}$]\ngrowth rate',
-          xlim=[-0.01, 0.4],
-          ylim=[0, 2])
-ax[2].set(xlabel='allocation towards\nexcess protein',
-          ylabel='$\lambda_X / \lambda$ \nrelative growth rate',
-          ylim=[0, 1.1],
-          xlim=[-0.01, 0.45])
+ax[1].set_xlabel('allocation towards\n' + r'$\beta$-galactosidase', fontsize=6)
+ax[1].set_ylabel('$\lambda$\ngrowth rate [hr$^{-1}$]', fontsize=6)
+ax[1].set(xlim=[-0.01, 0.4], ylim=[0, 2])
+ax[2].set_xlabel('allocation towards\nexcess protein', fontsize=6)
+ax[2].set_ylabel('$\lambda_X / \lambda$ \nrelative growth rate', fontsize=6)
+ax[2].set(ylim=[0, 1.1], xlim=[-0.01, 0.45])
+ax[1].set_yticks([0, 0.5, 1, 1.5, 2])
 
 cmap = sns.color_palette(f"dark:{colors['primary_red']}", n_colors=len(scott_data['medium'].unique()))
 counter = 0
@@ -107,7 +106,7 @@ for g, d in scott_data.groupby(['medium']):
 
 counter = 0 
 for g, d in scott_theory.groupby(['medium']):
-    ax[1].plot(d['phiX'], d['lam'], '--', color=cmap[counter], lw=1)
+    ax[1].plot(d['phiX'], d['lam'], '--', color=cmap[counter], lw=1, zorder=1000)
     counter += 1
 
 n_colors = len(other_data.groupby(['medium', 'source']).count())
@@ -129,8 +128,10 @@ for g, d in other_data.groupby(['protein']):
     
 
 ax[2].plot(relative_theory['phiX'], relative_theory['lamX_lam0'], '--', 
-            color=colors['primary_black'], lw=1)
-ax[2].legend()
+            color=colors['primary_black'], lw=1, zorder=1000)
+# ax[2].legend()
 plt.tight_layout()
-plt.savefig('../figures/main_text/plots/Fig5B_overexpression.pdf', bbox_inches='tight')
+plt.savefig('../figures/main_text/plots/Fig3_overexpression.pdf', bbox_inches='tight')
+s# %%
+
 # %%

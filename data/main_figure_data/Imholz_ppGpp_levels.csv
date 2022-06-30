@@ -1,0 +1,45 @@
+growth_rate_hr,ppGpp_pmol_OD,source,notes,strain,relative_ppGpp
+0.295,80.000,"Lazzarini et al., 1971","Digitized from Fig. 1 A In Imholz et al., 2020",NF161,1.783
+0.682,51.351,"Lazzarini et al., 1971","Digitized from Fig. 1 A In Imholz et al., 2020",NF161,1.145
+1.091,44.865,"Lazzarini et al., 1971","Digitized from Fig. 1 A In Imholz et al., 2020",NF161,1.000
+1.500,35.135,"Lazzarini et al., 1971","Digitized from Fig. 1 A In Imholz et al., 2020",NF161,0.783
+0.648,90.270,"Sokawa et al., 1975","Digitized from Fig. 1 A In Imholz et al., 2020",CP78,2.062
+1.221,43.784,"Sokawa et al., 1975","Digitized from Fig. 1 A In Imholz et al., 2020",CP78,1.000
+1.690,21.081,"Sokawa et al., 1975","Digitized from Fig. 1 A In Imholz et al., 2020",CP78,0.481
+0.455,83.273,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,2.100
+0.477,72.364,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,1.825
+0.477,55.455,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,1.399
+1.136,42.909,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,1.082
+1.091,39.636,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,1.000
+1.205,35.818,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,0.903
+1.250,32.000,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,0.807
+1.295,30.909,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,0.780
+1.341,29.818,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,0.752
+1.795,14.545,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,0.367
+1.886,13.455,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,0.339
+1.841,11.273,Ryals et al. 1981,"Digitized from Fig. 1 A In Imholz et al., 2020",B/r RL331T,0.284
+0.591,17.273,"Baracchini et al., 1988","Digitized from Fig. 1 A In Imholz et al., 2020",AJ5002,1.462
+1.000,11.818,"Baracchini et al., 1988","Digitized from Fig. 1 A In Imholz et al., 2020",AJ5002,1.000
+1.045,10.182,"Baracchini et al., 1988","Digitized from Fig. 1 A In Imholz et al., 2020",AJ5002,0.862
+1.045,8.000,"Baracchini et al., 1988","Digitized from Fig. 1 A In Imholz et al., 2020",AJ5002,0.677
+1.500,3.636,"Baracchini et al., 1988","Digitized from Fig. 1 A In Imholz et al., 2020",AJ5002,0.308
+0.500,180.160,"Buckstein et al., 2008","Digitized from Fig. 1 A In Imholz et al., 2020",AJ5002,1.811
+0.983,99.463,"Buckstein et al., 2008","Digitized from Fig. 1 A In Imholz et al., 2020",AJ5002,1.000
+1.994,46.739,"Buckstein et al., 2008","Digitized from Fig. 1 A In Imholz et al., 2020",AJ5002,0.470
+0.348,48.667,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,MG1655,1.726
+0.460,43.333,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,MG1655,1.53663120567376
+0.659,42.000,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,MG1655,1.489
+1.04,28.2,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,MG1655,1
+1.521,20.6,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,MG1655,0.730496453900709
+0.696,42.933,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,NCM3722,1.25249431122002
+0.875,20.600,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,NCM3722,0.601
+0.980,34.278,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,NCM3722,1.000
+1.399,24.167,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,NCM3722,0.705
+2.430,14.667,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,NCM3722,0.428
+2.542,17.222,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,NCM3722,0.502
+0.430,20.153,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,CF7968,0.831
+0.635,20.119,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,CF7968,0.830
+0.869,12.817,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,CF7968,0.529
+0.892,19.070,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,CF7968,0.787
+1.085,24.244,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,CF7968,1.000
+1.572,10.912,"Imholz et al., 2020",Digitized from Fig. 1A. All replicates averaged for each growth medium. ,CF7968,0.450

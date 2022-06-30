@@ -82,26 +82,30 @@ _shift_df['MRb_M'] = _shift_df['M_Rb'].values / _shift_df['M'].values
 
 
 #%%
-fig, ax = plt.subplots(1, 1, figsize=(2.4, 1.75))
+fig, ax = plt.subplots(1, 3, figsize=(6, 2))
+ax[1].axis(False)
+ax[2].axis(False)
 cmap = sns.color_palette(f"dark:{colors['primary_red']}", n_colors=3)
 cmap = {'arabinose': cmap[0],
         'glycerol': cmap[1],
         'gluconate': cmap[2]}
 
 for g, d in _shift_df.groupby(['type']):
-    ax.plot(d['shifted_time'], d['instant_growth_rate'], '--', lw=1, 
+    ax[0].plot(d['shifted_time'], d['instant_growth_rate'], '--', lw=1, 
                     zorder=1000,
                     color=cmap[g])
 
 for g, d in gr_data.groupby(['postshift_medium']):
-    ax.plot(d['shift_time_hr'], d['inst_growth_rate_hr'], 'o', ms=3.5, 
+    ax[0].plot(d['shift_time_hr'], d['inst_growth_rate_hr'], 'o', ms=3.5, 
                    markeredgecolor='k', markeredgewidth=0.25, color=cmap[g],
                    alpha=0.75)
 
-ax.set_ylim([0.2, 1.0])
-ax.set_xlim([-2.5, 3])
-ax.set_xticks([-3, -2, -1, 0, 1, 2, 3])
-ax.set_ylabel('$\lambda_{i}$ [hr$^{-1}$]\n instantaneous growth rate')
-ax.set_xlabel('time from upshift [hr]')
+ax[0].set_ylim([0.2, 1.0])
+ax[0].set_xlim([-2.5, 3])
+ax[0].set_xticks([-3, -2, -1, 0, 1, 2, 3])
+ax[0].set_yticks([0.2, 0.4, 0.6, 0.8, 1.0])
+ax[0].set_ylabel('$\lambda_{i}$\n instantaneous growth rate [hr$^{-1}$]', fontsize=6)
+ax[0].set_xlabel('time from upshift [hr]', fontsize=6)
 plt.tight_layout()
-plt.savefig('../figures/main_text/plots/Fig5C2_nutritional_upshift.pdf', bbox_inches='tight')
+plt.savefig('../figures/main_text/Fig4_nutritional_upshift.pdf', bbox_inches='tight')
+# %%

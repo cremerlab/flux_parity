@@ -42,7 +42,7 @@ for i, nu in enumerate(tqdm.tqdm(nu_range)):
             'phi_O': phi_O}
 
     # Equilibrate the model and print out progress
-    out = growth.integrate.equilibrate_FPM(args, tol=2, max_iter=10) 
+    out = growth.integrate.equilibrate_FPM(args, tol=2, max_iter=1) 
 
     # Assemble the dataframe
     ratio = out[-1] / out[-2]
@@ -74,8 +74,10 @@ for g, d in ribo_chlor_data[ribo_chlor_data['chlor_conc_uM']==0].groupby(['mediu
 chlor_range = np.linspace(0, 12.5, 10) * 1E-6
 # Compute the non-chlor case
 chlor_df = pd.DataFrame([])
+dt = 0.0001
 for medium, nu in nu_mapper.items():
     # Define the arguments
+
     for i, c in enumerate(chlor_range):
         args = {'gamma_max':gamma_max,
             'nu_max': nu,
@@ -89,11 +91,11 @@ for medium, nu in nu_mapper.items():
                 'Kd_drug': 5E-10,
             }}
 
-        # Equilibrate the model and print out progress
-        out = growth.integrate.equilibrate_FPM(args, tol=2, max_iter=1,
-                    t_return=2) 
+        # Equilibrate the model and print out progress for experimentally relevant
+        # time range (default 200hrs)
+        out = growth.integrate.equilibrate_FPM(args, tol=2, max_iter=1, t_return=2, dt=dt) 
         _out = out[-1] 
-        gr = np.log(out[-1][0]/out[-2][0]) / 0.0001
+        gr = np.log(out[-1][0]/out[-2][0]) / dt
 
         # Assemble the dataframe
         ratio = _out[-1] / _out[-2]
@@ -111,18 +113,19 @@ for medium, nu in nu_mapper.items():
 
 #%%
 # Instantiate canvases
-fig, ax = plt.subplots(1, 3, figsize=(6.5, 2))
+fig, ax = plt.subplots(1, 3, figsize=(6, 2))
 ax[0].axis('off')
 
 # Format axes
-ax[1].set(xlabel='growth rate\n$\lambda$ [hr$^{-1}$]',
-          ylabel='$\phi_{Rb}$\nallocation towards ribosomes',
-          xlim=[0, 2.5],
-          ylim=[0, 0.4])
-ax[2].set(xlabel='growth rate\n$\lambda$ [hr$^{-1}$]',
-          ylabel='$v_{tl}$ [AA/s]\ntranslation speed',
-          xlim=[0, 2.5],
-          ylim=[5, 22])
+ax[1].set_xlabel('growth rate [hr$^{-1}$]\n$\lambda$', fontsize=6)
+ax[1].set_ylabel('$\phi_{Rb}$\nallocation towards ribosomes', fontsize=6)
+ax[1].set(xlim=[0, 2.5], ylim=[0, 0.4])
+ax[2].set_xlabel('growth rate [hr$^{-1}$]\n$\lambda$', fontsize=6),
+ax[2].set_ylabel('$v_{tl}$\ntranslation speed [AA / s]',fontsize=6) 
+ax[2].set(xlim=[0, 2.5], ylim=[3, 22])
+ax[1].set_yticks([0, 0.1, 0.2, 0.3, 0.4])
+ax[2].set_yticks([5, 10, 15, 20])
+# ax[0].set_xlabel(fontsize=6)
 
 # Manually define color series
 cmap = sns.color_palette(f"dark:{colors['primary_red']}", n_colors=6) 
@@ -142,7 +145,6 @@ for g, d in elong_chlor_data.groupby(['medium']):
         color=cmap[counter])
     counter += 1
 
-
 # Plot the nochlor theory
 ax[1].plot(nochlor_df['lam'], nochlor_df['phiRb'], '--', lw=1, 
                                                   color=colors['primary_black'])
@@ -152,8 +154,9 @@ ax[2].plot(nochlor_df['lam'], nochlor_df['v_tl'], '--', lw=1,
 # Plot the chlor theory
 counter = 0
 for g, d in chlor_df.groupby(['medium']):
-    ax[1].plot(d['lam'], d['MRb_M'], '--', color=cmap[counter])
-    ax[2].plot(d['lam'], d['v_tl'], '--', color=cmap[counter])
+    ax[1].plot(d['lam'], d['MRb_M'], '-', color=cmap[counter], lw=1)
+    ax[2].plot(d['lam'], d['v_tl'], '-', color=cmap[counter], lw=1)
     counter +=1
 plt.tight_layout()
-plt.savefig('../figures/main_text/plots/Fig5A_chloramphenicol.pdf', bbox_inches='tight')
+plt.savefig('../figures/main_text/plots/Fig3_chloramphenicol.pdf', bbox_inches='tight')
+# %%

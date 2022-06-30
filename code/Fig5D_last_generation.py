@@ -78,18 +78,17 @@ df = pd.concat(dfs, sort=False)
 df['OD'] = df['M'].values / 1E18 
 
 # Instantiate the figure canvas
-fig, ax = plt.subplots(1, 2, figsize=(4.5, 1.75), sharex=True)
-
+fig, ax = plt.subplots(1, 3, figsize=(6, 2), sharex=True)
+ax[2].axis(False)
 # Format axes
-ax[0].set(ylabel='optical density [a.u.]',
-          xlabel='time [hr]',
-          ylim=[1E-3, 1E-1],
+ax[0].set_ylabel('optical density [a.u.]', fontsize=6)
+ax[0].set_xlabel('time [hr]', fontsize=6)
+ax[0].set(ylim=[1E-3, 1E-1],
           xlim=[2, 7],
           yscale='log')
-ax[1].set(ylabel='change in PtsG\npromoter activity',
-          xlabel='time [hr]',
-          yticks=[],
-          xlim=[2, 7])
+ax[1].set_ylabel('change in PtsG\npromoter activity', fontsize=6)
+ax[1].set_xlabel('time [hr]', fontsize=6)
+ax[1].set(yticks=[], xlim=[2, 7])
 
 # Set up the second y axis
 ax2 = ax[1].twinx()
@@ -126,4 +125,5 @@ for g, d in df.groupby(['c_nt_max']):
     counter += 1
 
 plt.tight_layout()
-plt.savefig('../figures/main_text/plots/Fig5D_final_generation.pdf', bbox_inches='tight')
+plt.savefig('../figures/main_text/Fig4_final_generation.pdf', bbox_inches='tight')
+# %%
