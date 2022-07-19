@@ -51,7 +51,7 @@ ref_args = {'gamma_max':const['gamma_max'],
 
 out = growth.integrate.equilibrate_FPM(ref_args)
 ref_ratio = out[-1]/out[-2]
-df['rel_ppGpp'] = (1 + ref_ratio) / (1 + df['ratio'])
+df['rel_ppGpp'] = ref_ratio / df['ratio']
 
 # %%
 # Instantiate the figure and format the axes.
@@ -66,7 +66,7 @@ ax[0].set_xlim([-0.1, 2.3])
 ax[1].set_xlim([-0.1, 2.1])
 ax[0].set_ylim([0, 0.3])
 ax[1].set_ylim([5.5, 20])
-ax[2].set_ylim([0.1, 15])
+ax[2].set_ylim([0.1, 35])
 ax[2].set_yscale('log')
 ax[2].set_xlim([0, 2.75])
 ax[2].set_xticks([0, 0.5, 1.0, 1.5, 2.0, 2.5])
@@ -80,7 +80,6 @@ opt_lam = growth.model.steady_state_growth_rate(const['gamma_max'], opt_phiRb,
 opt_gamma = growth.model.steady_state_gamma(const['gamma_max'], opt_phiRb, 
                                             nu_range, const['Kd_cpc'], 
                                             const['phi_O'])
-
 
 # Plot the data
 for g, d in mass_fractions.groupby(['source']):    
@@ -100,14 +99,12 @@ ax[1].plot(df['growth_rate'], df['gamma'] *  const['m_Rb'] / 3600, '--', lw=1.5,
 ax[2].vlines(1.0, 1E-3, 20, color=colors['light_black'], alpha=0.25, linewidth=3)
 ax[2].plot(df['growth_rate'], df['rel_ppGpp'], '--', color=colors['primary_red'], lw=1.5, zorder=1000)
 
-#
-# ax[2].set_ylim([0, 10])
 # Plot the relative ppGpp curves
 for g, d in ppGpp_data.groupby(['source']): 
     ax[2].plot(d['growth_rate_hr'], d['relative_ppGpp'], marker=source_colors[g]['m'],
             markerfacecolor=source_colors[g]['c'], markeredgecolor='k', markeredgewidth=0.25,
-            markersize=5, alpha=0.75, linestyle='none')
-
+            markersize=5, alpha=0.75, linestyle='none', label=g)
+# ax[2].legend()
 plt.tight_layout()
 plt.savefig('../figures/Fig3.1_flux_parity_data_plots.pdf')
 # %%
