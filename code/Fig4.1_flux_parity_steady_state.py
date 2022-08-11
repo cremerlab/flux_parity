@@ -43,8 +43,8 @@ for i, nu in enumerate(tqdm.tqdm(nu_range)):
 #%%    
 ref_args = {'gamma_max':const['gamma_max'], 
         'nu_max': 4,
-        'Kd_TAA_star': 0.1 * const['Kd_TAA_star'],
-        'Kd_TAA': 0.1 * const['Kd_TAA'],
+        'Kd_TAA_star': const['Kd_TAA_star'],
+        'Kd_TAA': const['Kd_TAA'],
         'phi_O': const['phi_O'],
         'kappa_max': const['kappa_max'],
         'tau': const['tau']}

@@ -388,7 +388,12 @@ def self_replicator_FPM(params,
     dM_dt = fa * gamma * M_Rb
 
     # Resource allocation
-    allocation = ratio / (ratio + args['tau'])
+    if 'ansatz' in args.keys():
+        if args['ansatz'] == 'binding':
+            allocation = T_AA_star / (T_AA_star + T_AA)
+    else:        
+        allocation = ratio / (ratio + args['tau'])
+
     if 'phiRb' not in args.keys():
         phiRb = (1 - args['phi_O']) * allocation
         kappa = args['kappa_max'] * allocation
