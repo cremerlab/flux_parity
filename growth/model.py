@@ -1,23 +1,24 @@
 import numpy as np
 import scipy
 import pandas as pd
-import numba
 
 
 def load_constants():
     """Returns constants frequently used in this work"""
-    params =  {'vtl_max': 20 ,  #Max translation speed in AA/s
-                  'm_Rb': 7459, # Proteinaceous mass of ribosome  in AA
-                  'Kd_cpc': 0.03, # precursor dissociation constant in abundance units 
-                  'Kd_cnt': 5E-4, # Nutrient monod constant in M
-                  'Y': 2.95E19, # Yield coefficient in  precursor mass per nutrient mass nutrient per L 
-                  'OD_conv': 1.5E17, # Conversion factor from OD to AA mass.
-                  'Kd_TAA': 3E-5, # uncharged tRNA dissociation constant in abundance units
-                  'Kd_TAA_star': 3E-5, # Charged tRNA dissociation constant in abundance units
-                  'kappa_max': (64 * 5 * 3600) / 1E9, # Maximum tRNA synthesis rate  in abundance units per unit time
-                  'tau': 1, # ppGpp threshold parameter for charged/uncharged tRNA balance
-                  'phi_O': 0.55, # Fraction of proteome deoveted to `other` proteins for E. coli.
-                } 
+    params = {'vtl_max': 20,  # Max translation speed in AA/s
+              'm_Rb': 7459,  # Proteinaceous mass of ribosome  in AA
+              'Kd_cpc': 0.03,  # precursor dissociation constant in abundance units
+              'Kd_cnt': 5E-4,  # Nutrient monod constant in M
+              'Y': 2.95E19,  # Yield coefficient
+              'OD_conv': 1.5E17,  # Conversion factor from OD to AA mass.
+              'Kd_TAA': 3E-5,  # uncharged tRNA dissociation constant in abundance units
+              'Kd_TAA_star': 3E-5,  # Charged tRNA dissociation constant in abundance units
+              # Maximum tRNA synthesis rate  in abundance units per unit time
+              'kappa_max': (64 * 5 * 3600) / 1E9,
+              'tau': 1,  # ppGpp threshold parameter for charged/uncharged tRNA balance
+              # Fraction of proteome deoveted to `other` proteins for E. coli.
+              'phi_O': 0.55,
+              }
     params['gamma_max'] = params['vtl_max'] * 3600 / params['m_Rb']
     return params
 
@@ -99,7 +100,7 @@ def self_replicator(params,
     # Resource allocation
     dM_Rb_dt = phi_Rb * dM_dt
     dM_Mb_dt = phi_Mb * dM_dt
-         
+
     # Precursor dynamics
     if dil_approx:
         dc_pc_dt = (nu * M_Mb - dM_dt) / M
@@ -112,10 +113,10 @@ def self_replicator(params,
     return out
 
 
-def steady_state_precursors(gamma_max, 
-                            phi_Rb, 
-                            nu_max, 
-                            Kd_cpc, 
+def steady_state_precursors(gamma_max,
+                            phi_Rb,
+                            nu_max,
+                            Kd_cpc,
                             phi_O):
     """
     Computes the steady state value of the charged-tRNA abundance.
@@ -144,14 +145,16 @@ def steady_state_precursors(gamma_max,
     that the nutritional capacy is equal to its maximal value. 
 
     """
-    ss_lam = steady_state_growth_rate(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=phi_O)
+    ss_lam = steady_state_growth_rate(
+        gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=phi_O)
     cpc = (nu_max * (1 - phi_Rb - phi_O) / ss_lam) - 1
     return cpc
 
-def steady_state_growth_rate(gamma_max, 
-                             phi_Rb, 
-                             nu_max, 
-                             Kd_cpc, 
+
+def steady_state_growth_rate(gamma_max,
+                             phi_Rb,
+                             nu_max,
+                             Kd_cpc,
                              phi_O):
     """
     Computes the steady-state growth rate of the self-replicator model. 
@@ -183,15 +186,17 @@ def steady_state_growth_rate(gamma_max,
     """
     Nu = nu_max * (1 - phi_Rb - phi_O)
     Gamma = gamma_max * phi_Rb
-    numer = Nu + Gamma - np.sqrt((Nu + Gamma)**2 - 4 * (1 - Kd_cpc) * Nu * Gamma)
+    numer = Nu + Gamma - \
+        np.sqrt((Nu + Gamma)**2 - 4 * (1 - Kd_cpc) * Nu * Gamma)
     denom = 2 * (1 - Kd_cpc)
     lam = numer / denom
     return lam
 
-def steady_state_gamma(gamma_max, 
-                       phi_Rb, 
-                       nu_max, 
-                       Kd_cpc, 
+
+def steady_state_gamma(gamma_max,
+                       phi_Rb,
+                       nu_max,
+                       Kd_cpc,
                        phi_O=0):
     """
     Computes the steady-state translational efficiency, gamma.
@@ -216,13 +221,14 @@ def steady_state_gamma(gamma_max,
         The translational efficiency in units of inverse time
     """
 
-    c_pc = steady_state_precursors(gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=phi_O)
+    c_pc = steady_state_precursors(
+        gamma_max, phi_Rb, nu_max, Kd_cpc, phi_O=phi_O)
     return gamma_max * (c_pc / (c_pc + Kd_cpc))
 
 
-def phiRb_optimal_allocation(gamma_max, 
-                             nu_max, 
-                             Kd_cpc, 
+def phiRb_optimal_allocation(gamma_max,
+                             nu_max,
+                             Kd_cpc,
                              phi_O):
     """
     Computes the optimal fraction of proteome that is occupied by ribosomal 
@@ -246,14 +252,16 @@ def phiRb_optimal_allocation(gamma_max,
     """
     numer = nu_max * (-2 * Kd_cpc * gamma_max + gamma_max + nu_max) +\
         np.sqrt(Kd_cpc * gamma_max * nu_max) * (gamma_max - nu_max)
-    denom = -4 * Kd_cpc * gamma_max * nu_max + gamma_max**2 + 2 * gamma_max * nu_max + nu_max**2
+    denom = -4 * Kd_cpc * gamma_max * nu_max + \
+        gamma_max**2 + 2 * gamma_max * nu_max + nu_max**2
     phi_Rb_opt = (1 - phi_O) * numer / denom
     return phi_Rb_opt
 
-def phiRb_constant_translation(gamma_max, 
-                               nu_max, 
-                               cpc_Kd, 
-                               Kd_cpc, 
+
+def phiRb_constant_translation(gamma_max,
+                               nu_max,
+                               cpc_Kd,
+                               Kd_cpc,
                                phi_O):
     """
     Computes the ribosomal allocation which maintains a high translation rate. 
@@ -274,6 +282,7 @@ def phiRb_constant_translation(gamma_max,
     """
     c_pc = cpc_Kd * Kd_cpc
     return (1 - phi_O) * nu_max * (c_pc + Kd_cpc) / (nu_max * (c_pc + Kd_cpc) + gamma_max * c_pc * (c_pc + 1))
+
 
 def self_replicator_FPM(params,
                         time,
@@ -328,7 +337,7 @@ def self_replicator_FPM(params,
                 to the metabolic machinery. 
             Y : float [0, inf)
                 The yield coefficient of turning nutrients into precursors.
-        
+
         dynamic_phiRb: bool or dict
             If True, phiRb will dynamically adjusted in reponse to charged/uncharged
             tRNA balance. If a dictionary is provided, seeded phiRb will be used.  
@@ -349,7 +358,7 @@ def self_replicator_FPM(params,
         dil_approx: bool
             If True, then the approximation is made that the dilution of charged-tRNAs
             with growing biomass is negligible.
-  
+
     Returns
     -------
     out: list, [dM_dt, dM_Rb_dt, dM_Mb_dt, (dc_nt_dt), dT_AA_dt, dT_AA_star_dt]
@@ -382,7 +391,8 @@ def self_replicator_FPM(params,
 
     fa = 1
     if 'antibiotic' in args.keys():
-       fa -= args['antibiotic']['c_drug'] / (args['antibiotic']['c_drug'] + args['antibiotic']['Kd_drug'])
+        fa -= args['antibiotic']['c_drug'] / \
+            (args['antibiotic']['c_drug'] + args['antibiotic']['Kd_drug'])
 
     # Biomass accumulation
     dM_dt = fa * gamma * M_Rb
@@ -391,7 +401,7 @@ def self_replicator_FPM(params,
     if 'ansatz' in args.keys():
         if args['ansatz'] == 'binding':
             allocation = T_AA_star / (T_AA_star + T_AA)
-    else:        
+    else:
         allocation = ratio / (ratio + args['tau'])
 
     if 'phiRb' not in args.keys():
@@ -416,5 +426,5 @@ def self_replicator_FPM(params,
         dcnt_dt = -nu * M_Mb / args['nutrients']['Y']
         out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dcnt_dt, dT_AA_dt, dT_AA_star_dt]
     else:
-        out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]     
+        out = [dM_dt, dM_Rb_dt, dM_Mb_dt, dT_AA_dt, dT_AA_star_dt]
     return out
