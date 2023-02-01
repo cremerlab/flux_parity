@@ -32,6 +32,7 @@ def self_replicator(params,
                     phi_Mb,
                     Kd_cpc,
                     Kd_cnt,
+                    f_a=1,
                     dil_approx=False):
     """
     Defines the system of ordinary differenetial equations (ODEs) which describe 
@@ -73,6 +74,8 @@ def self_replicator(params,
     Kd_cnt: positive float
         The effective dissociation constant for growth on the specific nutrient 
         source. This is in units of molar.
+    f_a : float, [0,1]
+        The fraction of the ribosomes actively translating. 
     dil_approx: bool
         If True, then the approximation is made that the dilution of charged-tRNAs
         with growing biomass is negligible
@@ -95,7 +98,7 @@ def self_replicator(params,
     nu = nu_max * (c_nt / (c_nt + Kd_cnt))
 
     # Biomass accumulation
-    dM_dt = gamma * M_Rb
+    dM_dt = f_a * gamma * M_Rb
 
     # Resource allocation
     dM_Rb_dt = phi_Rb * dM_dt
@@ -355,6 +358,8 @@ def self_replicator_FPM(params,
                     The concentration of the applied antibiotic
                 Kd_drug : float [0, inf)
                     The effective dissociation constant of the drug to the ribosome.
+        f_a : float, [0, 1]
+            The faraction of ribosomes actively translating. 
         dil_approx: bool
             If True, then the approximation is made that the dilution of charged-tRNAs
             with growing biomass is negligible.
@@ -395,7 +400,11 @@ def self_replicator_FPM(params,
             (args['antibiotic']['c_drug'] + args['antibiotic']['Kd_drug'])
 
     # Biomass accumulation
-    dM_dt = fa * gamma * M_Rb
+    if 'f_a' not in args.keys():
+        f_a = 1
+    else:
+        f_a = args['f_a']
+    dM_dt = f_a * gamma * M_Rb
 
     # Resource allocation
     if 'ansatz' in args.keys():
