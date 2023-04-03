@@ -1,0 +1,56 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  An Optimal Regulation of Fluxes Dictates Microbial Growth
+  in and Out of Steady-State"
+message: >-
+  If you use this dataset, please cite it using the metadata
+  from this file.
+type: dataset
+authors:
+  - given-names: Griffin
+    family-names: Chure
+    email: gchure@stanford.edu
+    affiliation: Stanford University
+    orcid: 'https://orcid.org/0000-0002-2216-2057'
+  - given-names: Jonas
+    family-names: Cremer
+    email: jonas.cremer@stanford.edu
+    affiliation: Stanford University
+    orcid: 'https://orcid.org/0000-0003-2328-5152'
+identifiers:
+  - type: doi
+    value: 10.7554/eLife.84878
+    description: eLife article
+  - type: doi
+    value: 10.5281/zenodo.5893799
+    description: Zenodo repository
+repository-code: 'https://github.com/cremerlab/flux_parity'
+url: 'https://cremerlab.github.io/flux_parity'
+abstract: >-
+  Effective coordination of cellular processes is critical
+  to ensure the competitive growth of microbial organisms.
+  Pivotal to this coordination is the appropriate
+  partitioning of cellular resources between protein
+  synthesis via translation and the metabolism needed to
+  sustain it. Here, we extend a low-dimensional allocation
+  model to describe the dynamic regulation of this resource
+  partitioning. At the core of this regulation is the
+  optimal coordination of metabolic and translational
+  fluxes, mechanistically achieved via the perception of
+  charged- and uncharged-tRNA turnover. An extensive
+  comparison with ≈ 60 data sets from Escherichia coli
+  establishes this regulatory mechanism's biological
+  veracity and demonstrates that a remarkably wide range of
+  growth phenomena in and out of steady state can be
+  predicted with quantitative accuracy. This predictive
+  power, achieved with only a few biological parameters,
+  cements the preeminent importance of optimal flux
+  regulation across conditions and establishes
+  low-dimensional allocation models as an ideal
+  physiological framework to interrogate the dynamics of
+  growth, competition, and adaptation in complex and
+  ever-changing environments.
+license: CC-BY-4.0
